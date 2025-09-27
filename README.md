@@ -1,7 +1,6 @@
 # VirtualEscapeRoom 
- Virtual Escape Room Implementation
+ Tech Titan's Virtual Escape Room Implementation
 
-TECH TITANS' VIRTUAL ESCAPE ROOM
 Welcome to a virtual escape room set in a spooky 19th-century mansion. A crime has happened—and you know who did it. 
 Your job is to find all the clues and gather enough evidence before time runs out.
 If you don’t finish in time, you’ll be eliminated from the game.
