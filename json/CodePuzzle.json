@@ -1,0 +1,18 @@
+[
+  {
+    "puzzleId": "code-001",
+    "title": "Simple Loop Bug",
+    "description": "Fix the off-by-one error in this loop that sums numbers from 1 to 10.",
+    "solution": "Change loop to i <= 10",
+    "isCompleted": false,
+    "hints": ["Check loop boundaries", "Count how many times the loop executes"]
+  },
+  {
+    "puzzleId": "code-002",
+    "title": "Palindrome Checker",
+    "description": "Write a function that checks if a string is a palindrome.",
+    "solution": "Reverse string and compare",
+    "isCompleted": false,
+    "hints": ["Use string reversal", "Compare characters from start and end"]
+  }
+]

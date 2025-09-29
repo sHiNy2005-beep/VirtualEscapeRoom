@@ -1,0 +1,21 @@
+[{
+    "userId": "9be859f3-6204-449a-94a7-ff9a77c4515e",
+    "username": "alice123",
+    "email": "alice123@example.com",
+    "password": "Alice!2025Secure"
+}, {
+    "userId": "fdc80997-f6ee-4fde-9b77-96084e466bdc",
+    "username": "bob_dev",
+    "email": "bob.dev@example.com",
+    "password": "BobPass#88"
+}, {
+    "userId": "b86f4811-28d4-484c-bc6e-b855a3959461",
+    "username": "charlie_x",
+    "email": "charlie.x@example.com",
+    "password": "CharPwd@123"
+}, {
+    "userId": "be24fa70-fd86-4d8a-97ba-655a3339bffb",
+    "username": "diana_k",
+    "email": "diana.k@example.com",
+    "password": "DianaStrong*77"
+}]

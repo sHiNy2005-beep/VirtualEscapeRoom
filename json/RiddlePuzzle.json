@@ -1,0 +1,18 @@
+[
+  {
+    "puzzleId": "riddle-001",
+    "title": "The Missing Number",
+    "description": "Find the missing number in the sequence: 2, 6, 12, 20, ?",
+    "solution": "30",
+    "isCompleted": false,
+    "hints": ["Look at the difference between consecutive numbers", "Think about squares plus series"]
+  },
+  {
+    "puzzleId": "riddle-002",
+    "title": "What Am I?",
+    "description": "I speak without a mouth and hear without ears. What am I?",
+    "solution": "echo",
+    "isCompleted": true,
+    "hints": ["It's a natural phenomenon", "It repeats what you say"]
+  }
+]
