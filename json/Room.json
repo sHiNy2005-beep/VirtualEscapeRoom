@@ -4,6 +4,7 @@
     "puzzles": [{
         "puzzleId": "puzzle-101",
         "title": "Book Cipher",
+        "type": "Code",
         "description": "Decode the hidden message using the book cipher method.",
         "solution": "knowledgeispower",
         "isCompleted": false,
@@ -11,6 +12,7 @@
     }, {
         "puzzleId": "puzzle-102",
         "title": "Ghost Riddle",
+        "type": "Riddle",
         "description": "Solve the riddle whispered by the ghost.",
         "solution": "silence",
         "isCompleted": true,
@@ -25,6 +27,7 @@
     "puzzles": [{
         "puzzleId": "puzzle-201",
         "title": "Gemstone Pattern",
+        "type": "Item",
         "description": "Arrange the gemstones in the correct order.",
         "solution": "red-blue-green-yellow",
         "isCompleted": false,
