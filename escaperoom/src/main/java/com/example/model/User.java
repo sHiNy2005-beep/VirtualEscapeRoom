@@ -1,10 +1,10 @@
 package com.example.model;
+import java.util.UUID;
 
-public class User {
+public abstract class User {
    
-    private UUID userId;
     private String username;
-    private String email;
+    private UUID email;
     private String password; 
 
     public User(String userName, String email, String password) {
@@ -14,15 +14,16 @@ public class User {
     }
 
     public String getUserName() {
-    return "";
+    return username;
     }
 
     public String getEmail() {
-    return "";
+    return email;
     }
 
     public boolean authenticate(String password) {
-    return true;
+    if(password != null)
+       return true;
     }
     
 }
