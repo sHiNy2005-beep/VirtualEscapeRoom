@@ -44,4 +44,14 @@ public class Room {
     public boolean isCompleted() {
        return true;
     }
+
+    public String getRoomId() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getRoomId'");
+    }
+
+    public String getTitle() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getTitle'");
+    }
 }
