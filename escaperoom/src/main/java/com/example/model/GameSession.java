@@ -35,7 +35,7 @@ public void useHint() {
 }
 
 public void collectItem(String item) {
-  
+
 }
 
 public ArrayList<String> getInventory() {
@@ -43,7 +43,7 @@ return inventory;
 }
 
 public boolean hasItem(String item) {
-if(item == null)
+if(!inventory.contains(item))
   return false;
 else
   return true;
