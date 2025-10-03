@@ -1,4 +1,5 @@
 package com.example.model;
+import java.util.ArrayList;
 
 public class UserList {
    
@@ -6,30 +7,35 @@ public class UserList {
     private UserList userList; 
 
     private UserList() {
-      return "";
+    userList = DataLoader.getUsers();
     }
     public UserList getInstance() {
-		return "";
+		if(userList == null) {
+			userList = new UserList();
 		}
+		return userList;
+	}
 
     public void addUser(String userName, String email, String password) {
-    return "";
+    users.add(userName, email, password);
     }
 
     public User getUser(String userName) {
     return userName;
     }
 
-    public User authenticateUser(String userName, String password) {
-    return "";
+    public boolean authenticateUser(String userName, String password) {
+    if(users.contains(userName, password))
+		return true;
+		
     }
 
     public void saveUsers() {
-    return true;
+    
     }
 
     public void loadUsers() {
-    return true;
+    
     }
     
 }
