@@ -1,6 +1,7 @@
 package com.example.model;
 import java.util.ArrayList;
 
+public class GameSession {
 
 private String sessionId;
 private Player player;
@@ -47,4 +48,6 @@ if(!inventory.contains(item))
   return false;
 else
   return true;
+}
+
 }

@@ -7,7 +7,7 @@ public class Player extends User{
     private String email;
     private String password;
 
-    private Player createPlayer(String username, String email, String password) {
+    public Player(String username, String email, String password) {
         super(username, email, password);
     }
   
