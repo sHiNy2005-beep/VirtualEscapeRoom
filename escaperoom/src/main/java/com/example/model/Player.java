@@ -7,11 +7,7 @@ public class Player extends User{
     private String email;
     private String password;
 
-<<<<<<< HEAD
     public Player(String username, String email, String password) {
-=======
-    private Player(String username, String email, String password) {
->>>>>>> d52576072c6af0f5ef94e63ea1b6b246c44fa118
         super(username, email, password);
     }
   

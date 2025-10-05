@@ -3,8 +3,7 @@ import java.util.ArrayList;
 
 public class GameSession {
 
-public class GameSession
-{
+
   private String sessionId;
 private Player player;
 private Room room;
@@ -51,8 +50,4 @@ if(!inventory.contains(item))
 else
   return true;
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> d52576072c6af0f5ef94e63ea1b6b246c44fa118
 }
