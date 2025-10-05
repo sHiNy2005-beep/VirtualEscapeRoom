@@ -11,7 +11,7 @@ public class Player extends User{
         super(username, email, password);
     }
   
-    private boolean login(String username, String password) {
+    boolean login(String username, String password) {
         return true; 
     }
   

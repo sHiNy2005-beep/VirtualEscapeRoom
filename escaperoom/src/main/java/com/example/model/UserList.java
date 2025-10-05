@@ -11,7 +11,7 @@ public class UserList
       users = new ArrayList<>();
     }
 
-   private static UserList getInstance() 
+   public static UserList getInstance() 
   {
 		if(userList == null) 
     {
