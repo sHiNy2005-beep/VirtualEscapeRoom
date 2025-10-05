@@ -2,7 +2,9 @@ package com.example.model;
 import java.util.ArrayList;
 
 
-private String sessionId;
+public class GameSession
+{
+  private String sessionId;
 private Player player;
 private Room room;
 private long startTime;
@@ -47,4 +49,5 @@ if(!inventory.contains(item))
   return false;
 else
   return true;
+}
 }

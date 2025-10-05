@@ -4,7 +4,7 @@ import java.util.UUID;
 public abstract class User {
    
     private String username;
-    private UUID email;
+    private String email;
     private String password; 
 
     public User(String userName, String email, String password) {
@@ -22,7 +22,9 @@ public abstract class User {
     }
 
     public boolean authenticate(String password) {
-    if(password != null)
+    if(password == null)
+       return false;
+    else
        return true;
     }
     
