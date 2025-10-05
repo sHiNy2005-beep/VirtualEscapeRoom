@@ -22,7 +22,9 @@ public abstract class User {
     }
 
     public boolean authenticate(String password) {
-    if(password != null)
+    if(password == null)
+       return false;
+    else
        return true;
     return false;
     }
