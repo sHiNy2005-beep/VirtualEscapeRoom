@@ -1,29 +1,31 @@
 package com.model;
 
 import java.util.ArrayList;
-public abstract class Puzzle {
+import java.util.UUID;
 
-    private String puzzleid;
-    private String title;
-    private String description;
-    private String solution;
-    private boolean isCompleted;
+public abstract class Puzzle {
+    protected String puzzleId;
+    protected String title;
+    protected String description;
+    protected String solution;
+    protected boolean isCompleted;
     protected ArrayList<String> hints;
 
-     public Puzzle(String title, String description, String solution) {
+    public Puzzle(String title, String description, String solution) {
+        this.puzzleId = UUID.randomUUID().toString();
         this.title = title;
         this.description = description;
         this.solution = solution;
-        this.isCompleted = true;
+        this.isCompleted = false;
         this.hints = new ArrayList<>();
     }
 
     public abstract boolean solve(String answer);
 
     public String getHint() {
-        return "";
-    } 
+        if (hints.isEmpty()) return "No hints available.";
+        return hints.get(0); // placeholder
+    }
 
-    public abstract boolean checkAnswer(String answer);
-
+    public boolean isCompleted() { return isCompleted; }
 }

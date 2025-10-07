@@ -3,22 +3,20 @@ package com.model;
 import java.util.ArrayList;
 
 public class ItemPuzzle extends Puzzle {
-
     private ArrayList<String> requiredItems;
 
     public ItemPuzzle(String title, String description, String solution, ArrayList<String> items) {
         super(title, description, solution);
+        this.requiredItems = items;
     }
 
     @Override
     public boolean solve(String answer) {
-        return true; 
-    }
-
-    @Override
-    public boolean checkAnswer(String answer) {
-        return true; 
-
+        if (answer.equalsIgnoreCase(solution)) {
+            isCompleted = true;
+            return true;
+        }
+        return false;
     }
 
     public void addRequiredItem(String item) {
@@ -26,8 +24,6 @@ public class ItemPuzzle extends Puzzle {
     }
 
     public boolean hasRequiredItems(ArrayList<String> playerItems) {
-        return true; 
-    
-}
-
+        return playerItems.containsAll(requiredItems);
+    }
 }
