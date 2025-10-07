@@ -1,9 +1,7 @@
 package com.model;
 
-import com.yourpackage.model.Room;
-import com.yourpackage.model.User;
-import com.yourpackage.model.GameSession;
 import java.util.ArrayList;
+import com.model.*;
 
 public class DataWriter {
     
