@@ -1,68 +1,24 @@
 package com.model;
 
-import java.util.Objects;
+import com.model.Room;
+import com.model.User;
 
 public class LeaderboardEntry {
-    private final Player player;
-    private final Room room;
-    private final int score;
-    private final long completionTime;
-private final int hintsUsed;
+    private User user;
+    private Room room;
+    private int score;
+    private long completionTime;
+    private int hintsUsed;
 
-public LeaderboardEntry(Player player, Room room, int score, long completionTime, int hintsUsed) {
-    this.player = player;
-    this.room = room;
-    this.score = score;
-    this.completionTime = completionTime;
-    this.hintsUsed = hintsUsed;
-}
-
-    public Player getPlayer() {
-        return player;
+    public LeaderboardEntry(User user, Room room, int score, long time, int hints) {
+        this.user = user;
+        this.room = room;
+        this.score = score;
+        this.completionTime = time;
+        this.hintsUsed = hints;
     }
 
-    public Room getRoom() {
-        return room;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public long getCompletionTime() {
-        return completionTime;
-    }
-
-    public int getHintsUsed() {
-        return hintsUsed;
-    }
-
-    @Override
-    public String toString() {
-        return "LeaderboardEntry{" +
-                "player=" + (player != null ? player.getUserName() : "null") +
-                ", room=" + (room != null ? room.getTitle() : "null") +
-                ", score=" + score +
-                ", completionTime=" + completionTime +
-                ", hintsUsed=" + hintsUsed +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        LeaderboardEntry that = (LeaderboardEntry) o;
-        return score == that.score
-                && completionTime == that.completionTime
-                && hintsUsed == that.hintsUsed
-                && Objects.equals(player, that.player)
-                && Objects.equals(room, that.room);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(player, room, score, completionTime, hintsUsed);
-    }
+    public User getUser() { return user; }
+    public int getScore() { return score; }
+    public long getCompletionTime() { return completionTime; }
 }
