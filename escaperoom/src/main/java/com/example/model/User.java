@@ -1,11 +1,14 @@
 package com.example.model;
 import java.util.UUID;
+import java.util.ArrayList;
 
 public abstract class User {
    
+    private UUID userId;
     private String username;
     private String email;
-    private String password; 
+    private String password;
+    //private ArrayList<GameSession> sessions; 
 
     public User(String userName, String email, String password) {
         this.username = userName;
@@ -21,12 +24,34 @@ public abstract class User {
     return email;
     }
 
-    public boolean authenticate(String password) {
-    if(password == null)
-       return false;
-    else
-       return true;
+    public String getPassword() // I added this getter to help with login method in UserList class
+    {
+    return password;
+    }
+
+    /*private void submitAnswer(String answer) 
+    {
+        
+    }
+
+    private void addItem(String item) 
+    {
+      
+    }
+
+    private void useItem(String item) 
+    {
     
     }
+
+    private void useHint() 
+    {
     
+    }
+
+    private void endGame() 
+    {
+    
+    }
+    */
 }

@@ -20,9 +20,9 @@ public class UserList
 		return userList;
 	}
 
-    public void addUser(String userName, String email, String password) 
-    {
-    
+    public void addUser(User user, String userName, String email, String password) 
+    {//I added these parameters to match the constructor in User class
+      users.add(user);
     }
 
     public String getUser(String userName) 
@@ -30,17 +30,31 @@ public class UserList
       return userName;
     }
     
-
-    public boolean authenticateUser(String userName, String password) 
+    private boolean login(String username, String password) 
     {
-		  return true;
+        for(User user : users)
+        {
+          if(username == null || password == null)
+           return false;
+        else if(!user.getUserName().equals(username) || user.getPassword().equals(password))
+           return false;
+        else
+        return true; 
+        }
+        return true;
     }
 
+    /**
+     * Saves the current list of users to a file.
+     */
     public void saveUsers() 
     {
-    
+      
     }
 
+    /**
+     * Loads the list of users from a file.
+     */
     public void loadUsers() 
     {
     
