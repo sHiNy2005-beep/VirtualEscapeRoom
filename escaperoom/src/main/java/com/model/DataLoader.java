@@ -1,21 +1,19 @@
 package com.model;
 
-import com.yourpackage.model.Room;
-import com.yourpackage.model.User;
-import com.yourpackage.model.GameSession;
 import java.util.ArrayList;
+import com.model.*;
 
-public class DataLoader {
+public class DataLoader extends DataConstants {
     
-    public static ArrayList<Room> getRooms() {
+    public ArrayList<Room> getRooms() {
         return new ArrayList<Room>();
     }
     
-    public static ArrayList<User> getUsers() {
+    public  ArrayList<User> getUsers() {
         return new ArrayList<User>();
     }
     
-    public static ArrayList<GameSession> getGameSessions(User user) {
+    public ArrayList<GameSession> getGameSessions(User user) {
         return new ArrayList<GameSession>();
     }
 }
