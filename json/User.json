@@ -6,10 +6,6 @@
     "sessions": [
         {
             "sessionId": "sess_a1b2c3d4",
-            "player": {
-                "playerId": "9be859f3-6204-449a-94a7-ff9a77c4515e",
-                "playerName": "alice123"
-            },
             "room": {
                 "roomId": "room_001",
                 "roomName": "Mystery Manor",
@@ -24,10 +20,6 @@
         },
         {
             "sessionId": "sess_a5b6c7d8",
-            "player": {
-                "playerId": "9be859f3-6204-449a-94a7-ff9a77c4515e",
-                "playerName": "alice123"
-            },
             "room": {
                 "roomId": "room_003",
                 "roomName": "Haunted Library",
@@ -49,10 +41,6 @@
     "sessions": [
         {
             "sessionId": "sess_b1c2d3e4",
-            "player": {
-                "playerId": "fdc80997-f6ee-4fde-9b77-96084e466bdc",
-                "playerName": "bob_dev"
-            },
             "room": {
                 "roomId": "room_002",
                 "roomName": "Cyber Vault",
@@ -74,10 +62,6 @@
     "sessions": [
         {
             "sessionId": "sess_c1d2e3f4",
-            "player": {
-                "playerId": "b86f4811-28d4-484c-bc6e-b855a3959461",
-                "playerName": "charlie_x"
-            },
             "room": {
                 "roomId": "room_004",
                 "roomName": "Pirate's Cove",
@@ -92,10 +76,6 @@
         },
         {
             "sessionId": "sess_c5d6e7f8",
-            "player": {
-                "playerId": "b86f4811-28d4-484c-bc6e-b855a3959461",
-                "playerName": "charlie_x"
-            },
             "room": {
                 "roomId": "room_001",
                 "roomName": "Mystery Manor",
