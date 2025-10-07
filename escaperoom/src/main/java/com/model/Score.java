@@ -1,6 +1,6 @@
 package com.model;
 
-public class Scoring<GameSession> {
+public class Score<GameSession> {
 
     public int calculateScore(GameSession session) {
         return 0;
