@@ -8,7 +8,7 @@
             "sessionId": "sess_a1b2c3d4",
             "room": {
                 "roomId": "room_001",
-                "roomName": "Mystery Manor",
+                "title": "Mystery Manor",
                 "difficulty": "Medium"
             },
             "startTime": 1728316800000,
@@ -22,7 +22,7 @@
             "sessionId": "sess_a5b6c7d8",
             "room": {
                 "roomId": "room_003",
-                "roomName": "Haunted Library",
+                "title": "Haunted Library",
                 "difficulty": "Hard"
             },
             "startTime": 1728403200000,
@@ -43,7 +43,7 @@
             "sessionId": "sess_b1c2d3e4",
             "room": {
                 "roomId": "room_002",
-                "roomName": "Cyber Vault",
+                "title": "Cyber Vault",
                 "difficulty": "Easy"
             },
             "startTime": 1728230400000,
@@ -64,7 +64,7 @@
             "sessionId": "sess_c1d2e3f4",
             "room": {
                 "roomId": "room_004",
-                "roomName": "Pirate's Cove",
+                "title": "Pirate's Cove",
                 "difficulty": "Medium"
             },
             "startTime": 1728489600000,
@@ -78,7 +78,7 @@
             "sessionId": "sess_c5d6e7f8",
             "room": {
                 "roomId": "room_001",
-                "roomName": "Mystery Manor",
+                "title": "Mystery Manor",
                 "difficulty": "Medium"
             },
             "startTime": 1728144000000,
