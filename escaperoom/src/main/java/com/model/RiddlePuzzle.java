@@ -14,4 +14,8 @@ public class RiddlePuzzle extends Puzzle {
         }
         return false;
     }
+
+     public boolean checkAnswer(String answer) {
+        return answer.equalsIgnoreCase(solution);
+    }
 }

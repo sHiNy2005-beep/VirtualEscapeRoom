@@ -18,7 +18,15 @@ public class LeaderboardEntry {
         this.hintsUsed = hints;
     }
 
-    public User getUser() { return user; }
-    public int getScore() { return score; }
-    public long getCompletionTime() { return completionTime; }
+    public User getUser() { 
+        return user; 
+    }
+
+    public int getScore() {
+         return score;
+    }
+
+    public long getCompletionTime() {
+         return completionTime; 
+    }
 }

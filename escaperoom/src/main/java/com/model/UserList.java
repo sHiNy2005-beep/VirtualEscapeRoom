@@ -27,10 +27,10 @@ public class UserList
       users.add(user);
     }
 
-    public String getUser(String userName) 
-    {
-      return userName;
-    }
+   public ArrayList<User> getUsers() {
+    return users;
+   }
+
     
     private boolean login(String username, String password) 
     {

@@ -18,27 +18,32 @@ public class EscapeRoom {
         this.userList = UserList.getInstance();
         this.dataLoader = new DataLoader();
         this.dataWriter = new DataWriter();
-      //  this.scoringStrategy = new Score();
+        this.scoringStrategy = new Score();
     }
 
     public User login(String username, String password) {
-       
+       ArrayList<User> users = userList.getUsers(); 
+
+    for (User u : users) {
+        if (u.getUserName().equals(username) && u.getPassword().equals(password)) {
+            return u;
+        }
+    }
         return null;
     }
 
     public ArrayList<Room> getAllRooms() {
-        return roomList.getAllRooms();
+        return roomList.getRooms();
     }
 
     public GameSession startGame(User user, Room room) {
         currentRoom = room;
-       // currentSession = new GameSession(user, room);
+        currentSession = new GameSession(user, room);
         currentSession.startSession();
         return currentSession;
     }
 
     public boolean submitAnswer(String answer) {
-        
         return false;
     }
 
@@ -63,8 +68,8 @@ public class EscapeRoom {
     }
 
     public void saveAllData() {
-        dataWriter.saveRooms(roomList.getAllRooms());
-       // dataWriter.saveUsers(userList.getAllUsers());
+      //  DataWriter.saveRooms(roomList.getRooms());
+       // DataWriter.saveUsers(userList.getUsers());
     }
 
     public void loadAllData() {

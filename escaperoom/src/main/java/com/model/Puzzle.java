@@ -24,8 +24,18 @@ public abstract class Puzzle {
 
     public String getHint() {
         if (hints.isEmpty()) return "No hints available.";
-        return hints.get(0); // placeholder
+        return hints.get(0); 
     }
 
-    public boolean isCompleted() { return isCompleted; }
+     public boolean addHint(String hint) {
+        return hints.add(hint);
+    }
+
+    public boolean isCompleted() {
+         return isCompleted;
+     }
+
+    public boolean checkAnswer(String answer) {
+        return answer.equalsIgnoreCase(solution);
+    }
 }

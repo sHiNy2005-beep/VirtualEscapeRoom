@@ -26,4 +26,8 @@ public class ItemPuzzle extends Puzzle {
     public boolean hasRequiredItems(ArrayList<String> playerItems) {
         return playerItems.containsAll(requiredItems);
     }
+
+     public boolean checkAnswer(String answer) {
+        return answer.equalsIgnoreCase(solution);
+    }
 }
