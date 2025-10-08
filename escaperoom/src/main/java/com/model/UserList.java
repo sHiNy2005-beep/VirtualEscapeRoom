@@ -54,12 +54,6 @@ public class UserList
       DataWriter.saveUsers();
     }
 
-    /**
-     * Loads the list of users from a file.
-     */
-    public void loadUsers() 
-    {
-      //DataLoader.getUsers();
-    }
+  
 
 }

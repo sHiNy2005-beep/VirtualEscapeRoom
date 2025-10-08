@@ -30,7 +30,4 @@ public class RoomList {
         
     }
 
-    public void loadRooms() {
-        
-    }
 }
