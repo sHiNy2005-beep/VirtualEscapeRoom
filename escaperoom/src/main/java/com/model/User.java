@@ -2,7 +2,7 @@ package com.model;
 import java.util.UUID;
 import java.util.ArrayList;
 
-public abstract class User {
+public class User {
    
     private UUID userId;
     private String username;
@@ -29,29 +29,4 @@ public abstract class User {
     return password;
     }
 
-    /*private void submitAnswer(String answer) 
-    {
-        
-    }
-
-    private void addItem(String item) 
-    {
-      
-    }
-
-    private void useItem(String item) 
-    {
-    
-    }
-
-    private void useHint() 
-    {
-    
-    }
-
-    private void endGame() 
-    {
-    
-    }
-    */
 }
