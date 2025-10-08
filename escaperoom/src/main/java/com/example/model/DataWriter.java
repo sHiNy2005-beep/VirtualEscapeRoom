@@ -1,11 +1,11 @@
-package com.yourpackage.data;
+package com.example.model;
 
-import com.yourpackage.model.Room;
-import com.yourpackage.model.User;
-import com.yourpackage.model.GameSession;
+import com.example.model.Room;
+import com.example.model.User;
+import com.example.model.GameSession;
 import java.util.ArrayList;
 
-public class DataWriter {
+public class DataWriter  {
     
     public static void saveRooms(ArrayList<Room> rooms) {
         

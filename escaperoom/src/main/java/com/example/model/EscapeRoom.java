@@ -2,7 +2,7 @@ package com.example.model;
 
 import java.util.ArrayList;
 
-public class EscapeRoom {
+public class EscapeRoom { // ESCAPEroomfacade 
 
     private Player currentPlayer;
     private GameSession currentSession;
