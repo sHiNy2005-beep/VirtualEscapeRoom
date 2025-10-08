@@ -31,8 +31,10 @@
         "description": "Arrange the gemstones in the correct order.",
         "solution": "red-blue-green-yellow",
         "isCompleted": false,
-        "hints": ["Notice the pictures of the wall carvings", "Colors follow the rainbow order"]
-    }],
+        "hints": ["Notice the pictures of the wall carvings", "Colors follow the rainbow order"],
+        "requiredItems": ["gemstone"]
+ }
+   ],
     "items": ["shovel", "rope"],
     "difficulty": "Medium",
     "isLocked": false
