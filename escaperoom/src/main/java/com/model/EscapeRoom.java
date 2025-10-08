@@ -61,10 +61,6 @@ public class EscapeRoom {
        
     }
 
-    public ArrayList<LeaderboardEntry> getLeaderboard() {
-        return new ArrayList<>();
-    }
-
     public void saveAllData() {
       //  DataWriter.saveRooms(roomList.getRooms());
        // DataWriter.saveUsers(userList.getUsers());

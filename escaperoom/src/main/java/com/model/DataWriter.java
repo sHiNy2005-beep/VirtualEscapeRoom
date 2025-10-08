@@ -66,7 +66,6 @@ public class DataWriter extends DataConstants {
     
     private static JSONObject getRoomJSON(Room room) {
         JSONObject roomDetails = new JSONObject();
-        roomDetails.put("roomId", room.getRoomId());
         roomDetails.put("title", room.getTitle());
         roomDetails.put("difficulty", room.getDifficulty());
         roomDetails.put("isLocked", room.isLocked());
