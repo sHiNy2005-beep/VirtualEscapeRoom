@@ -5,26 +5,26 @@ import com.model.Room;
 
 public class RoomList {
 
-    private ArrayList<Room> rooms;
-    private static RoomList instance;
+    ArrayList<Room> rooms;
+    private static RoomList roomList;
 
     private RoomList() {
         rooms = new ArrayList<>();
     }
 
     public static RoomList getInstance() {
-        if (instance == null)
-            instance = new RoomList();
-        return instance;
+        if (roomList == null)
+            roomList = new RoomList();
+        return roomList;
     }
 
     public void addRoom(Room room) {
         rooms.add(room);
     }
 
-    public Room getRoom(String roomId) {
-       return null;
-    }
+    public ArrayList<Room> getRooms() {
+    return rooms;
+}
 
     public ArrayList<Room> getAllRooms() { 
         return rooms;

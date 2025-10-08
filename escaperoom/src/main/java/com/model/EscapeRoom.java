@@ -18,7 +18,7 @@ public class EscapeRoom {
         this.userList = UserList.getInstance();
         this.dataLoader = new DataLoader();
         this.dataWriter = new DataWriter();
-      //  this.scoringStrategy = new Score();
+        this.scoringStrategy = new Score();
     }
 
     public User login(String username, String password) {
@@ -32,7 +32,7 @@ public class EscapeRoom {
 
     public GameSession startGame(User user, Room room) {
         currentRoom = room;
-       // currentSession = new GameSession(user, room);
+        currentSession = new GameSession(user, room);
         currentSession.startSession();
         return currentSession;
     }
@@ -63,8 +63,8 @@ public class EscapeRoom {
     }
 
     public void saveAllData() {
-        dataWriter.saveRooms(roomList.getAllRooms());
-       // dataWriter.saveUsers(userList.getAllUsers());
+      //  DataWriter.saveRooms(roomList.getRooms());
+       // DataWriter.saveUsers(userList.getUsers());
     }
 
     public void loadAllData() {
