@@ -24,11 +24,7 @@ public class RoomList {
 
     public ArrayList<Room> getRooms() {
     return rooms;
-}
-
-    public ArrayList<Room> getAllRooms() { 
-        return rooms;
-    }
+   }
 
     public void saveRooms() {
         

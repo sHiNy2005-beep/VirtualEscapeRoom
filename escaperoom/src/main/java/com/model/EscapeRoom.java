@@ -27,7 +27,7 @@ public class EscapeRoom {
     }
 
     public ArrayList<Room> getAllRooms() {
-        return roomList.getAllRooms();
+        return roomList.getRooms();
     }
 
     public GameSession startGame(User user, Room room) {

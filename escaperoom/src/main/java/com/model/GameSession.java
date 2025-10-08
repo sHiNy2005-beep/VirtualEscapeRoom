@@ -33,7 +33,7 @@ public class GameSession {
     }
 
     public void submitAnswer(String answer) {
-        // To be implemented: delegate to current puzzle
+        
     }
 
     public void collectItem(String item) {
@@ -49,7 +49,7 @@ public class GameSession {
     }
 
     public int calculateScore() {
-        // placeholder
+        
         return 0;
     }
 
