@@ -22,7 +22,13 @@ public class EscapeRoom {
     }
 
     public User login(String username, String password) {
-       
+       ArrayList<User> users = userList.getUsers(); 
+
+    for (User u : users) {
+        if (u.getUserName().equals(username) && u.getPassword().equals(password)) {
+            return u;
+        }
+    }
         return null;
     }
 
@@ -38,7 +44,6 @@ public class EscapeRoom {
     }
 
     public boolean submitAnswer(String answer) {
-        
         return false;
     }
 
