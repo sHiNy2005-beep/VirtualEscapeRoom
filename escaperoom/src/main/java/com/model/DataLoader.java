@@ -1,12 +1,19 @@
 package com.model;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import com.model.*;
 
 
 public class DataLoader extends DataConstants {
+
     
     public ArrayList<Room> getRooms() {
         synchronized (Room.class) {
@@ -27,10 +34,12 @@ public class DataLoader extends DataConstants {
                 User user = User.fromString(line);
                 if (user != null) users.add(user);
             }
-        return new ArrayList<User>();
+        return new ArrayList<User>();}
     }
     
     public ArrayList<GameSession> getGameSessions(User user) {
         return new ArrayList<GameSession>();
     }
+}
+    
 }

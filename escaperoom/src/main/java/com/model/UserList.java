@@ -51,7 +51,7 @@ public class UserList
      */
     public void saveUsers() 
     {
-      DataWriter.saveUsers(users);
+      DataWriter.saveUsers();
     }
 
     /**
