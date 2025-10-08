@@ -1,6 +1,6 @@
 package com.model;
 import java.util.UUID;
-import java.util.ArrayList;
+//import java.util.ArrayList;
 
 public class User {
    
@@ -28,5 +28,7 @@ public class User {
     {
     return password;
     }
+
+
 
 }
