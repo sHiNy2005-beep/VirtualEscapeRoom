@@ -22,7 +22,7 @@ public class DataWriter extends DataConstants {
             jsonUsers.add(getUserJSON(users.get(i)));
         }
 
-        try (FileWriter file = new FileWriter(USERS_FILE)) {
+        try (FileWriter file = new FileWriter(USERS_TEST_FILE)) {
             file.write(jsonUsers.toJSONString());
             file.flush();
             
