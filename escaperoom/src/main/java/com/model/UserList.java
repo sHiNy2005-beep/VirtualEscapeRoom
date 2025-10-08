@@ -25,7 +25,7 @@ public class UserList
       users.add(user);
     }
 
-   public ArrayList<User> getUsers() {
+   public  ArrayList<User> getUsers() {
     return users;
    }
 
