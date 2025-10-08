@@ -60,16 +60,6 @@ public class Room {
         return isLocked; 
     }
 
-    public boolean isCompleted() {
-        for (Puzzle p : puzzles)
-            if (!p.isCompleted()) return false;
-        return true;
-    }
-
-    public Puzzle getNextUnsolvedPuzzle() {
-        for (Puzzle p : puzzles)
-            if (!p.isCompleted()) return p;
-        return null;
-    }
+    
 
 }

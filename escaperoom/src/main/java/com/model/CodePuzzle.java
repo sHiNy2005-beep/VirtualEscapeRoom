@@ -12,7 +12,6 @@ public class CodePuzzle extends Puzzle {
     @Override
     public boolean solve(String answer) {
         if (answer.equals(correctCode)) {
-            isCompleted = true;
             return true;
         }
         return false;

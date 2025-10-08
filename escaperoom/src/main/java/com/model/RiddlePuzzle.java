@@ -9,7 +9,7 @@ public class RiddlePuzzle extends Puzzle {
     @Override
     public boolean solve(String answer) {
         if (answer.equalsIgnoreCase(solution)) {
-            isCompleted = true;
+    
             return true;
         }
         return false;
