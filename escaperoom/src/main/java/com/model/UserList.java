@@ -1,6 +1,8 @@
 package com.model;
 import java.util.ArrayList;
 
+import javafx.scene.chart.PieChart.Data;
+
 public class UserList 
 {
   private ArrayList<User> users;
@@ -49,7 +51,7 @@ public class UserList
      */
     public void saveUsers() 
     {
-      
+      DataWriter.saveUsers(users);
     }
 
     /**
@@ -57,7 +59,7 @@ public class UserList
      */
     public void loadUsers() 
     {
-    
+      //DataLoader.getUsers();
     }
 
 }
