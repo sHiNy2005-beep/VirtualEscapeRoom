@@ -1,8 +1,8 @@
 package com.model;
 
-import com.model.GameSession;
-
 public interface IScoringStrategy {
-
+    /**
+     * empty for now
+     */
     int calculateScore(GameSession session);
 }
