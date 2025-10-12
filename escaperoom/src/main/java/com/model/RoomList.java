@@ -1,7 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
-import com.model.Room;
+
 
 public class RoomList {
 
@@ -9,7 +9,7 @@ public class RoomList {
     private static RoomList roomList;
 
     private RoomList() {
-        rooms = new ArrayList<>();
+       this.rooms = DataLoader.getRooms();
     }
 
     public static RoomList getInstance() {
@@ -26,8 +26,10 @@ public class RoomList {
     return rooms;
    }
 
-    public void saveRooms() {
-        
+   public Room findRoom(String title) {
+        if (title == null) return null;
+        for (Room r : rooms) if (title.equalsIgnoreCase(r.getTitle())) return r;
+        return null;
     }
 
 }

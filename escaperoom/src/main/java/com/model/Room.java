@@ -4,20 +4,22 @@ import java.util.ArrayList;
 
 public class Room {
 
-    private String roomId;
     private String title;
     private ArrayList<Puzzle> puzzles;
     private ArrayList<String> items;
     private String difficulty;
-    private String description;
     private boolean isLocked;
 
-    public Room(String title, String difficulty) {
+    public Room(String title, String difficulty, boolean isLocked) {
         this.title = title;
         this.difficulty = difficulty;
         this.puzzles = new ArrayList<>();
         this.items = new ArrayList<>();
-        this.isLocked = true;
+        this.isLocked = isLocked;
+    }
+
+     public ArrayList<Puzzle> getPuzzles() { 
+        return puzzles; 
     }
 
     public void addPuzzle(Puzzle puzzle) { 
@@ -28,24 +30,8 @@ public class Room {
          items.add(item); 
     }
 
-    public void removeItem(String item) { 
-        items.remove(item); 
-    }
-
     public ArrayList<String> getItems() { 
         return items; 
-    }
-
-    public void unlock() { 
-        this.isLocked = false; 
-    }
-
-    public String setRoomId(String roomId) { 
-        return this.roomId = roomId; 
-    }
-
-    public String getRoomId() { 
-        return roomId; 
     }
 
     public String getTitle() { 
@@ -60,6 +46,21 @@ public class Room {
         return isLocked; 
     }
 
-    
+    public void setTitle(String title) {
+         this.title = title;
+   } 
+
+    public void setDifficulty(String difficulty) {
+         this.difficulty = difficulty; 
+    }
+
+    public void setLocked(boolean locked) { 
+        this.isLocked = locked; 
+    }
+
+    @Override
+    public String toString() {
+        return "Room:" + "title='" + title + '\'' + ", difficulty='" + difficulty + '\'' + ", items=" + items ;
+    }
 
 }
