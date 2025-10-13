@@ -1,33 +1,38 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Room {
 
     private String title;
-    private ArrayList<Puzzle> puzzles;
     private ArrayList<String> items;
     private String difficulty;
     private boolean isLocked;
+    private HashMap<String, Puzzle> puzzles;
 
     public Room(String title, String difficulty, boolean isLocked) {
         this.title = title;
         this.difficulty = difficulty;
-        this.puzzles = new ArrayList<>();
+        this.puzzles = new HashMap<>();
         this.items = new ArrayList<>();
         this.isLocked = isLocked;
     }
 
-     public ArrayList<Puzzle> getPuzzles() { 
+    public HashMap<String, Puzzle> getPuzzles() { 
         return puzzles; 
     }
 
-    public void addPuzzle(Puzzle puzzle) { 
-        puzzles.add(puzzle); 
+    public Puzzle getPuzzle(String puzzleId) {
+        return puzzles.get(puzzleId);
+    }
+
+    public void addPuzzle(String puzzleId, Puzzle puzzle) {
+        if (puzzleId != null && puzzle != null) puzzles.put(puzzleId, puzzle);
     }
 
     public void addItem(String item) {
-         items.add(item); 
+         if (item != null) items.add(item); 
     }
 
     public ArrayList<String> getItems() { 

@@ -19,7 +19,7 @@ public class RoomList {
     }
 
     public void addRoom(Room room) {
-        rooms.add(room);
+        if (room != null) rooms.add(room);
     }
 
     public ArrayList<Room> getRooms() {
