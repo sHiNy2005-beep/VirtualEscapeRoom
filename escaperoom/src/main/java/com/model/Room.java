@@ -2,37 +2,46 @@ package com.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Room {
 
+    private String roomId;
     private String title;
     private ArrayList<String> items;
     private String difficulty;
     private boolean isLocked;
-    private HashMap<String, Puzzle> puzzles;
+    private ArrayList<Puzzle> puzzles;
+    private HashMap<User, Integer> leaderboard;
 
     public Room(String title, String difficulty, boolean isLocked) {
         this.title = title;
         this.difficulty = difficulty;
-        this.puzzles = new HashMap<>();
+        this.puzzles = new ArrayList<>();
         this.items = new ArrayList<>();
         this.isLocked = isLocked;
+        this.leaderboard = new HashMap<>();
+        this.roomId = UUID.randomUUID().toString();
     }
 
-    public HashMap<String, Puzzle> getPuzzles() { 
+    public ArrayList<Puzzle>getPuzzles() { 
         return puzzles; 
     }
 
-    public Puzzle getPuzzle(String puzzleId) {
-        return puzzles.get(puzzleId);
+    public void addPuzzle(String puzzleId, Puzzle puzzle) {
+         if (puzzle != null) {
+            puzzles.add(puzzle);
+        }
     }
 
-    public void addPuzzle(String puzzleId, Puzzle puzzle) {
-        if (puzzleId != null && puzzle != null) puzzles.put(puzzleId, puzzle);
+    public HashMap<User, Integer> getLeaderboard() { 
+        return leaderboard; 
     }
 
     public void addItem(String item) {
-         if (item != null) items.add(item); 
+         if (item != null) {
+            items.add(item); 
+         }
     }
 
     public ArrayList<String> getItems() { 
@@ -61,6 +70,10 @@ public class Room {
 
     public void setLocked(boolean locked) { 
         this.isLocked = locked; 
+    }
+
+    public String getRoomId() { 
+        return roomId; 
     }
 
     @Override
