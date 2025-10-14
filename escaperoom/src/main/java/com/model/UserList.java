@@ -1,16 +1,15 @@
 package com.model;
 import java.util.ArrayList;
 
-import javafx.scene.chart.PieChart.Data;
-
 public class UserList 
 {
   private ArrayList<User> users;
-    private static UserList userList; 
+  private static UserList userList; 
 
     private UserList() 
     {
       users = new ArrayList<>();
+      users.add(new User("alice123", "alice123@example.com", "Alice!2025Secure"));
     }
 
    public static UserList getInstance() 
