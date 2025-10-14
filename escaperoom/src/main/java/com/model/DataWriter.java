@@ -1,21 +1,25 @@
+
 package com.model;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import com.model.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 public class DataWriter extends DataConstants {
 
-    /**
-     * Saves all users from the UserList singleton into USERS_FILE.
-     */
+   
     public static void saveUsers() {
-        UserList userList = UserList.getInstance();
-        ArrayList<User> users = userList.getUsers();
+      UserList userlist = UserList.getInstance();
+      ArrayList<User> users = userlist.getUsers();
 
-        if (users == null || users.isEmpty()) {
-            System.out.println("No users to save.");
-            return;
+        JSONArray jsonUsers = new JSONArray();
+
+      for(int i=0; i< users.size(); i++) {
+
+            jsonUsers.add(getUserJSON(users.get(i)));
         }
 
         try (FileWriter file = new FileWriter(USERS_TEST_FILE)) {
@@ -23,32 +27,38 @@ public class DataWriter extends DataConstants {
             file.flush();
             
         } catch (IOException e) {
-            System.err.println("Error while saving users: " + e.getMessage());
             e.printStackTrace();
         }
     }
 
-    /**
-     * Saves all rooms from the RoomList singleton into ROOMS_FILE.
-     */
+    private static JSONObject getUserJSON(User user) {
+        JSONObject userDetails = new JSONObject();
+        userDetails.put("userName", user.getUserName());
+        userDetails.put("email", user.getEmail());
+        userDetails.put("password", user.getPassword());
+       
+        return userDetails;
+    }
+
+    
     public static void saveRooms() {
-        RoomList roomList = RoomList.getInstance();
-        ArrayList<Room> rooms = roomList.getRooms();
+        RoomList roomList= RoomList.getInstance();
 
-        if (rooms == null || rooms.isEmpty()) {
-            System.out.println("No rooms to save.");
-            return;
-        }
+        
+        ArrayList<Room> rooms = roomList.getRooms(); 
 
-        try (FileWriter writer = new FileWriter(ROOMS_FILE)) {
-            for (Room room : rooms) {
-                writer.write(room.toLine());
-                writer.write(System.lineSeparator());
-            }
-            writer.flush();
-            System.out.println("Rooms successfully saved to: " + ROOMS_FILE);
+        JSONArray jsonRooms = new JSONArray();
+
+        for(int i=0; i< rooms.size(); i++) {
+
+			jsonRooms.add(getRoomJSON(rooms.get(i)));
+		}
+
+        try (FileWriter file = new FileWriter(ROOMS_FILE)) {
+            file.write(jsonRooms.toJSONString());
+            file.flush();
+            
         } catch (IOException e) {
-            System.err.println("Error while saving rooms: " + e.getMessage());
             e.printStackTrace();
         }
     }

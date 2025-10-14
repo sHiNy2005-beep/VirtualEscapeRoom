@@ -1,88 +1,51 @@
 package com.model;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class UserList {
-    private ArrayList<User> users;
-    private static UserList instance;
+import javafx.scene.chart.PieChart.Data;
 
-    private UserList() {
-        users = new ArrayList<>();
+public class UserList 
+{
+  private ArrayList<User> users;
+    private static UserList userList; 
+
+    private UserList() 
+    {
+      users = new ArrayList<>();
     }
 
-    public static UserList getInstance() {
-        if (instance == null) {
-            synchronized (UserList.class) {
-                if (instance == null) instance = new UserList();
-            }
-        }
-        return instance;
+   public static UserList getInstance() 
+  {
+		if(userList == null) 
+    {
+			userList = new UserList();
+		}
+		return userList;
+	}
+
+    public void addUser(User user, String userName, String email, String password) 
+    {//I added these parameters to match the constructor in User class
+      users.add(user);
     }
 
-<<<<<<< HEAD
-    public ArrayList<User> getUsers() {
-        return users;
-    }
-
-    public void addUser(User u) {
-        if (u != null) users.add(u);
-    }
-
-    public User findById(String id) {
-        for (User u : users) {
-            if (u.getUserId().equals(id)) return u;
-        }
-        return null;
-    }
-=======
    public  ArrayList<User> getUsers() {
     return users;
    }
->>>>>>> 779b880d0597b881d4cbb3823e612a1ec1b9916c
 
     
-    public static void saveUsers() {
-        UserList userList = UserList.getInstance();
-        ArrayList<User> users = userList.getUsers();
-
-        if (users == null || users.isEmpty()) {
-            System.out.println("No users to save."); //empty when there is nothing to save.
-            return;
+    private boolean login(String username, String password) 
+    {
+        for(User user : users)
+        {
+          if(username == null || password == null)
+           return false;
+        else if(!user.getUserName().equals(username) || user.getPassword().equals(password))
+           return false;
+        else
+        return true; 
         }
-
-        try (FileWriter writer = new FileWriter(USERS_FILE)) {
-            for (User user : users) {
-                writer.write(user.toLine());
-                writer.write(System.lineSeparator());
-            }
-            writer.flush();
-            System.out.println("Users successfully saved to: " + USERS_FILE);
-        } catch (IOException e) {
-            System.err.println("Error while saving users: " + e.getMessage()); //default message 
-            e.printStackTrace();
-        }
+        return true;
     }
 
-<<<<<<< HEAD
-    public static ArrayList<User> loadUsers() {
-    ArrayList<User> users = new ArrayList<>();
-    try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            User user = User.fromString(line);
-            if (user != null) users.add(user);
-        }
-        System.out.println("Loaded " + users.size() + " users from " + USERS_FILE);
-    } catch (IOException e) {
-        System.err.println("Error while loading users: " + e.getMessage());
-    }
-    return users;
-  }
-=======
     /**
      * Saves the current list of users to a file.
      */
@@ -91,7 +54,12 @@ public class UserList {
       DataWriter.saveUsers();
     }
 
-  
+    /**
+     * Loads the list of users from a file.
+     */
+    public void loadUsers() 
+    {
+      //DataLoader.getUsers();
+    }
 
->>>>>>> 779b880d0597b881d4cbb3823e612a1ec1b9916c
 }
