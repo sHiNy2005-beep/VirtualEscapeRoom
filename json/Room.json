@@ -1,5 +1,4 @@
 [{
-    "roomId": "room-001",
     "title": "Library",
     "puzzles": [{
         "puzzleId": "puzzle-101",
@@ -7,7 +6,6 @@
         "type": "Code",
         "description": "Decode the hidden message using the book cipher method.",
         "solution": "knowledgeispower",
-        "isCompleted": false,
         "hints": ["Check the first letter of each word", "Look at the index numbers in the margin"]
     }, {
         "puzzleId": "puzzle-102",
@@ -15,14 +13,12 @@
         "type": "Riddle",
         "description": "Solve the riddle whispered by the ghost.",
         "solution": "silence",
-        "isCompleted": true,
         "hints": ["Think about what can be heard but has no sound"]
     }],
     "items": ["ancient key", "torn map", "lantern"],
     "difficulty": "Hard",
     "isLocked": true
 }, {
-    "roomId": "room-002",
     "title": "Study",
     "puzzles": [{
         "puzzleId": "puzzle-201",
@@ -30,7 +26,6 @@
         "type": "Item",
         "description": "Arrange the gemstones in the correct order.",
         "solution": "red-blue-green-yellow",
-        "isCompleted": false,
         "hints": ["Notice the pictures of the wall carvings", "Colors follow the rainbow order"],
         "requiredItems": ["gemstone"]
  }

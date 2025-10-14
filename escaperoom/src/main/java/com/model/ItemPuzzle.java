@@ -5,29 +5,21 @@ import java.util.ArrayList;
 public class ItemPuzzle extends Puzzle {
     private ArrayList<String> requiredItems;
 
-    public ItemPuzzle(String title, String description, String solution, ArrayList<String> items) {
+    public ItemPuzzle(String title, String description, String solution) {
         super(title, description, solution);
-        this.requiredItems = items;
-    }
-
-    @Override
-    public boolean solve(String answer) {
-        if (answer.equalsIgnoreCase(solution)) {
-            isCompleted = true;
-            return true;
-        }
-        return false;
+        requiredItems = new ArrayList<>();
     }
 
     public void addRequiredItem(String item) {
-        requiredItems.add(item);
+         if (item != null) requiredItems.add(item); 
     }
 
-    public boolean hasRequiredItems(ArrayList<String> playerItems) {
-        return playerItems.containsAll(requiredItems);
+    public ArrayList<String> getRequiredItems() { 
+        return requiredItems; 
     }
 
-     public boolean checkAnswer(String answer) {
-        return answer.equalsIgnoreCase(solution);
+    @Override
+    public boolean checkAnswer(String answer) {
+        return super.checkAnswer(answer);
     }
 }

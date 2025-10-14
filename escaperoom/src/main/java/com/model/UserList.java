@@ -23,6 +23,7 @@ public class UserList {
         return instance;
     }
 
+<<<<<<< HEAD
     public ArrayList<User> getUsers() {
         return users;
     }
@@ -37,6 +38,11 @@ public class UserList {
         }
         return null;
     }
+=======
+   public  ArrayList<User> getUsers() {
+    return users;
+   }
+>>>>>>> 779b880d0597b881d4cbb3823e612a1ec1b9916c
 
     
     public static void saveUsers() {
@@ -61,6 +67,7 @@ public class UserList {
         }
     }
 
+<<<<<<< HEAD
     public static ArrayList<User> loadUsers() {
     ArrayList<User> users = new ArrayList<>();
     try (BufferedReader reader = new BufferedReader(new FileReader(USERS_FILE))) {
@@ -75,4 +82,16 @@ public class UserList {
     }
     return users;
   }
+=======
+    /**
+     * Saves the current list of users to a file.
+     */
+    public void saveUsers() 
+    {
+      DataWriter.saveUsers();
+    }
+
+  
+
+>>>>>>> 779b880d0597b881d4cbb3823e612a1ec1b9916c
 }

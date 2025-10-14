@@ -1,51 +1,51 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class Room {
 
     private String roomId;
     private String title;
-    private ArrayList<Puzzle> puzzles;
     private ArrayList<String> items;
     private String difficulty;
-    private String description;
     private boolean isLocked;
+    private ArrayList<Puzzle> puzzles;
+    private HashMap<User, Integer> leaderboard;
 
-    public Room(String title, String difficulty) {
+    public Room(String title, String difficulty, boolean isLocked) {
         this.title = title;
         this.difficulty = difficulty;
         this.puzzles = new ArrayList<>();
         this.items = new ArrayList<>();
-        this.isLocked = true;
+        this.isLocked = isLocked;
+        this.leaderboard = new HashMap<>();
+        this.roomId = UUID.randomUUID().toString();
     }
 
-    public void addPuzzle(Puzzle puzzle) { 
-        puzzles.add(puzzle); 
+    public ArrayList<Puzzle>getPuzzles() { 
+        return puzzles; 
+    }
+
+    public void addPuzzle(String puzzleId, Puzzle puzzle) {
+         if (puzzle != null) {
+            puzzles.add(puzzle);
+        }
+    }
+
+    public HashMap<User, Integer> getLeaderboard() { 
+        return leaderboard; 
     }
 
     public void addItem(String item) {
-         items.add(item); 
-    }
-
-    public void removeItem(String item) { 
-        items.remove(item); 
+         if (item != null) {
+            items.add(item); 
+         }
     }
 
     public ArrayList<String> getItems() { 
         return items; 
-    }
-
-    public void unlock() { 
-        this.isLocked = false; 
-    }
-
-    public String setRoomId(String roomId) { 
-        return this.roomId = roomId; 
-    }
-
-    public String getRoomId() { 
-        return roomId; 
     }
 
     public String getTitle() { 
@@ -60,16 +60,25 @@ public class Room {
         return isLocked; 
     }
 
-    public boolean isCompleted() {
-        for (Puzzle p : puzzles)
-            if (!p.isCompleted()) return false;
-        return true;
+    public void setTitle(String title) {
+         this.title = title;
+   } 
+
+    public void setDifficulty(String difficulty) {
+         this.difficulty = difficulty; 
     }
 
-    public Puzzle getNextUnsolvedPuzzle() {
-        for (Puzzle p : puzzles)
-            if (!p.isCompleted()) return p;
-        return null;
+    public void setLocked(boolean locked) { 
+        this.isLocked = locked; 
+    }
+
+    public String getRoomId() { 
+        return roomId; 
+    }
+
+    @Override
+    public String toString() {
+        return "Room:" + "title='" + title + '\'' + ", difficulty='" + difficulty + '\'' + ", items=" + items ;
     }
 
 }

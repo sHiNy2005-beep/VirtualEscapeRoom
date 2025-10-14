@@ -3,7 +3,7 @@ package com.model;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import com.model.Room;
+
 
 public class RoomList {
 
@@ -11,7 +11,7 @@ public class RoomList {
     private static RoomList roomList;
 
     private RoomList() {
-        rooms = new ArrayList<>();
+       this.rooms = DataLoader.getRooms();
     }
 
     public static RoomList getInstance() {
@@ -21,13 +21,14 @@ public class RoomList {
     }
 
     public void addRoom(Room room) {
-        rooms.add(room);
+        if (room != null) rooms.add(room);
     }
 
     public ArrayList<Room> getRooms() {
     return rooms;
    }
 
+<<<<<<< HEAD
   
     public static void saveRooms() {
         RoomList roomList = RoomList.getInstance();
@@ -55,4 +56,12 @@ public class RoomList {
     public void loadRooms() {
         
     }
+=======
+   public Room findRoom(String title) {
+        if (title == null) return null;
+        for (Room r : rooms) if (title.equalsIgnoreCase(r.getTitle())) return r;
+        return null;
+    }
+
+>>>>>>> 779b880d0597b881d4cbb3823e612a1ec1b9916c
 }

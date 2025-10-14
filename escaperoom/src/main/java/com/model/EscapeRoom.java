@@ -9,7 +9,6 @@ public class EscapeRoom {
     private Room currentRoom;
     private RoomList roomList;
     private UserList userList;
-    private IScoringStrategy scoringStrategy;
     private DataLoader dataLoader;
     private DataWriter dataWriter;
 
@@ -18,7 +17,6 @@ public class EscapeRoom {
         this.userList = UserList.getInstance();
         this.dataLoader = new DataLoader();
         this.dataWriter = new DataWriter();
-        this.scoringStrategy = new Score();
     }
 
     public User login(String username, String password) {
@@ -59,12 +57,8 @@ public class EscapeRoom {
 
     public void endGame() {
         currentSession.endSession();
-        int score = scoringStrategy.calculateScore(currentSession);
+        
        
-    }
-
-    public ArrayList<LeaderboardEntry> getLeaderboard() {
-        return new ArrayList<>();
     }
 
     public void saveAllData() {
@@ -77,7 +71,4 @@ public class EscapeRoom {
         userList = UserList.getInstance();
     }
 
-    public void setScoringStrategy(IScoringStrategy strategy) {
-        this.scoringStrategy = strategy;
-    }
 }
