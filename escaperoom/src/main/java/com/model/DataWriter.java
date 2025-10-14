@@ -18,20 +18,10 @@ public class DataWriter extends DataConstants {
             return;
         }
 
-<<<<<<< HEAD
-        try (FileWriter writer = new FileWriter(USERS_FILE)) {
-            for (User user : users) {
-                writer.write(user.toLine());
-                writer.write(System.lineSeparator());
-            }
-            writer.flush();
-            System.out.println("Users successfully saved to: " + USERS_FILE);
-=======
         try (FileWriter file = new FileWriter(USERS_TEST_FILE)) {
             file.write(jsonUsers.toJSONString());
             file.flush();
             
->>>>>>> 779b880d0597b881d4cbb3823e612a1ec1b9916c
         } catch (IOException e) {
             System.err.println("Error while saving users: " + e.getMessage());
             e.printStackTrace();
@@ -62,9 +52,6 @@ public class DataWriter extends DataConstants {
             e.printStackTrace();
         }
     }
-<<<<<<< HEAD
-}
-=======
 
     
     private static JSONObject getRoomJSON(Room room) {
@@ -83,4 +70,3 @@ public class DataWriter extends DataConstants {
        DataWriter.saveRooms();
     }
 }
->>>>>>> 779b880d0597b881d4cbb3823e612a1ec1b9916c
