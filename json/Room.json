@@ -7,15 +7,21 @@
         "description": "Decode the hidden message using the book cipher method.",
         "solution": "knowledgeispower",
         "hints": ["Check the first letter of each word", "Look at the index numbers in the margin"]
-    }, {
-        "puzzleId": "puzzle-102",
+    }],
+    "items": ["ancient key", "torn map", "lantern"],
+    "difficulty": "Hard",
+    "isLocked": true
+ },{
+    "title": "Bedroom",
+    "puzzles": [{
+        "puzzleId": "puzzle-101",
         "title": "Ghost Riddle",
         "type": "Riddle",
         "description": "Solve the riddle whispered by the ghost.",
         "solution": "silence",
         "hints": ["Think about what can be heard but has no sound"]
     }],
-    "items": ["ancient key", "torn map", "lantern"],
+    "items": ["glove", "candle"],
     "difficulty": "Hard",
     "isLocked": true
 }, {
