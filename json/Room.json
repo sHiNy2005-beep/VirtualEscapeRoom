@@ -14,7 +14,7 @@
  },{
     "title": "Bedroom",
     "puzzles": [{
-        "puzzleId": "puzzle-101",
+        "puzzleId": "puzzle-201",
         "title": "Ghost Riddle",
         "type": "Riddle",
         "description": "Solve the riddle whispered by the ghost.",
@@ -27,7 +27,7 @@
 }, {
     "title": "Study",
     "puzzles": [{
-        "puzzleId": "puzzle-201",
+        "puzzleId": "puzzle-301",
         "title": "Gemstone Pattern",
         "type": "Item",
         "description": "Arrange the gemstones in the correct order.",
