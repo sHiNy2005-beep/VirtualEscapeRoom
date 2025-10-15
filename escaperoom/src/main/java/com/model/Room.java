@@ -76,6 +76,10 @@ public class Room {
         return roomId; 
     }
 
+    public void setRoomId(String roomId) { 
+        this.roomId = roomId; 
+    }
+
     @Override
     public String toString() {
         return "Room:" + "title='" + title + '\'' + ", difficulty='" + difficulty + '\'' + ", items=" + items ;

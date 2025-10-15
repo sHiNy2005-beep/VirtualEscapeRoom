@@ -14,9 +14,7 @@ public class DataWriter extends DataConstants {
     public static void saveUsers() {
       UserList userlist = UserList.getInstance();
       ArrayList<User> users = userlist.getUsers();
-
-        JSONArray jsonUsers = new JSONArray();
-
+      JSONArray jsonUsers = new JSONArray();
       for(int i=0; i< users.size(); i++) {
 
             jsonUsers.add(getUserJSON(users.get(i)));
@@ -33,6 +31,7 @@ public class DataWriter extends DataConstants {
 
     private static JSONObject getUserJSON(User user) {
         JSONObject userDetails = new JSONObject();
+        userDetails.put("userId", user.getUserId().toString());
         userDetails.put("userName", user.getUserName());
         userDetails.put("email", user.getEmail());
         userDetails.put("password", user.getPassword());
@@ -43,12 +42,8 @@ public class DataWriter extends DataConstants {
     
     public static void saveRooms() {
         RoomList roomList= RoomList.getInstance();
-
-        
         ArrayList<Room> rooms = roomList.getRooms(); 
-
         JSONArray jsonRooms = new JSONArray();
-
         for(int i=0; i< rooms.size(); i++) {
 
 			jsonRooms.add(getRoomJSON(rooms.get(i)));

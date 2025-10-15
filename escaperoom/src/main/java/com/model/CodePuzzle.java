@@ -6,11 +6,8 @@ public class CodePuzzle extends Puzzle {
         super(title, description, solution);
     }
 
-    @Override
+   @Override
     public boolean checkAnswer(String answer) {
-        if (answer == null || solution == null) return false;
-        boolean ok = solution.equals(answer.trim());
-        if (ok) isSolved = true;
-        return ok;
+        return super.checkAnswer(answer);
     }
 }

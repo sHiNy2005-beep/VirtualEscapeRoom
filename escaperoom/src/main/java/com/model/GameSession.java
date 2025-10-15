@@ -2,6 +2,8 @@ package com.model;
 import java.util.ArrayList;
 
 public class GameSession {
+
+    private String sessionId;
     private User user;
     private Room room;
     private long startTime;
@@ -17,6 +19,7 @@ public class GameSession {
         this.inventory = new ArrayList<>();
         this.hintsUsed = 0;
         this.isCompleted = false;
+        this.sessionId = "sessions"+ System.currentTimeMillis(); 
     }
 
     public void startSession() {
@@ -53,7 +56,11 @@ public class GameSession {
         return 0;
     }
 
-    public long getElapsedTime() {
-        return endTime - startTime;
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 }

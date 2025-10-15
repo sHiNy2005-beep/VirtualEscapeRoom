@@ -28,10 +28,8 @@ public class RoomList {
     return rooms;
    }
 
-   public Room findRoom(String title) {
-        if (title == null) return null;
-        for (Room r : rooms) if (title.equalsIgnoreCase(r.getTitle())) return r;
-        return null;
+    public void saveRooms() {
+        DataWriter.saveRooms();
     }
 
 }
