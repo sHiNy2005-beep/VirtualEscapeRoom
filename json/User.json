@@ -1,1 +1,98 @@
-[{"password":"Alice!2025Secure","sessions":[{"score":8500,"startTime":1728316800000,"sessionId":"sessions1760568769767","endTime":1728320400000,"hintsUsed":2,"inventory":["golden_key","ancient_map","torch"],"room":{"difficulty":"Medium","title":"Mystery Manor","roomId":"2a3b0b5e-dc77-4700-b9d6-22c6f4e0842e"},"isCompleted":true},{"score":12000,"startTime":1728403200000,"sessionId":"sessions1760568769776","endTime":1728408600000,"hintsUsed":1,"inventory":["spell_book","crystal_orb","silver_dagger","enchanted_scroll"],"room":{"difficulty":"Hard","title":"Haunted Library","roomId":"1cbdd0a8-0ba9-4eae-9f1b-34514c9d67d0"},"isCompleted":true}],"userId":"35c2454c-e5cd-4a76-ab47-97914f9d98a0","email":"alice123@example.com","username":"alice123"},{"password":"BobPass#88","sessions":[{"score":5000,"startTime":1728230400000,"sessionId":"sessions1760568769776","endTime":1728232200000,"hintsUsed":5,"inventory":["usb_drive","access_card"],"room":{"difficulty":"Easy","title":"Cyber Vault","roomId":"13f17c67-b2cc-4a24-8303-da84287144be"},"isCompleted":true}],"userId":"9b5fb75e-16ae-4fdb-83ef-3eb437ba68e5","email":"bob.dev@example.com","username":"bob_dev"},{"password":"CharPwd@123","sessions":[{"score":3200,"startTime":1728489600000,"sessionId":"sessions1760568769776","endTime":0,"hintsUsed":3,"inventory":["compass","rope","telescope"],"room":{"difficulty":"Medium","title":"Pirate's Cove","roomId":"b49714a3-380d-494c-a762-036d5cd71c3a"},"isCompleted":false},{"score":7200,"startTime":1728144000000,"sessionId":"sessions1760568769776","endTime":1728147600000,"hintsUsed":4,"inventory":["golden_key","ancient_map"],"room":{"difficulty":"Medium","title":"Mystery Manor","roomId":"2779a1e0-d097-498b-a885-9366554d0305"},"isCompleted":true}],"userId":"d678dd98-26e4-4bf4-a1fd-402ca8672b50","email":"charlie.x@example.com","username":"charlie_x"},{"password":"DianaStrong*77","sessions":[],"userId":"644584b9-7f1e-48b5-b984-00c870f05a8f","email":"diana.k@example.com","username":"diana_k"}]
+[{
+    "userId": "9be859f3-6204-449a-94a7-ff9a77c4515e",
+    "username": "alice123",
+    "email": "alice123@example.com",
+    "password": "Alice!2025Secure",
+    "sessions": [
+        {
+            "sessionId": "sess_a1b2c3d4",
+            "room": {
+                "roomId": "room_001",
+                "title": "Mystery Manor",
+                "difficulty": "Medium"
+            },
+            "startTime": 1728316800000,
+            "endTime": 1728320400000,
+            "score": 8500,
+            "hintsUsed": 2,
+            "isCompleted": true,
+            "inventory": ["golden_key", "ancient_map", "torch"]
+        },
+        {
+            "sessionId": "sess_a5b6c7d8",
+            "room": {
+                "roomId": "room_003",
+                "title": "Haunted Library",
+                "difficulty": "Hard"
+            },
+            "startTime": 1728403200000,
+            "endTime": 1728408600000,
+            "score": 12000,
+            "hintsUsed": 1,
+            "isCompleted": true,
+            "inventory": ["spell_book", "crystal_orb", "silver_dagger", "enchanted_scroll"]
+        }
+    ]
+}, {
+    "userId": "fdc80997-f6ee-4fde-9b77-96084e466bdc",
+    "username": "bob_dev",
+    "email": "bob.dev@example.com",
+    "password": "BobPass#88",
+    "sessions": [
+        {
+            "sessionId": "sess_b1c2d3e4",
+            "room": {
+                "roomId": "room_002",
+                "title": "Cyber Vault",
+                "difficulty": "Easy"
+            },
+            "startTime": 1728230400000,
+            "endTime": 1728232200000,
+            "score": 5000,
+            "hintsUsed": 5,
+            "isCompleted": true,
+            "inventory": ["usb_drive", "access_card"]
+        }
+    ]
+}, {
+    "userId": "b86f4811-28d4-484c-bc6e-b855a3959461",
+    "username": "charlie_x",
+    "email": "charlie.x@example.com",
+    "password": "CharPwd@123",
+    "sessions": [
+        {
+            "sessionId": "sess_c1d2e3f4",
+            "room": {
+                "roomId": "room_004",
+                "title": "Pirate's Cove",
+                "difficulty": "Medium"
+            },
+            "startTime": 1728489600000,
+            "endTime": 0,
+            "score": 3200,
+            "hintsUsed": 3,
+            "isCompleted": false,
+            "inventory": ["compass", "rope", "telescope"]
+        },
+        {
+            "sessionId": "sess_c5d6e7f8",
+            "room": {
+                "roomId": "room_001",
+                "title": "Mystery Manor",
+                "difficulty": "Medium"
+            },
+            "startTime": 1728144000000,
+            "endTime": 1728147600000,
+            "score": 7200,
+            "hintsUsed": 4,
+            "isCompleted": true,
+            "inventory": ["golden_key", "ancient_map"]
+        }
+    ]
+}, {
+    "userId": "be24fa70-fd86-4d8a-97ba-655a3339bffb",
+    "username": "diana_k",
+    "email": "diana.k@example.com",
+    "password": "DianaStrong*77",
+    "sessions": []
+}]
