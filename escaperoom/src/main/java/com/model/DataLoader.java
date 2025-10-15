@@ -1,56 +1,56 @@
 package com.model;
 
-import java.io.FileReader;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class DataLoader extends DataConstants {
+    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final Logger LOGGER = Logger.getLogger(DataLoader.class.getName());
 
-    public static ArrayList<User> getUsers() {
-        ArrayList<User> users = new ArrayList<>();
-        try {
-            FileReader reader = new FileReader(USERS_TEST_FILE);
-            JSONArray jsonUsers = (JSONArray) new JSONParser().parse(reader);
-
-            for (Object obj : jsonUsers) {
-                JSONObject userJSON = (JSONObject) obj;
-                String userName = (String) userJSON.get("userName");
-                String email = (String) userJSON.get("email");
-                String password = (String) userJSON.get("password");
-
-                users.add(new User(userName, email, password));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return users;
+    public static List<User> getUsers() {
+        return loadFromFile(USERS_FILE, new TypeReference<List<User>>() {}, "Users");
     }
 
-    public static ArrayList<Room> getRooms() {
-        ArrayList<Room> rooms = new ArrayList<>();
-        try {
-            FileReader reader = new FileReader(ROOMS_FILE);
-            JSONArray jsonRooms = (JSONArray) new JSONParser().parse(reader);
+    public static List<Room> getRooms() {
+        return loadFromFile(ROOMS_FILE, new TypeReference<List<Room>>() {}, "Rooms");
+    }
 
-            for (Object obj : jsonRooms) {
-                JSONObject roomJSON = (JSONObject) obj;
-                String title = (String) roomJSON.get("title");
-                String difficulty = (String) roomJSON.get("difficulty");
-                boolean isLocked = (boolean) roomJSON.get("isLocked");
-
-                Room room = new Room(title, difficulty, isLocked);
-
-                JSONArray items = (JSONArray) roomJSON.get("items");
-                for (Object item : items)
-                    room.addItem((String) item);
-
-                rooms.add(room);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static List<GameSession> getGameSessions(User user) {
+        if (user == null || user.getUserId() == null) {
+            return new ArrayList<>();
         }
-        return rooms;
+        
+        List<GameSession> allSessions = loadFromFile(
+            SESSIONS_FILE, 
+            new TypeReference<List<GameSession>>() {}, 
+            "GameSessions"
+        );
+        
+        return allSessions.stream()
+            .filter(session -> user.getUserId().equals(session.getUserId()))
+            .collect(Collectors.toList());
+    }
+
+    public static List<GameSession> getAllGameSessions() {
+        return loadFromFile(SESSIONS_FILE, new TypeReference<List<GameSession>>() {}, "GameSessions");
+    }
+
+    private static <T> List<T> loadFromFile(String filePath, TypeReference<List<T>> typeRef, String dataType) {
+        try {
+            File file = new File(filePath);
+            if (file.exists() && file.length() > 0) {
+                return mapper.readValue(file, typeRef);
+            }
+        } catch (IOException e) {
+            LOGGER.log(Level.SEVERE, "Failed to load " + dataType + " from " + filePath, e);
+        }
+        return new ArrayList<>();
     }
 }
