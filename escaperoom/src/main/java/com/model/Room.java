@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class Room {
 
-    private String roomId;
+    private String roomId = UUID.randomUUID().toString();
     private String title;
     private ArrayList<String> items;
     private String difficulty;
@@ -21,7 +21,6 @@ public class Room {
         this.items = new ArrayList<>();
         this.isLocked = isLocked;
         this.leaderboard = new HashMap<>();
-        this.roomId = UUID.randomUUID().toString();
     }
 
     public ArrayList<Puzzle>getPuzzles() { 
@@ -80,9 +79,21 @@ public class Room {
         this.roomId = roomId; 
     }
 
-    @Override
-    public String toString() {
-        return "Room:" + "title='" + title + '\'' + ", difficulty='" + difficulty + '\'' + ", items=" + items ;
+   @Override
+public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Room: ").append(title)
+      .append(" | Difficulty: ").append(difficulty)
+      .append(" | Items: ").append(items);
+
+    if (!puzzles.isEmpty()) {
+        sb.append("\n  Puzzles:");
+        for (Puzzle p : puzzles) {
+            sb.append("\n    - ").append(p.getTitle())
+              .append(" (").append(p.getDescription()).append(")");
+        }
     }
+    return sb.toString();
+}
 
 }

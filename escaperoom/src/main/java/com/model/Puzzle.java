@@ -43,4 +43,12 @@ public abstract class Puzzle {
     public boolean isSolved() {
          return isSolved; 
     }
+
+    public String getSolution() { 
+        return solution; 
+    }
+
+    public void setSolved(boolean solved) { 
+        isSolved = solved; 
+    }
 }

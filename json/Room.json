@@ -1,7 +1,8 @@
 [{
     "title": "Library",
+    "roomId": "room_001",
+    "leaderboard": {},
     "puzzles": [{
-        "puzzleId": "puzzle-101",
         "title": "Book Cipher",
         "type": "Code",
         "description": "Decode the hidden message using the book cipher method.",
@@ -13,8 +14,9 @@
     "isLocked": true
  },{
     "title": "Bedroom",
+    "roomId": "room_002",
+    "leaderboard": {},
     "puzzles": [{
-        "puzzleId": "puzzle-101",
         "title": "Ghost Riddle",
         "type": "Riddle",
         "description": "Solve the riddle whispered by the ghost.",
@@ -26,8 +28,9 @@
     "isLocked": true
 }, {
     "title": "Study",
+    "roomId": "room_003",
+    "leaderboard": {},
     "puzzles": [{
-        "puzzleId": "puzzle-201",
         "title": "Gemstone Pattern",
         "type": "Item",
         "description": "Arrange the gemstones in the correct order.",

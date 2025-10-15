@@ -11,6 +11,7 @@ public class GameSession {
     private int score;
     private int hintsUsed;
     private boolean isCompleted;
+    private long getDuration;
     private ArrayList<String> inventory;
 
     public GameSession(User user, Room room) {
@@ -56,11 +57,78 @@ public class GameSession {
         return 0;
     }
 
+    //getters and setters
+    
     public String getSessionId() {
         return sessionId;
     }
 
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public int getHintsUsed() {
+        return hintsUsed;
+    }
+
+    public long getStartTime() {
+        return startTime;
+    }
+
+    public long getEndTime() {
+        return endTime;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public long getDuration() {
+        if (endTime == 0) return 0;
+        return (endTime - startTime) / 1000; 
+    }
+
+    public void setDuration(long duration) {
+        this.getDuration = duration;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public void setHintsUsed(int hintsUsed) {
+        this.hintsUsed = hintsUsed;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
+    @Override
+    public String toString() {
+        return "Room: " + (room != null ? room.getTitle() : "Unknown") +
+               " | Score: " + score +
+               " | Hints Used: " + hintsUsed +
+               " | Completed: " + isCompleted;
     }
 }

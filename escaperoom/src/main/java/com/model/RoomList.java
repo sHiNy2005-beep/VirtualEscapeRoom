@@ -4,14 +4,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
 public class RoomList {
-
-    ArrayList<Room> rooms;
+    private ArrayList<Room> rooms;
     private static RoomList roomList;
 
     private RoomList() {
-       this.rooms = DataLoader.getRooms();
+        this.rooms = new ArrayList<>();
+        ArrayList<Room> loadedRooms = DataLoader.getRooms();
+        if (loadedRooms != null && !loadedRooms.isEmpty()) {
+            this.rooms.addAll(loadedRooms);
+        }
     }
 
     public static RoomList getInstance() {
@@ -20,16 +22,13 @@ public class RoomList {
         return roomList;
     }
 
-    public void addRoom(Room room) {
-        if (room != null) rooms.add(room);
-    }
-
     public ArrayList<Room> getRooms() {
-    return rooms;
-   }
-
-    public void saveRooms() {
-        DataWriter.saveRooms();
+        return rooms;
     }
 
+    public void addRoom(Room room) {
+        if (room != null && !rooms.contains(room)) {
+            rooms.add(room);
+        }
+    }
 }

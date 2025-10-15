@@ -2,73 +2,86 @@ package com.model;
 
 import java.util.ArrayList;
 
-
 public class EscapeRoom {
-
-    private GameSession currentSession;
-    private Room currentRoom;
-    private RoomList roomList;
     private UserList userList;
-    private DataLoader dataLoader;
-    private DataWriter dataWriter;
+    private RoomList roomList;
+    private GameSession currentSession;
+    private User currentUser;
+    private Room currentRoom;
 
     public EscapeRoom() {
-        this.roomList = RoomList.getInstance();
         this.userList = UserList.getInstance();
-        this.dataLoader = new DataLoader();
-        this.dataWriter = new DataWriter();
+        this.roomList = RoomList.getInstance();
     }
 
     public User login(String username, String password) {
-       ArrayList<User> users = userList.getUsers(); 
-
-    for (User u : users) {
-        if (u.getUserName().equals(username) && u.getPassword().equals(password)) {
-            return u;
+        for (User u : userList.getUsers()) {
+            if (u.getUserName().equals(username) && u.getPassword().equals(password)) {
+                currentUser = u;
+                return u;
+            }
         }
-    }
         return null;
     }
 
-    public ArrayList<Room> getAllRooms() {
-        return roomList.getRooms();
-    }
-
-    public GameSession startGame(User user, Room room) {
-        currentRoom = room;
-        currentSession = new GameSession(user, room);
+    public GameSession startGame(Room room) {
+        if (currentUser == null) return null;
+        this.currentRoom = room;
+        currentSession = new GameSession(currentUser, room);
         currentSession.startSession();
+        currentUser.addSession(currentSession);
         return currentSession;
     }
 
-    public boolean submitAnswer(String answer) {
+    public ArrayList<Room> getAllRooms() { 
+        return roomList.getRooms(); 
+    }
+
+    public Room getCurrentRoom() {
+         return currentRoom; 
+    }
+
+    
+    public ArrayList<Puzzle> getCurrentRoomPuzzles() {
+        if (currentRoom == null) return new ArrayList<>();
+        return currentRoom.getPuzzles();
+    }
+
+    
+    public boolean submitAnswer(String puzzleTitle, String answer) {
+        if (currentRoom == null) return false;
+        for (Puzzle p : currentRoom.getPuzzles()) {
+            if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
+                boolean correct = p.checkAnswer(answer);
+                if (correct) {
+                    System.out.println("Correct answer for " + puzzleTitle + "!");
+                } else {
+                    System.out.println("Incorrect answer for " + puzzleTitle);
+                }
+                return correct;
+            }
+        }
         return false;
     }
 
-    public String useHint() {
-        currentSession.useHint();
-        return "Hint used!";
-    }
-
-    public boolean collectItem(String item) {
-        currentSession.collectItem(item);
-        return true;
+    
+    public String useHint(String puzzleTitle) {
+        if (currentRoom == null) return "No room!";
+        for (Puzzle p : currentRoom.getPuzzles()) {
+            if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
+                currentSession.useHint();
+                if (!p.getHints().isEmpty()) {
+                    return p.getHints().get(Math.min(currentSession.getHintsUsed()-1, p.getHints().size()-1));
+                }
+                return "No more hints available!";
+            }
+        }
+        return "Puzzle not found.";
     }
 
     public void endGame() {
-        currentSession.endSession();
-        
-       
+        if (currentSession != null) currentSession.endSession();
+        DataWriter.saveUsers();
+        DataWriter.saveRooms();
     }
-
-    public void saveAllData() {
-      // DataWriter.saveRooms(roomList.getRooms());
-       // DataWriter.saveUsers(userList.getUsers());
-    }
-
-    public void loadAllData() {
-        roomList = RoomList.getInstance();
-        userList = UserList.getInstance();
-    }
-
 }
