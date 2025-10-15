@@ -2,14 +2,14 @@ package com.model;
 
 import java.util.ArrayList;
 
-public class EscapeRoom {
+public class EscapeRoomFacade {
     private UserList userList;
     private RoomList roomList;
     private GameSession currentSession;
     private User currentUser;
     private Room currentRoom;
 
-    public EscapeRoom() {
+    public EscapeRoomFacade() {
         this.userList = UserList.getInstance();
         this.roomList = RoomList.getInstance();
     }
