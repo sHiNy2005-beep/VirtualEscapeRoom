@@ -1,4 +1,4 @@
-[{
+ [{
     "title": "Library",
     "roomId": "room_001",
     "leaderboard": {"user": "score"},
@@ -34,4 +34,5 @@
     "items": ["shovel", "rope"],
     "difficulty": "Medium",
     "isLocked": false
-}]
+}
+]
