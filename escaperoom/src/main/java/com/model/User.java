@@ -1,102 +1,76 @@
 package com.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.UUID;;
 
 public class User {
-   
-    @JsonProperty("userId")
     private UUID userId;
-    
-    @JsonProperty("username")
     private String username;
-    
-    @JsonProperty("email")
     private String email;
-    
-    @JsonProperty("password")
     private String password;
+    private ArrayList<GameSession> sessions;
+
     
-    @JsonProperty("gameSessions")
-    private Map<UUID, GameSession> gameSessions;
-    
-    public User() {
+    public User(String username, String email, String password) {
         this.userId = UUID.randomUUID();
-        this.gameSessions = new HashMap<>();
-    }
-    
-    public User(String userName, String email, String password) {
-        this.userId = UUID.randomUUID();
-        this.username = userName;
-        this.email = email;
-        this.password = password;
-        this.gameSessions = new HashMap<>();
-    }
-    
-    public UUID getUserId() {
-        return userId;
-    }
-    
-    public String getUserName() {
-        return username;
-    }
-    
-    public String getEmail() {
-        return email;
-    }
-    
-    public String getPassword() {
-        return password;
-    }
-    
-    public Map<UUID, GameSession> getGameSessions() {
-        return gameSessions;
-    }
-    
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-    
-    public void setUsername(String username) {
         this.username = username;
-    }
-    
-    public void setEmail(String email) {
         this.email = email;
-    }
-    
-    public void setPassword(String password) {
         this.password = password;
+        this.sessions = new ArrayList<>();
     }
+
     
-    public void setGameSessions(Map<UUID, GameSession> gameSessions) {
-        this.gameSessions = gameSessions;
+    public User(UUID userId, String username, String email, String password) {
+        this.userId = userId;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.sessions = new ArrayList<>();
     }
+
     
-    public void addGameSession(GameSession session) {
-        gameSessions.put(session.getSessionId(), session);
+    public UUID getUserId() { 
+        return userId; 
     }
-    
-    public GameSession getGameSession(UUID sessionId) {
-        return gameSessions.get(sessionId);
+
+    public String getUserName() {
+         return username; 
     }
-    
-    public void removeGameSession(UUID sessionId) {
-        gameSessions.remove(sessionId);
+
+    public String getEmail() {
+         return email; 
     }
+
+    public String getPassword() {
+         return password; 
+    }
+
+    public ArrayList<GameSession> getSessions() {
+         return sessions; 
+    }
+
+    public void addSession(GameSession session) {
+        if (session != null) sessions.add(session);
+    }
+
+    public void setSessions(ArrayList<GameSession> sessions) {
+        this.sessions = sessions;
+    }
+
     
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return userId != null && userId.equals(user.userId);
-    }
-    
-    @Override
-    public int hashCode() {
-        return userId != null ? userId.hashCode() : 0;
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(username)
+          .append(" (ID: ").append(userId).append(")")
+          .append(" | Email: ").append(email)
+          .append(" | Sessions: ").append(sessions.size())
+          .append("\n");
+
+        for (GameSession s : sessions) {
+            sb.append("   → ").append(s.toString()).append("\n");
+        }
+        return sb.toString();
     }
 }
+

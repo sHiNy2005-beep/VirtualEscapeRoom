@@ -1,68 +1,26 @@
 package com.model;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GameSession {
-    @JsonProperty("user")
+
+    private String sessionId;
     private User user;
-    
-    @JsonProperty("room")
     private Room room;
-    
-    @JsonProperty("startTime")
     private long startTime;
-    
-    @JsonProperty("endTime")
     private long endTime;
-    
-    @JsonProperty("score")
     private int score;
-    
-    @JsonProperty("hintsUsed")
     private int hintsUsed;
-    
-    @JsonProperty("isCompleted")
     private boolean isCompleted;
-    
-    @JsonProperty("puzzleSessions")
-    private List<PuzzleSession> puzzleSessions;
-
-    public GameSession() {
-        this.puzzleSessions = new ArrayList<>();
-        this.hintsUsed = 0;
-        this.isCompleted = false;
-    }
-
-    @JsonCreator
-    public GameSession(
-        @JsonProperty("user") User user,
-        @JsonProperty("room") Room room,
-        @JsonProperty("startTime") long startTime,
-        @JsonProperty("endTime") long endTime,
-        @JsonProperty("score") int score,
-        @JsonProperty("hintsUsed") int hintsUsed,
-        @JsonProperty("isCompleted") boolean isCompleted,
-        @JsonProperty("puzzleSessions") List<PuzzleSession> puzzleSessions) {
-        this.user = user;
-        this.room = room;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.score = score;
-        this.hintsUsed = hintsUsed;
-        this.isCompleted = isCompleted;
-        this.puzzleSessions = puzzleSessions != null ? new ArrayList<>(puzzleSessions) : new ArrayList<>();
-    }
+    private long getDuration;
+    private ArrayList<String> inventory;
 
     public GameSession(User user, Room room) {
         this.user = user;
         this.room = room;
-        this.puzzleSessions = new ArrayList<>();
+        this.inventory = new ArrayList<>();
         this.hintsUsed = 0;
         this.isCompleted = false;
-        this.score = 0;
+        this.sessionId = "sessions"+ System.currentTimeMillis(); 
     }
 
     public void startSession() {
@@ -78,41 +36,39 @@ public class GameSession {
         hintsUsed++;
     }
 
-    public void addPuzzleSession(PuzzleSession puzzleSession) {
-        if (puzzleSession != null) {
-            puzzleSessions.add(puzzleSession);
-        }
+    public void submitAnswer(String answer) {
+        
     }
 
-    public List<PuzzleSession> getPuzzleSessions() {
-        return new ArrayList<>(puzzleSessions);
+    public void collectItem(String item) {
+        inventory.add(item);
+    }
+
+    public boolean hasItem(String item) {
+        return inventory.contains(item);
+    }
+
+    public ArrayList<String> getInventory() {
+        return inventory;
     }
 
     public int calculateScore() {
-        long timeBonus = Math.max(0, 10000 - getElapsedTime() / 1000);
-        int hintPenalty = hintsUsed * 100;
-        int puzzleScore = puzzleSessions.stream()
-            .filter(ps -> ps.isSolved())
-            .mapToInt(ps -> 1000)
-            .sum();
         
-        score = (int) (puzzleScore + timeBonus - hintPenalty);
-        return Math.max(0, score);
+        return 0;
     }
 
-    public long getElapsedTime() {
-        if (endTime > 0) {
-            return endTime - startTime;
-        }
-        return System.currentTimeMillis() - startTime;
+    //getters and setters
+    
+    public String getSessionId() {
+        return sessionId;
     }
 
-    public User getUser() {
-        return user;
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
     }
 
-    public Room getRoom() {
-        return room;
+    public int getHintsUsed() {
+        return hintsUsed;
     }
 
     public long getStartTime() {
@@ -127,19 +83,52 @@ public class GameSession {
         return score;
     }
 
-    public int getHintsUsed() {
-        return hintsUsed;
-    }
-
     public boolean isCompleted() {
         return isCompleted;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public long getDuration() {
+        if (endTime == 0) return 0;
+        return (endTime - startTime) / 1000; 
+    }
+
+    public void setDuration(long duration) {
+        this.getDuration = duration;
+    }
+
+    public void setStartTime(long startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(long endTime) {
+        this.endTime = endTime;
     }
 
     public void setScore(int score) {
         this.score = score;
     }
 
-    public void setCompleted(boolean completed) {
-        this.isCompleted = completed;
+    public void setHintsUsed(int hintsUsed) {
+        this.hintsUsed = hintsUsed;
+    }
+
+    public void setCompleted(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+
+    @Override
+    public String toString() {
+        return "Room: " + (room != null ? room.getTitle() : "Unknown") +
+               " | Score: " + score +
+               " | Hints Used: " + hintsUsed +
+               " | Completed: " + isCompleted;
     }
 }

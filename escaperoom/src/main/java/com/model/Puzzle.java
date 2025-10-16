@@ -82,4 +82,12 @@ public abstract class Puzzle {
     public void setSolved(boolean solved) {
         this.isSolved = solved;
     }
+
+    public String getSolution() { 
+        return solution; 
+    }
+
+    public void setSolved(boolean solved) { 
+        isSolved = solved; 
+    }
 }

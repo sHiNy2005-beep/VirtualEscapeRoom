@@ -1,147 +1,99 @@
 package com.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class Room {
-    @JsonProperty("roomId")
-    private String roomId;
-    
-    @JsonProperty("title")
+
+    private String roomId = UUID.randomUUID().toString();
     private String title;
-    
-    @JsonProperty("items")
     private ArrayList<String> items;
-    
-    @JsonProperty("difficulty")
     private String difficulty;
-    
-    @JsonProperty("isLocked")
     private boolean isLocked;
-    
-    @JsonProperty("puzzles")
     private ArrayList<Puzzle> puzzles;
-    
-    // @JsonProperty("gameSessions")
-    // private Map<UUID, GameSession> gameSessions;
-    
-    public Room() {
-        this.roomId = UUID.randomUUID().toString();
-        this.puzzles = new ArrayList<>();
-        this.items = new ArrayList<>();
-        // this.gameSessions = new HashMap<>();
-    }
-    
+    private HashMap<User, Integer> leaderboard;
+
     public Room(String title, String difficulty, boolean isLocked) {
-        this.roomId = UUID.randomUUID().toString();
         this.title = title;
         this.difficulty = difficulty;
         this.puzzles = new ArrayList<>();
         this.items = new ArrayList<>();
         this.isLocked = isLocked;
-        // this.gameSessions = new HashMap<>();
+        this.leaderboard = new HashMap<>();
     }
-    
-    public String getRoomId() {
-        return roomId;
+
+    public ArrayList<Puzzle>getPuzzles() { 
+        return puzzles; 
     }
-    
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
-    }
-    
-    public String getTitle() {
-        return title;
-    }
-    
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    
-    public ArrayList<String> getItems() {
-        return items;
-    }
-    
-    public void setItems(ArrayList<String> items) {
-        this.items = items;
-    }
-    
-    public String getDifficulty() {
-        return difficulty;
-    }
-    
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-    
-    public boolean isLocked() {
-        return isLocked;
-    }
-    
-    public void setLocked(boolean locked) {
-        this.isLocked = locked;
-    }
-    
-    public ArrayList<Puzzle> getPuzzles() {
-        return puzzles;
-    }
-    
-    public void setPuzzles(ArrayList<Puzzle> puzzles) {
-        this.puzzles = puzzles;
-    }
-    
-    // public Map<UUID, GameSession> getGameSessions() {
-    //     return gameSessions;
-    // }
-    
-    // public void setGameSessions(Map<UUID, GameSession> gameSessions) {
-    //     this.gameSessions = gameSessions;
-    // }
-    
-    public void addPuzzle(Puzzle puzzle) {
-        if (puzzle != null) {
+
+    public void addPuzzle(String puzzleId, Puzzle puzzle) {
+         if (puzzle != null) {
             puzzles.add(puzzle);
         }
     }
-    
+
+    public HashMap<User, Integer> getLeaderboard() { 
+        return leaderboard; 
+    }
+
     public void addItem(String item) {
-        if (item != null) {
-            items.add(item);
+         if (item != null) {
+            items.add(item); 
+         }
+    }
+
+    public ArrayList<String> getItems() { 
+        return items; 
+    }
+
+    public String getTitle() { 
+        return title; 
+    }
+
+    public String getDifficulty() { 
+        return difficulty; 
+    }
+
+    public boolean isLocked() { 
+        return isLocked; 
+    }
+
+    public void setTitle(String title) {
+         this.title = title;
+   } 
+
+    public void setDifficulty(String difficulty) {
+         this.difficulty = difficulty; 
+    }
+
+    public void setLocked(boolean locked) { 
+        this.isLocked = locked; 
+    }
+
+    public String getRoomId() { 
+        return roomId; 
+    }
+
+    public void setRoomId(String roomId) { 
+        this.roomId = roomId; 
+    }
+
+   @Override
+public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb.append("Room: ").append(title)
+      .append(" | Difficulty: ").append(difficulty)
+      .append(" | Items: ").append(items);
+
+    if (!puzzles.isEmpty()) {
+        sb.append("\n  Puzzles:");
+        for (Puzzle p : puzzles) {
+            sb.append("\n    - ").append(p.getTitle())
+              .append(" (").append(p.getDescription()).append(")");
         }
     }
-    
-    // public void addGameSession(GameSession session) {
-    //     if (session != null) {
-    //         gameSessions.put(session.getSessionId(), session);
-    //     }
-    // }
-    
-    // public GameSession getGameSession(UUID sessionId) {
-    //     return gameSessions.get(sessionId);
-    // }
-    
-    // public void removeGameSession(UUID sessionId) {
-    //     gameSessions.remove(sessionId);
-    // }
-    
-    @Override
-    public String toString() {
-        return "Room:" + "title='" + title + '\'' + ", difficulty='" + difficulty + '\'' + ", items=" + items;
-    }
-    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Room room = (Room) o;
-        return roomId != null && roomId.equals(room.roomId);
-    }
-    
-    @Override
-    public int hashCode() {
-        return roomId != null ? roomId.hashCode() : 0;
-    }
+    return sb.toString();
+}
+
 }
