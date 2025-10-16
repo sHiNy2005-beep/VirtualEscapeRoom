@@ -34,5 +34,20 @@
     "items": ["shovel", "rope"],
     "difficulty": "Medium",
     "isLocked": false
+},
+{
+    "title": "Bedroom",
+    "roomId": "room_003",
+    "leaderboard": {"user": "score"},
+    "puzzles": [{
+        "title": "Ghost Riddle",
+        "type": "Riddle",
+        "description": "Solve the riddle whispered by the ghost.",
+        "solution": "silence",
+        "hints": ["Think about what can be heard but has no sound"]
+    }],
+    "items": ["ancient key", "torn map", "lantern", "glove", "candle"],
+    "difficulty": "Hard",
+    "isLocked": true
 }
 ]
