@@ -28,6 +28,7 @@ public class User {
         this.sessions = new ArrayList<>();
     }
 
+
     
     public UUID getUserId() { 
         return userId; 
