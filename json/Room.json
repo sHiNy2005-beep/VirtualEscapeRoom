@@ -1,14 +1,14 @@
 [{
     "title": "Library",
+    "roomId": "room_001",
+    "leaderboard": {"user": "score"},
     "puzzles": [{
-        "puzzleId": "puzzle-101",
         "title": "Book Cipher",
         "type": "Code",
         "description": "Decode the hidden message using the book cipher method.",
         "solution": "knowledgeispower",
         "hints": ["Check the first letter of each word", "Look at the index numbers in the margin"]
     }, {
-        "puzzleId": "puzzle-102",
         "title": "Ghost Riddle",
         "type": "Riddle",
         "description": "Solve the riddle whispered by the ghost.",
@@ -20,8 +20,9 @@
     "isLocked": true
 }, {
     "title": "Study",
+    "roomId": "room_002",
+    "leaderboard": {"user": "score"},
     "puzzles": [{
-        "puzzleId": "puzzle-201",
         "title": "Gemstone Pattern",
         "type": "Item",
         "description": "Arrange the gemstones in the correct order.",
