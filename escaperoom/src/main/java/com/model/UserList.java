@@ -34,5 +34,10 @@ public class UserList
       DataWriter.saveUsers();
     }
 
+    public boolean authenticate(String username, String password) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'authenticate'");
+    }
+
 
 }
