@@ -14,14 +14,12 @@ public class EscapeRoomFacade {
         this.roomList = RoomList.getInstance();
     }
 
-    public User login(String username, String password) {
-        for (User u : userList.getUsers()) {
-            if (u.getUserName().equals(username) && u.getPassword().equals(password)) {
-                currentUser = u;
-                return u;
-            }
-        }
-        return null;
+    public boolean login(String username, String password) {
+        currentUser = userList.authenticate(username, password);
+        if (currentUser != null)
+            return true;
+        else
+            return false;
     }
 
     public GameSession startGame(Room room) {

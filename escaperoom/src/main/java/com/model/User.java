@@ -5,7 +5,7 @@ import java.util.UUID;;
 
 public class User {
     private UUID userId;
-    private String username;
+    public String username;
     private String email;
     private String password;
     private ArrayList<GameSession> sessions;
@@ -33,7 +33,7 @@ public class User {
         return userId; 
     }
 
-    public String getUserName() {
+    public String getUsername() {
          return username; 
     }
 
