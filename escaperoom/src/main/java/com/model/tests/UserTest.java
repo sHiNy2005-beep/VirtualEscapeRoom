@@ -1,4 +1,4 @@
-package test;
+package com.model.tests;
 
 import com.model.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
