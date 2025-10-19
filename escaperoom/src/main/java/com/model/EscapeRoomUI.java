@@ -74,12 +74,6 @@ public class EscapeRoomUI {
         
     }
 
-      
-
-
-
-    
-
 
     public void scenario2() {
         System.out.println("Scenario 2: ");
@@ -110,41 +104,6 @@ public class EscapeRoomUI {
             }
         }
 
-<<<<<<< HEAD
-        if (selectedRoom != null) {
-            GameSession session = facade.startGame(selectedRoom);
-            if (session != null) {
-                System.out.println("Entered the Library.");
-
-                System.out.println("Using a hint...");
-                facade.useHint(session);
-                
-                System.out.println("Solving puzzle...");
-                boolean solved = facade.submitAnswer(session, "BOOK123");
-                if (solved) {
-                    System.out.println("Puzzle solved successfully!");
-                } else {
-                    System.out.println("Incorrect solution. Try again!");
-                }
-
-                System.out.println("Ending game...");
-                facade.endGame();
-                System.out.println("Game ended.");
-            } else {
-                System.out.println("Could not start game.");
-            }
-        } else {
-            System.out.println("Could not start game.");
-        }
-    }
-
-
-            
-      
-    
-    public void scenario3(){
-        
-=======
       }
 
 
@@ -179,7 +138,6 @@ public class EscapeRoomUI {
             }
         }
 
->>>>>>> 8b571e06dd57020a62a529f7e1fc5298186aa7bb
     }
     
 
