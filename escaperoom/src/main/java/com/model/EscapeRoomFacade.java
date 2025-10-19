@@ -28,6 +28,10 @@ public class EscapeRoomFacade {
         return false;
     }
 
+    public void logout() {
+            System.out.println(currentUser.getUserName() + " logging out.");
+        }
+
 
     public GameSession startGame(Room room) {
         if (currentUser == null) return null;
