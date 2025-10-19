@@ -176,9 +176,9 @@ public class EscapeRoomUI {
             System.out.println("Incorrect answer. Try again.");
         }
 
-        facade.logout();
         facade.endGame();
         System.out.println("Game ended. Progress saved.");
+        facade.logout();
     }
     
 
