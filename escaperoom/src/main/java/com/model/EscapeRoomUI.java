@@ -63,17 +63,16 @@ public class EscapeRoomUI {
         facade.useHint(firstPuzzle.getTitle());
         System.out.println("Submitting answer 'knowledgeispower'...");
         facade.submitAnswer(firstPuzzle.getTitle(), "knowledgeispower");
-
+        if(firstPuzzle.isSolved()) {
+            System.out.println("Puzzle solved!");
+        } else {
+            System.out.println("Incorrect answer. Try again.");
+        }
+       
         facade.endGame();
         System.out.println("Game ended. Progress saved.");
         
     }
-
-      
-
-
-
-    
 
 
     public void scenario2() {
@@ -162,6 +161,20 @@ public class EscapeRoomUI {
             } else {
                 System.out.println("Could not start game.");
             }
+        }
+
+        Room room = facade.getAllRooms().get(0);
+        Puzzle StudyPuzzle = room.getPuzzles().get(0);
+
+        System.out.println("Puzzle: " + StudyPuzzle.getTitle());
+        System.out.println("Description: " + StudyPuzzle.getDescription());
+
+        System.out.println("Submitting answer 'red-blue-green-yellow'...");
+        facade.submitAnswer(StudyPuzzle.getTitle(), "red-blue-green-yellow");
+        if(StudyPuzzle.isSolved()) {
+            System.out.println("Puzzle solved!");
+        } else {
+            System.out.println("Incorrect answer. Try again.");
         }
     }
     
