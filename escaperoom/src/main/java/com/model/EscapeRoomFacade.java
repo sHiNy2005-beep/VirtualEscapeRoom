@@ -79,6 +79,14 @@ public class EscapeRoomFacade {
         return "Puzzle not found.";
     }
 
+    public User getCurrentUser() {
+        return currentUser;
+    }
+
+    public ArrayList<Room> getRoomList() {
+        return roomList.getRooms();
+    }
+
     public void endGame() {
         if (currentSession != null) currentSession.endSession();
         DataWriter.saveUsers();
