@@ -15,6 +15,7 @@ public class EscapeRoomUI {
     System.out.println("Welcome to the Virtual Escape Room!");
 		scenario1(); //login, list rooms, select room, start game, solve puzzle, end game
 		scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
+        scenario3();// 
 	}
 
 
@@ -58,17 +59,25 @@ public class EscapeRoomUI {
 
 
     }
-
-
-	
-
     public void scenario2() {
 		System.out.println("Scenario 2: ");
-        
 
-		
-    }
+        if(!facade.login("charlie_x","DianaStrong*77")){
+            System.out.println("Sorry we couldn't login.");
+            return;
+        }
+        System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
+
+
+        System.out.println("\nSelected room: Library...");
+
+        
     
+    public void scenario3(){
+        
+    }
+
+
 
 
     public static void main(String[] args) {
