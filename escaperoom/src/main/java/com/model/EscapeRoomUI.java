@@ -61,6 +61,7 @@ public class EscapeRoomUI {
         System.out.println("Description: " + firstPuzzle.getDescription());
 
         facade.useHint(firstPuzzle.getTitle());
+        System.out.println("Submitting answer 'knowledgeispower'...");
         facade.submitAnswer(firstPuzzle.getTitle(), "knowledgeispower");
 
         facade.endGame();
