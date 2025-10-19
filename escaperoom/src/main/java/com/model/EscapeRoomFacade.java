@@ -1,13 +1,17 @@
 package com.model;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
+import java.util.Map;
 public class EscapeRoomFacade {
     private UserList userList;
     private RoomList roomList;
     private GameSession currentSession;
     private User currentUser;
     private Room currentRoom;
+    private Map<String, Integer> sessionProgress = new HashMap<>();
+
+    
 
     public EscapeRoomFacade() {
         this.userList = UserList.getInstance();
@@ -91,5 +95,22 @@ public class EscapeRoomFacade {
         if (currentSession != null) currentSession.endSession();
         DataWriter.saveUsers();
         DataWriter.saveRooms();
+    }
+
+    
+    public boolean signUp(String username, String password, String displayName) {
+        if (username == null || password == null || displayName == null) return false;
+        username = username.trim();
+        if (username.isEmpty() || password.isEmpty()) return false;
+
+        for (User u : userList.getUsers()) {
+            if (u.getUserName().equalsIgnoreCase(username)) {
+                return false; // for the username 
+            }
+        }
+        User newUser = new User(username, password, displayName);
+        userList.addUser(newUser);
+        DataWriter.saveUsers();
+        return true;
     }
 }

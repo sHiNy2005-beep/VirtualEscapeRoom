@@ -59,18 +59,64 @@ public class EscapeRoomUI {
 
     }
     public void scenario2() {
-		System.out.println("Scenario 2: ");
+        System.out.println("Scenario 2: ");
 
-        if(!facade.login("charlie_x","DianaStrong*77")){
+        // Sign up AND login
+        if (!facade.signUp("diana_k", "DianaStrong*77", "Diana K")) {
+            System.out.println("User already exists or could not sign up.");
+        }
+
+        if (!facade.login("diana_k", "DianaStrong*77")) {
             System.out.println("Sorry we couldn't login.");
             return;
         }
-        System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
+        System.out.println("Logged in as " + facade.getCurrentUser().getUserName());
 
+        ArrayList<Room> rooms = facade.getRoomList();
+        System.out.println("\nAvailable Rooms:");
+        for (Room r : rooms) {
+            System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
+        }
 
         System.out.println("\nSelected room: Library...");
 
-        
+        Room selectedRoom = null;
+        for (Room r : rooms) {
+            if ("Library".equals(r.getTitle())) {
+                selectedRoom = r;
+                break;
+            }
+        }
+
+        if (selectedRoom != null) {
+            GameSession session = facade.startGame(selectedRoom);
+            if (session != null) {
+                System.out.println("Entered the Library.");
+
+                System.out.println("Using a hint...");
+                facade.useHint(session);
+                
+                System.out.println("Solving puzzle...");
+                boolean solved = facade.submitAnswer(session, "BOOK123");
+                if (solved) {
+                    System.out.println("Puzzle solved successfully!");
+                } else {
+                    System.out.println("Incorrect solution. Try again!");
+                }
+
+                System.out.println("Ending game...");
+                facade.endGame();
+                System.out.println("Game ended.");
+            } else {
+                System.out.println("Could not start game.");
+            }
+        } else {
+            System.out.println("Could not start game.");
+        }
+    }
+
+
+            
     
     public void scenario3(){
         
