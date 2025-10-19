@@ -5,7 +5,7 @@
             {
                 "score": 8500,
                 "startTime": 1728316800000,
-                "sessionId": "sessions1760618992151",
+                "sessionId": "sessions1760907478170",
                 "endTime": 1728320400000,
                 "hintsUsed": 2,
                 "inventory": [
@@ -16,14 +16,14 @@
                 "room": {
                     "difficulty": "Medium",
                     "title": "Mystery Manor",
-                    "roomId": "ac604edc-f6f8-4784-be57-1618b0eea007"
+                    "roomId": "008a4a85-fcca-40d9-8b38-e0b88e734f38"
                 },
                 "isCompleted": true
             },
             {
                 "score": 12000,
                 "startTime": 1728403200000,
-                "sessionId": "sessions1760618992151",
+                "sessionId": "sessions1760907478170",
                 "endTime": 1728408600000,
                 "hintsUsed": 1,
                 "inventory": [
@@ -35,12 +35,12 @@
                 "room": {
                     "difficulty": "Hard",
                     "title": "Haunted Library",
-                    "roomId": "e0816db9-ffa6-4f5d-b71b-2de9eb463c87"
+                    "roomId": "a0a4bce0-d034-41a4-9a8d-508755d5e876"
                 },
                 "isCompleted": true
             }
         ],
-        "userId": "84db5663-7f29-45d5-a47b-030702141f23",
+        "userId": "062a1ce1-4c98-4646-b34d-b986b558b977",
         "email": "alice123@example.com",
         "username": "alice123"
     },
@@ -50,7 +50,7 @@
             {
                 "score": 5000,
                 "startTime": 1728230400000,
-                "sessionId": "sessions1760618992151",
+                "sessionId": "sessions1760907478170",
                 "endTime": 1728232200000,
                 "hintsUsed": 5,
                 "inventory": [
@@ -60,12 +60,12 @@
                 "room": {
                     "difficulty": "Easy",
                     "title": "Cyber Vault",
-                    "roomId": "aafb8c1e-0222-41fe-b3a9-89861f1bc905"
+                    "roomId": "ea07e5a6-9b8b-47fc-9a38-63f49b98e6cf"
                 },
                 "isCompleted": true
             }
         ],
-        "userId": "a1bff22c-5d3b-4230-8051-75de99cd231f",
+        "userId": "6e9e6592-6a0c-4f16-ac25-bbe792716fdb",
         "email": "bob.dev@example.com",
         "username": "bob_dev"
     },
@@ -75,7 +75,7 @@
             {
                 "score": 3200,
                 "startTime": 1728489600000,
-                "sessionId": "sessions1760618992151",
+                "sessionId": "sessions1760907478170",
                 "endTime": 0,
                 "hintsUsed": 3,
                 "inventory": [
@@ -86,14 +86,14 @@
                 "room": {
                     "difficulty": "Medium",
                     "title": "Pirate's Cove",
-                    "roomId": "3fdee9c7-13f1-4d11-be24-70f631e5218d"
+                    "roomId": "6c9c6899-ab29-484d-9d11-acc1e8914f0f"
                 },
                 "isCompleted": false
             },
             {
                 "score": 7200,
                 "startTime": 1728144000000,
-                "sessionId": "sessions1760618992151",
+                "sessionId": "sessions1760907478170",
                 "endTime": 1728147600000,
                 "hintsUsed": 4,
                 "inventory": [
@@ -103,19 +103,19 @@
                 "room": {
                     "difficulty": "Medium",
                     "title": "Mystery Manor",
-                    "roomId": "c79cabdc-7b7c-4e3d-b4b7-75ea89ff97b0"
+                    "roomId": "4b12663d-b107-457f-9361-1f27965591c6"
                 },
                 "isCompleted": true
             }
         ],
-        "userId": "80aab336-12b0-4c49-899c-f78f18d6bcbb",
+        "userId": "c1978d4e-f450-4ce6-a303-d1de95b57899",
         "email": "charlie.x@example.com",
         "username": "charlie_x"
     },
     {
         "password": "DianaStrong*77",
         "sessions": [],
-        "userId": "bde6eaec-b704-4cf0-a9bb-bd844f28a747",
+        "userId": "5a5c983b-78f4-46e3-a604-f168fd2080fd",
         "email": "diana.k@example.com",
         "username": "diana_k"
     }
