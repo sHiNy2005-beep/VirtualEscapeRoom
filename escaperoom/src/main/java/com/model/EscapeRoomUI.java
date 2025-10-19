@@ -90,7 +90,7 @@ public class EscapeRoomUI {
         }
         System.out.println("Logged in as " + facade.getCurrentUser().getUserName());
 
-        ArrayList<Room> rooms = facade.getRoomList();
+        ArrayList<Room> rooms = facade.getAllRooms();
         System.out.println("\nAvailable Rooms:");
         for (Room r : rooms) {
             System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
@@ -104,8 +104,6 @@ public class EscapeRoomUI {
                 break;
             }
         }
-
-<<<<<<< HEAD
         if (selectedRoom != null) {
             GameSession session = facade.startGame(selectedRoom);
             if (session != null) {
@@ -135,12 +133,7 @@ public class EscapeRoomUI {
 
 
             
-      
     
-    public void scenario3(){
-        
-=======
-      }
 
 
     public void scenario3()
@@ -174,7 +167,6 @@ public class EscapeRoomUI {
             }
         }
 
->>>>>>> 8b571e06dd57020a62a529f7e1fc5298186aa7bb
     }
     
 
