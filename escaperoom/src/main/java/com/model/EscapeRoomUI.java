@@ -33,10 +33,33 @@ public class EscapeRoomUI {
             System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
         }
 
+        System.out.println("\nStarting room: Bedroom...");
+        Room selectedRoom = null;
+        for (Room r : rooms) {
+            if ("Bedroom".equals(r.getTitle())) {
+                selectedRoom = r;
+                break;
+            }
+        }
+        if (selectedRoom != null) {
+            GameSession session = facade.startGame(selectedRoom);
+            if (session != null) {
+                System.out.println("Entered the Bedroom.");
+            } else {
+                System.out.println("Could not start game.");
+            }
+        } else {
+            System.out.println("Could not start game.");
+        }
+
+      
 
 
 
-	}
+    }
+
+
+	
 
     public void scenario2() {
 		System.out.println("Scenario 2: ");
