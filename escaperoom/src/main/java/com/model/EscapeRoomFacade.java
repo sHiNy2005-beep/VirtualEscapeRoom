@@ -24,6 +24,7 @@ public class EscapeRoomFacade {
         return false;
     }
 
+
     public GameSession startGame(Room room) {
         if (currentUser == null) return null;
         this.currentRoom = room;
@@ -46,6 +47,16 @@ public class EscapeRoomFacade {
         if (currentRoom == null) return new ArrayList<>();
         return currentRoom.getPuzzles();
     }
+
+    public Puzzle getPuzzleByTitle(String title) {
+        if (currentRoom == null) return null;
+        for (Puzzle p : currentRoom.getPuzzles()) {
+            if (p.getTitle().equalsIgnoreCase(title)) {
+                return p;
+            }
+        }
+        return null;
+    }   
 
     
     public boolean submitAnswer(String puzzleTitle, String answer) {
