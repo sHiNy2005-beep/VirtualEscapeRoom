@@ -106,8 +106,8 @@ public class EscapeRoomFacade {
     }
 
     
-    public boolean signUp(String username, String password, String displayName) {
-        if (username == null || password == null || displayName == null) return false;
+    public boolean signUp(String username, String password) {
+        if (username == null || password == null ) return false;
         username = username.trim();
         if (username.isEmpty() || password.isEmpty()) return false;
 
@@ -116,9 +116,10 @@ public class EscapeRoomFacade {
                 return false; // for the username 
             }
         }
-        User newUser = new User(username, password, displayName);
+        User newUser = new User(username, password, null);
         userList.addUser(newUser);
         DataWriter.saveUsers();
         return true;
     }
+
 }

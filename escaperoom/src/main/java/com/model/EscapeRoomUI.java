@@ -80,7 +80,7 @@ public class EscapeRoomUI {
         System.out.println("Scenario 2: ");
 
         // Sign up AND login
-        if (!facade.signUp("diana_k", "DianaStrong*77", "Diana K")) {
+        if (!facade.signUp("diana_k", "DianaStrong*77")) {
             System.out.println("User already exists or could not sign up.");
         }
 
@@ -99,7 +99,7 @@ public class EscapeRoomUI {
         System.out.println("\nSelected room: Library...");
         Room selectedRoom = null;
         for (Room r : rooms) {
-            if ("Library".equals(r.getTitle())) {
+            if ("Library".equalsIgnoreCase(r.getTitle())) {
                 selectedRoom = r;
                 break;
             }
@@ -109,11 +109,16 @@ public class EscapeRoomUI {
             if (session != null) {
                 System.out.println("Entered the Library.");
 
+                Puzzle puzzle = selectedRoom.getPuzzles().get(0);
+                System.out.println("Puzzle: " + puzzle.getTitle());
+                System.out.println("Description: " + puzzle.getDescription());
+
                 System.out.println("Using a hint...");
-                facade.useHint(session);
-                
-                System.out.println("Solving puzzle...");
-                boolean solved = facade.submitAnswer(session, "BOOK123");
+                String hint = facade.useHint(session);  
+                System.out.println("Hint: " + hint);
+
+                System.out.println("Submitting answer 'knowledgeispower'...");
+                boolean solved = facade.submitAnswer(puzzle.getTitle(), "knowledgeispower");
                 if (solved) {
                     System.out.println("Puzzle solved successfully!");
                 } else {
@@ -122,7 +127,7 @@ public class EscapeRoomUI {
 
                 System.out.println("Ending game...");
                 facade.endGame();
-                System.out.println("Game ended.");
+                System.out.println("Game ended. Progress saved.");
             } else {
                 System.out.println("Could not start game.");
             }
