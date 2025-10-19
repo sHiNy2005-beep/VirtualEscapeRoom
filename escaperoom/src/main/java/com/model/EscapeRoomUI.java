@@ -7,6 +7,7 @@ public class EscapeRoomUI {
 
   private EscapeRoomFacade facade;
 
+
    EscapeRoomUI(){
     facade =new EscapeRoomFacade();
    }
@@ -28,7 +29,7 @@ public class EscapeRoomUI {
         }
         System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
 
-        ArrayList<Room> rooms = facade.getRoomList();
+        ArrayList<Room> rooms = facade.getAllRooms();
         System.out.println("\nAvailable Rooms:");
         for (Room r : rooms) {
             System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
@@ -53,11 +54,28 @@ public class EscapeRoomUI {
             System.out.println("Could not start game.");
         }
 
+        Room room = facade.getAllRooms().get(0);
+        Puzzle firstPuzzle = room.getPuzzles().get(0);
+
+        System.out.println("Puzzle: " + firstPuzzle.getTitle());
+        System.out.println("Description: " + firstPuzzle.getDescription());
+
+        facade.useHint(firstPuzzle.getTitle());
+        System.out.println("Submitting answer 'knowledgeispower'...");
+        facade.submitAnswer(firstPuzzle.getTitle(), "knowledgeispower");
+
+        facade.endGame();
+        System.out.println("Game ended. Progress saved.");
+        
+    }
+
       
 
 
 
-    }
+    
+
+
     public void scenario2() {
         System.out.println("Scenario 2: ");
 
@@ -79,7 +97,6 @@ public class EscapeRoomUI {
         }
 
         System.out.println("\nSelected room: Library...");
-
         Room selectedRoom = null;
         for (Room r : rooms) {
             if ("Library".equals(r.getTitle())) {
@@ -117,6 +134,7 @@ public class EscapeRoomUI {
 
 
             
+      
     
     public void scenario3(){
         
