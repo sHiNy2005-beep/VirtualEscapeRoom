@@ -16,7 +16,7 @@ public class EscapeRoomUI {
     System.out.println("Welcome to the Virtual Escape Room!");
 		scenario1(); //login, list rooms, select room, start game, solve puzzle, end game
 		scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
-        scenario3();// 
+        scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game 
 	}
 
 
@@ -82,25 +82,106 @@ public class EscapeRoomUI {
 
 
     public void scenario2() {
-		System.out.println("Scenario 2: ");
+        System.out.println("Scenario 2: ");
 
-        if(!facade.login("charlie_x","DianaStrong*77")){
+        // Sign up AND login
+        if (!facade.signUp("diana_k", "DianaStrong*77", "Diana K")) {
+            System.out.println("User already exists or could not sign up.");
+        }
+
+        if (!facade.login("diana_k", "DianaStrong*77")) {
             System.out.println("Sorry we couldn't login.");
             return;
         }
-        System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
+        System.out.println("Logged in as " + facade.getCurrentUser().getUserName());
 
+        ArrayList<Room> rooms = facade.getRoomList();
+        System.out.println("\nAvailable Rooms:");
+        for (Room r : rooms) {
+            System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
+        }
 
         System.out.println("\nSelected room: Library...");
+        Room selectedRoom = null;
+        for (Room r : rooms) {
+            if ("Library".equals(r.getTitle())) {
+                selectedRoom = r;
+                break;
+            }
+        }
 
-      }
-    
-    public void scenario3(){
-        
+<<<<<<< HEAD
+        if (selectedRoom != null) {
+            GameSession session = facade.startGame(selectedRoom);
+            if (session != null) {
+                System.out.println("Entered the Library.");
+
+                System.out.println("Using a hint...");
+                facade.useHint(session);
+                
+                System.out.println("Solving puzzle...");
+                boolean solved = facade.submitAnswer(session, "BOOK123");
+                if (solved) {
+                    System.out.println("Puzzle solved successfully!");
+                } else {
+                    System.out.println("Incorrect solution. Try again!");
+                }
+
+                System.out.println("Ending game...");
+                facade.endGame();
+                System.out.println("Game ended.");
+            } else {
+                System.out.println("Could not start game.");
+            }
+        } else {
+            System.out.println("Could not start game.");
+        }
     }
 
 
+            
+      
+    
+    public void scenario3(){
+        
+=======
+      }
 
+
+    public void scenario3()
+    {
+        System.out.println("Scenario 3: ");
+        if(!facade.login("diana_k", "DianaStrong*77"))
+            System.out.println("Sorry we couldn't login.");
+
+        System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
+
+        ArrayList<Room> rooms = facade.getAllRooms();
+        System.out.println("\nAvailable Rooms:");
+        for (Room r : rooms) {
+            System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
+        }
+
+        System.out.println("\nStarting room: Study...");
+        Room selectedRoom = null;
+        for (Room r : rooms) {
+            if ("Study".equals(r.getTitle())) {
+                selectedRoom = r;
+                break;
+            }
+        }
+        if (selectedRoom != null) {
+            GameSession session = facade.startGame(selectedRoom);
+            if (session != null) {
+                System.out.println("Entered the Study.");
+            } else {
+                System.out.println("Could not start game.");
+            }
+        }
+
+>>>>>>> 8b571e06dd57020a62a529f7e1fc5298186aa7bb
+    }
+    
 
     public static void main(String[] args) {
 		EscapeRoomUI EscaperoomInterface = new EscapeRoomUI();
