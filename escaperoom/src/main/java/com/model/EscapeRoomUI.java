@@ -105,7 +105,6 @@ public class EscapeRoomUI {
             }
         }
 
-<<<<<<< HEAD
         if (selectedRoom != null) {
             GameSession session = facade.startGame(selectedRoom);
             if (session != null) {
@@ -134,19 +133,10 @@ public class EscapeRoomUI {
     }
 
 
-            
-      
-    
-    public void scenario3(){
-        
-=======
-      }
-
-
     public void scenario3()
     {
         System.out.println("Scenario 3: ");
-        if(!facade.login("diana_k", "DianaStrong*77"))
+        if(!facade.login("charlie_x", "CharPwd@123"))
             System.out.println("Sorry we couldn't login.");
 
         System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
@@ -173,8 +163,6 @@ public class EscapeRoomUI {
                 System.out.println("Could not start game.");
             }
         }
-
->>>>>>> 8b571e06dd57020a62a529f7e1fc5298186aa7bb
     }
     
 
