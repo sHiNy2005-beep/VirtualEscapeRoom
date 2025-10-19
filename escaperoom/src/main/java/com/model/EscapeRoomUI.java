@@ -63,7 +63,12 @@ public class EscapeRoomUI {
         facade.useHint(firstPuzzle.getTitle());
         System.out.println("Submitting answer 'knowledgeispower'...");
         facade.submitAnswer(firstPuzzle.getTitle(), "knowledgeispower");
-
+        if(firstPuzzle.isSolved()) {
+            System.out.println("Puzzle solved!");
+        } else {
+            System.out.println("Incorrect answer. Try again.");
+        }
+       
         facade.endGame();
         System.out.println("Game ended. Progress saved.");
         
