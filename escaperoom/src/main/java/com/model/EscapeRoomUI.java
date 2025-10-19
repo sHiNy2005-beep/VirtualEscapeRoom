@@ -27,7 +27,7 @@ public class EscapeRoomUI {
         }
         System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
 
-        ArrayList<Room> rooms = facade.getRoomList();
+        ArrayList<Room> rooms = facade.getAllRooms();
         System.out.println("\nAvailable Rooms:");
         for (Room r : rooms) {
             System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
@@ -51,6 +51,7 @@ public class EscapeRoomUI {
         } else {
             System.out.println("Could not start game.");
         }
+
 
       
 

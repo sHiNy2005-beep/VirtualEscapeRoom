@@ -83,9 +83,6 @@ public class EscapeRoomFacade {
         return currentUser;
     }
 
-    public ArrayList<Room> getRoomList() {
-        return roomList.getRooms();
-    }
 
     public void endGame() {
         if (currentSession != null) currentSession.endSession();
