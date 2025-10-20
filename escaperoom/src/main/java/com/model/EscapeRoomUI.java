@@ -15,11 +15,11 @@ public class EscapeRoomUI {
    }
     
 	public void run() {
-    System.out.println("Welcome to the Virtual Escape Room!");
+    System.out.println("\n****Welcome to the Virtual Escape Room!****");
 		scenario1(); //login, list rooms, select room, start game, solve puzzle, end game
 		scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
-        scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game
-        scenario4(); //login, search for an easy room, and check the leaderboard for aformentioned room
+    scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game
+    scenario4(); //login, search for an easy room, and check the leaderboard for aformentioned room
 	}
 
 
@@ -57,29 +57,28 @@ public class EscapeRoomUI {
             System.out.println("Could not start game.");
         }
 
-        Room room = facade.getAllRooms().get(0);
-        Puzzle firstPuzzle = room.getPuzzles().get(0);
+        Puzzle puzzle = selectedRoom.getPuzzles().get(0);
+                System.out.println("Puzzle: " + puzzle.getTitle());
+                System.out.println("Description: " + puzzle.getDescription());
+        System.out.println("Submitting answer 'silence'...");
+                boolean solved = facade.submitAnswer(puzzle.getTitle(), "silence");
+                if (solved) {
+                    System.out.println("Puzzle solved successfully!");
+                } else {
+                    System.out.println("Incorrect solution. Try again!");
+                }
 
-        System.out.println("Puzzle: " + firstPuzzle.getTitle());
-        System.out.println("Description: " + firstPuzzle.getDescription());
 
-        System.out.println("Submitting answer 'knowledgeispower'...");
-        facade.submitAnswer(firstPuzzle.getTitle(), "knowledgeispower");
-
+        System.out.println("Ending game...");
         facade.endGame();
         System.out.println("Game ended. Progress saved.");
         
     }
 
-      
-
-
-
-    
 
 
     public void scenario2() {
-        System.out.println("Scenario 2: ");
+        System.out.println("\nScenario 2: ");
 
         // Sign up AND login
         if (!facade.signUp("diana_k", "DianaStrong*77")) {
@@ -145,7 +144,7 @@ public class EscapeRoomUI {
 
     public void scenario3()
     {
-        System.out.println("Scenario 3: ");
+        System.out.println("\nScenario 3: ");
         if(!facade.login("charlie_x", "CharPwd@123"))
             System.out.println("Sorry we couldn't login.");
 
@@ -194,7 +193,7 @@ public class EscapeRoomUI {
     }
 
     public void scenario4() {
-        System.out.println("Scenario 4: ");
+        System.out.println("\nScenario 4: ");
     
         if (!facade.login("alice123", "Alice!2025Secure")) {
             System.out.println("Sorry we couldn't login.");
