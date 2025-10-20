@@ -116,7 +116,7 @@ public class EscapeRoomUI {
                 System.out.println("Description: " + puzzle.getDescription());
 
                 System.out.println("Using a hint...");
-                String hint = facade.useHint(session);  
+                String hint = facade.useHint(puzzle.getTitle());  
                 System.out.println("Hint: " + hint);
 
                 System.out.println("Submitting answer 'knowledgeispower'...");

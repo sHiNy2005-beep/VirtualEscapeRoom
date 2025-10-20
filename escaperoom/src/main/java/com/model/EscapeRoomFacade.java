@@ -85,10 +85,10 @@ public class EscapeRoomFacade {
     }
 
     
-    public String useHint(GameSession session) {
+    public String useHint(String puzzleTitle) {
         if (currentRoom == null) return "No room!";
         for (Puzzle p : currentRoom.getPuzzles()) {
-            if (p.getTitle().equalsIgnoreCase(session)) {
+            if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
                 currentSession.useHint();
                 if (!p.getHints().isEmpty()) {
                     return p.getHints().get(Math.min(currentSession.getHintsUsed()-1, p.getHints().size()-1));
