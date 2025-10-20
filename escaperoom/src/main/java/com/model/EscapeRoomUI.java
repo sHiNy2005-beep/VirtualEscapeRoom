@@ -1,6 +1,8 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class EscapeRoomUI {
@@ -16,7 +18,8 @@ public class EscapeRoomUI {
     System.out.println("Welcome to the Virtual Escape Room!");
 		scenario1(); //login, list rooms, select room, start game, solve puzzle, end game
 		scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
-        scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game 
+        scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game
+        scenario4(); //login, search for an easy room, and check the leaderboard for aformentioned room
 	}
 
 
@@ -189,7 +192,52 @@ public class EscapeRoomUI {
         System.out.println("Game ended. Progress saved.");
         facade.logout();
     }
+
+    public void scenario4() {
+        System.out.println("Scenario 4: ");
     
+        if (!facade.login("alice123", "Alice!2025Secure")) {
+            System.out.println("Sorry we couldn't login.");
+            return;
+        }
+        System.out.println("Logged in as " + facade.getCurrentUser().getUserName());
+    
+        ArrayList<Room> rooms = facade.getAllRooms();
+        System.out.println("\nSearching for Easy difficulty rooms...");
+    
+        boolean foundEasyRoom = false;
+        for (Room r : rooms) {
+            if ("Easy".equalsIgnoreCase(r.getDifficulty())) {
+                foundEasyRoom = true;
+                System.out.println("\n--- Room: " + r.getTitle() + " (" + r.getDifficulty() + ") ---");
+            
+                ArrayList<String> leaderboard = facade.displayLeaderboard(r);
+            
+                if (leaderboard.isEmpty() || leaderboard.get(0).equals("No scores recorded yet")) {
+                    System.out.println("No scores recorded yet for this room.");
+                } else {
+                    System.out.println("Leaderboard:");
+                    System.out.println("Rank | Username | Score");
+                    System.out.println("-----|----------|-------");
+                    for (String entry : leaderboard) {
+                        String[] parts = entry.split("\\|");
+                        if (parts.length == 3) {
+                            System.out.println(String.format("%-5s| %-8s | %s", 
+                                parts[0], parts[1], parts[2]));
+                        }
+                    }
+                }
+            }
+        }
+    
+        if (!foundEasyRoom) {
+            System.out.println("No Easy difficulty rooms found.");
+        }
+    
+        facade.logout();
+    }
+
+
 
     public static void main(String[] args) {
 		EscapeRoomUI EscaperoomInterface = new EscapeRoomUI();

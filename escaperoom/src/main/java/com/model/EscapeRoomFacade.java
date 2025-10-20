@@ -10,6 +10,7 @@ public class EscapeRoomFacade {
     private User currentUser;
     private Room currentRoom;
     private Map<String, Integer> sessionProgress = new HashMap<>();
+    private String DELIM = "\t";
 
     
 
@@ -124,6 +125,86 @@ public class EscapeRoomFacade {
         userList.addUser(newUser);
         DataWriter.saveUsers();
         return true;
+    }
+
+    public ArrayList<String> displayLeaderboard(Room room) {
+        ArrayList<String> leaderboardData = new ArrayList<>();
+    
+        if (room == null) {
+            leaderboardData.add("No room selected");
+            return leaderboardData;
+        }
+    
+        HashMap<User, Integer> leaderboard = room.getLeaderboard();
+    
+        if (leaderboard.isEmpty()) {
+            leaderboardData.add("No scores recorded yet");
+            return leaderboardData;
+        }
+    
+        ArrayList<Map.Entry<User, Integer>> sortedLeaderboard = new ArrayList<>(leaderboard.entrySet());
+        sortedLeaderboard.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+    
+        int rank = 1;
+        int previousScore = -1;
+        int displayRank = 1;
+    
+        for (Map.Entry<User, Integer> entry : sortedLeaderboard) {
+            User user = entry.getKey();
+            Integer score = entry.getValue();
+        
+            if (score != previousScore) {
+                displayRank = rank;
+            }
+        
+            String leaderboardEntry = displayRank + "|" + user.getUserName() + "|" + score;
+            leaderboardData.add(leaderboardEntry);
+        
+            previousScore = score;
+            rank++;
+        }
+    
+        return leaderboardData;
+    }
+
+    public ArrayList<String> displayLeaderboard() {
+        ArrayList<String> leaderboardData = new ArrayList<>();
+    
+        if (currentRoom == null) {
+            leaderboardData.add("No room selected");
+            return leaderboardData;
+        }
+    
+        HashMap<User, Integer> leaderboard = currentRoom.getLeaderboard();
+    
+        if (leaderboard.isEmpty()) {
+            leaderboardData.add("No scores recorded yet");
+            return leaderboardData;
+        }
+
+        ArrayList<Map.Entry<User, Integer>> sortedLeaderboard = new ArrayList<>(leaderboard.entrySet());
+        sortedLeaderboard.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+    
+        int rank = 1;
+        int previousScore = -1;
+        int displayRank = 1;
+    
+        for (Map.Entry<User, Integer> entry : sortedLeaderboard) {
+            User user = entry.getKey();
+            Integer score = entry.getValue();
+        
+            if (score != previousScore) {
+                displayRank = rank;
+            }
+        
+            String leaderboardEntry = displayRank + DELIM + user.getUserName() + DELIM + score;
+            leaderboardData.add(leaderboardEntry);
+        
+            previousScore = score;
+            rank++;
+        }
+    
+        return leaderboardData;
     }
 
 }
