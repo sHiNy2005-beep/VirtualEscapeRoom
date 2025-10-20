@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [
     {
         "password": "Alice!2025Secure",
@@ -19,76 +20,34 @@
                     "roomId": "008a4a85-fcca-40d9-8b38-e0b88e734f38"
                 },
                 "isCompleted": true
+=======
+[{
+    "userId": "9be859f3-6204-449a-94a7-ff9a77c4515e",
+    "username": "alice123",
+    "email": "alice123@example.com",
+    "password": "Alice!2025Secure",
+    "sessions": [
+        {
+            "sessionId": "sess_a1b2c3d4",
+            "room": {
+                "roomId": "room_001",
+                "title": "Mystery Manor",
+                "difficulty": "Medium"
+>>>>>>> ba30b68c8506a5e1a36df5bf36fc6a79ceee3d2f
             },
-            {
-                "score": 12000,
-                "startTime": 1728403200000,
-                "sessionId": "sessions1760907478170",
-                "endTime": 1728408600000,
-                "hintsUsed": 1,
-                "inventory": [
-                    "spell_book",
-                    "crystal_orb",
-                    "silver_dagger",
-                    "enchanted_scroll"
-                ],
-                "room": {
-                    "difficulty": "Hard",
-                    "title": "Haunted Library",
-                    "roomId": "a0a4bce0-d034-41a4-9a8d-508755d5e876"
-                },
-                "isCompleted": true
-            }
-        ],
-        "userId": "062a1ce1-4c98-4646-b34d-b986b558b977",
-        "email": "alice123@example.com",
-        "username": "alice123"
-    },
-    {
-        "password": "BobPass#88",
-        "sessions": [
-            {
-                "score": 5000,
-                "startTime": 1728230400000,
-                "sessionId": "sessions1760907478170",
-                "endTime": 1728232200000,
-                "hintsUsed": 5,
-                "inventory": [
-                    "usb_drive",
-                    "access_card"
-                ],
-                "room": {
-                    "difficulty": "Easy",
-                    "title": "Cyber Vault",
-                    "roomId": "ea07e5a6-9b8b-47fc-9a38-63f49b98e6cf"
-                },
-                "isCompleted": true
-            }
-        ],
-        "userId": "6e9e6592-6a0c-4f16-ac25-bbe792716fdb",
-        "email": "bob.dev@example.com",
-        "username": "bob_dev"
-    },
-    {
-        "password": "CharPwd@123",
-        "sessions": [
-            {
-                "score": 3200,
-                "startTime": 1728489600000,
-                "sessionId": "sessions1760907478170",
-                "endTime": 0,
-                "hintsUsed": 3,
-                "inventory": [
-                    "compass",
-                    "rope",
-                    "telescope"
-                ],
-                "room": {
-                    "difficulty": "Medium",
-                    "title": "Pirate's Cove",
-                    "roomId": "6c9c6899-ab29-484d-9d11-acc1e8914f0f"
-                },
-                "isCompleted": false
+            "startTime": 1728316800000,
+            "endTime": 1728320400000,
+            "score": 8500,
+            "hintsUsed": 2,
+            "isCompleted": true,
+            "inventory": ["golden_key", "ancient_map", "torch"]
+        },
+        {
+            "sessionId": "sess_a5b6c7d8",
+            "room": {
+                "roomId": "room_003",
+                "title": "Haunted Library",
+                "difficulty": "Hard"
             },
             {
                 "score": 7200,

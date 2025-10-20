@@ -60,7 +60,6 @@ public class EscapeRoomUI {
         System.out.println("Puzzle: " + firstPuzzle.getTitle());
         System.out.println("Description: " + firstPuzzle.getDescription());
 
-        facade.useHint(firstPuzzle.getTitle());
         System.out.println("Submitting answer 'knowledgeispower'...");
         facade.submitAnswer(firstPuzzle.getTitle(), "knowledgeispower");
 
@@ -144,7 +143,7 @@ public class EscapeRoomUI {
     public void scenario3()
     {
         System.out.println("Scenario 3: ");
-        if(!facade.login("diana_k", "DianaStrong*77"))
+        if(!facade.login("charlie_x", "CharPwd@123"))
             System.out.println("Sorry we couldn't login.");
 
         System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
@@ -172,6 +171,23 @@ public class EscapeRoomUI {
             }
         }
 
+        Room room = facade.getAllRooms().get(0);
+        Puzzle StudyPuzzle = room.getPuzzles().get(0);
+
+        System.out.println("Puzzle: " + StudyPuzzle.getTitle());
+        System.out.println("Description: " + StudyPuzzle.getDescription());
+
+        System.out.println("Submitting answer 'red-blue-green-yellow'...");
+        facade.submitAnswer(StudyPuzzle.getTitle(), "red-blue-green-yellow");
+        if(StudyPuzzle.isSolved()) {
+            System.out.println("Puzzle solved!");
+        } else {
+            System.out.println("Incorrect answer. Try again.");
+        }
+
+        facade.endGame();
+        System.out.println("Game ended. Progress saved.");
+        facade.logout();
     }
     
 
