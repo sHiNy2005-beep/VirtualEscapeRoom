@@ -190,4 +190,16 @@ public class EscapeRoomFacade {
         return leaderboardData;
     }
 
+    public boolean submitAnswer(String title, int i) {
+        if (currentRoom == null) return false;
+
+        for (Puzzle p : currentRoom.getPuzzles()) {
+            if (p.getTitle().equalsIgnoreCase(title) && p instanceof MathPuzzle) {
+                return ((MathPuzzle) p).checkAnswer(i);
+            }
+        }
+
+        return false;
+    }
+
 }

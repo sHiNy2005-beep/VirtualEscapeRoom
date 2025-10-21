@@ -43,5 +43,23 @@
     "items": ["ancient key", "torn map", "lantern", "glove", "candle"],
     "difficulty": "Hard",
     "isLocked": true
+},
+{
+    "title": "Vault Room",
+    "roomId": "room_004",
+    "leaderboard": {},
+    "puzzles": [{
+        "title": "The Safe Code Note",
+        "type": "Math",
+        "description": "A note on the safe says: Add 10 and 5, multiply by 2, subtract 1, then repeat the last two digits twice.",
+        "solution": "2929",
+        "hints": [
+            "Do the math step by step.",
+            "Focus on the final two digits."
+        ]
+    }],
+    "items": ["note", "safe"],
+    "difficulty": "Easy",
+    "isLocked": false
 }
 ]

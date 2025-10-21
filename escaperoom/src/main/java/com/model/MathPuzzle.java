@@ -2,17 +2,33 @@ package com.model;
 
 public class MathPuzzle extends Puzzle{
 
-    // more to add 
-
-    
-    public MathPuzzle(String title, String description, String solution) {
-        super(title, description, solution);
+    int solutionValue;
+   
+    public MathPuzzle(String title, String description, int solutionValue) {
+        super(title, description, String.valueOf(solutionValue));
+        this.solutionValue = solutionValue;
         
     }
 
+     public boolean checkAnswer(int answer) {
+        boolean ok = (answer == solutionValue);
+        if (ok) isSolved = true;
+        return ok;
+    }
+
+
     @Override
     public boolean checkAnswer(String answer) {
-        return super.checkAnswer(answer);
+        try {
+            int val = Integer.parseInt(answer.trim());
+            return checkAnswer(val);
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
     
+     public int getSolutionCode() {
+        return solutionValue;
+    }
 }
+

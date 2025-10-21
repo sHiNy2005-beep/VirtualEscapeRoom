@@ -40,10 +40,10 @@ public class EscapeRoomUI {
             System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
         }
 
-        System.out.println("\nStarting room: Bedroom...");
+        System.out.println("\nStarting room: Vault Room...");
         Room selectedRoom = null;
         for (Room r : rooms) {
-            if ("Bedroom".equals(r.getTitle())) {
+            if ("Vault Room".equals(r.getTitle())) {
                 selectedRoom = r;
                 break;
             }
@@ -51,7 +51,7 @@ public class EscapeRoomUI {
         if (selectedRoom != null) {
             GameSession session = facade.startGame(selectedRoom);
             if (session != null) {
-                System.out.println("Entered the Bedroom.");
+                System.out.println("Entered the Vault Room.");
             } else {
                 System.out.println("Could not start game.");
             }
@@ -62,8 +62,8 @@ public class EscapeRoomUI {
         Puzzle puzzle = selectedRoom.getPuzzles().get(0);
                 System.out.println("Puzzle: " + puzzle.getTitle());
                 System.out.println("Description: " + puzzle.getDescription());
-        System.out.println("Submitting answer 'silence'...");
-                boolean solved = facade.submitAnswer(puzzle.getTitle(), "silence");
+        System.out.println("Submitting answer +'2929'...");
+                boolean solved = facade.submitAnswer(puzzle.getTitle(), 2929);
                 if (solved) {
                     System.out.println("Puzzle solved successfully!");
                 } else {

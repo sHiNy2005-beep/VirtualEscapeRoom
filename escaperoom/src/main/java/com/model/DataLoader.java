@@ -92,11 +92,43 @@ public class DataLoader extends DataConstants {
                 JSONArray puzzles = (JSONArray) roomJSON.get("puzzles");
                 for (Object pObj : puzzles) {
                     JSONObject pJSON = (JSONObject) pObj;
-                    Puzzle puzzle = new CodePuzzle(
-                        (String) pJSON.get("title"),
-                        (String) pJSON.get("description"),
-                        (String) pJSON.get("solution")
-                    );
+
+                 String type = (String) pJSON.get("type");
+                 String title = (String) pJSON.get("title");
+                 String description = (String) pJSON.get("description");
+                 String solution = (String) pJSON.get("solution");
+                 Puzzle puzzle = null;
+
+                if ("Code".equalsIgnoreCase(type)) {
+                    puzzle = new CodePuzzle(title, description, solution);
+                } else if ("Riddle".equalsIgnoreCase(type)) {
+                    puzzle = new RiddlePuzzle(title, description, solution);
+                } else if ("Item".equalsIgnoreCase(type)) {
+                    puzzle = new ItemPuzzle(title, description, solution);
+                    JSONArray required = (JSONArray) pJSON.get("requiredItems");
+                    if (required != null) {
+                        for (Object item : required) {
+                            ((ItemPuzzle)puzzle).addRequiredItem((String)item);
+                        }
+                    }
+                } else if ("Math".equalsIgnoreCase(type)) {
+                    try {
+                        int code = Integer.parseInt(solution);
+                        puzzle = new MathPuzzle(title, description, code);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid math puzzle solution: " + solution);
+                    }
+                }
+
+                if (puzzle != null) {
+                    JSONArray hints = (JSONArray) pJSON.get("hints");
+                    if (hints != null) {
+                        for (Object h : hints) {
+                            puzzle.addHint((String) h);
+                        }
+                    }
+                    room.addPuzzle(puzzle.getTitle(), puzzle);
+                }
                     JSONArray hints = (JSONArray) pJSON.get("hints");
                     for (Object h : hints) {
                         puzzle.addHint((String) h);
@@ -114,15 +146,18 @@ public class DataLoader extends DataConstants {
     }
 
     public static void main(String[] args) {
+    
     System.out.println("Loaded Users:");
-    for (User u : UserList.getInstance().getUsers()) {
-        System.out.println(" - " + u);
-}
+    for (User u : DataLoader.getUsers()) {
+        System.out.println(" - " + u.getUserName());
+    }
 
     System.out.println("\nLoaded Rooms:");
-    for (Room r : RoomList.getInstance().getRooms()) {
+    for (Room r : DataLoader.getRooms()) {
         System.out.println(" - " + r);
     }
-  }
 }
+
+  }
+
 
