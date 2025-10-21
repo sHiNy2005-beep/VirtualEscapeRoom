@@ -1,1 +1,71 @@
-[{"difficulty":"Hard","leaderboard":[],"puzzles":[{"solution":"knowledgeispower","hints":["Check the first letter of each word","Look at the index numbers in the margin"],"description":"Decode the hidden message using the book cipher method.","title":"Book Cipher"}],"isLocked":true,"title":"Library","items":["ancient key","torn map","lantern"],"roomId":"room_001"},{"difficulty":"Medium","leaderboard":[],"puzzles":[{"solution":"red-blue-green-yellow","hints":["Notice the pictures of the wall carvings","Colors follow the rainbow order"],"description":"Arrange the gemstones in the correct order.","title":"Gemstone Pattern"}],"isLocked":false,"title":"Study","items":["shovel","rope"],"roomId":"room_002"},{"difficulty":"Hard","leaderboard":[],"puzzles":[{"solution":"silence","hints":["Think about what can be heard but has no sound"],"description":"Solve the riddle whispered by the ghost.","title":"Ghost Riddle"}],"isLocked":true,"title":"Bedroom","items":["ancient key","torn map","lantern","glove","candle"],"roomId":"room_003"}]
+[
+    {
+        "difficulty": "Hard",
+        "leaderboard": [],
+        "puzzles": [
+            {
+                "solution": "knowledgeispower",
+                "hints": [
+                    "Check the first letter of each word",
+                    "Look at the index numbers in the margin"
+                ],
+                "description": "Decode the hidden message using the book cipher method.",
+                "title": "Book Cipher"
+            }
+        ],
+        "isLocked": true,
+        "title": "Library",
+        "items": [
+            "ancient key",
+            "torn map",
+            "lantern"
+        ],
+        "roomId": "room_001"
+    },
+    {
+        "difficulty": "Medium",
+        "leaderboard": [],
+        "puzzles": [
+            {
+                "solution": "red-blue-green-yellow",
+                "hints": [
+                    "Notice the pictures of the wall carvings",
+                    "Colors follow the rainbow order"
+                ],
+                "description": "Arrange the gemstones in the correct order.",
+                "title": "Gemstone Pattern"
+            }
+        ],
+        "isLocked": false,
+        "title": "Study",
+        "items": [
+            "shovel",
+            "rope"
+        ],
+        "roomId": "room_002"
+    },
+    {
+        "difficulty": "Hard",
+        "leaderboard": [],
+        "puzzles": [
+            {
+                "solution": "silence",
+                "hints": [
+                    "Think about what can be heard but has no sound"
+                ],
+                "description": "Solve the riddle whispered by the ghost.",
+                "title": "Ghost Riddle"
+            }
+        ],
+        "isLocked": true,
+        "title": "Bedroom",
+        "items": [
+            "ancient key",
+            "torn map",
+            "lantern",
+            "glove",
+            "candle"
+        ],
+        "roomId": "room_003"
+    }
+]
