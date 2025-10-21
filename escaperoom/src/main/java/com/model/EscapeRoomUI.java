@@ -18,8 +18,8 @@ public class EscapeRoomUI {
     
 	public void run() {
     System.out.println("\n****Welcome to the Virtual Escape Room!****");
-		scenario1(); //login, list rooms, select room, start game, solve puzzle, end game
-		scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
+	scenario1(); //login, list rooms, select room, start game, solve puzzle, end game
+	scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
     scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game
     scenario4(); //login, search for an easy room, and check the leaderboard for aformentioned room
 	}
@@ -244,8 +244,7 @@ public class EscapeRoomUI {
     public static void main(String[] args) {
 		EscapeRoomUI EscaperoomInterface = new EscapeRoomUI();
 		EscaperoomInterface.run();
-        Speek.speak("Thank you for playing the Virtual Escape Room! Goodbye!");
-
+        Speek.speak("Welcome to the Virtual Escape Room!");
 	}
    
 }
