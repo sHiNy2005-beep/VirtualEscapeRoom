@@ -69,35 +69,34 @@ public class EscapeRoomFacade {
 
     
     public boolean submitAnswer(String puzzleTitle, String answer) {
-        if (currentRoom == null) return false;
-        for (Puzzle p : currentRoom.getPuzzles()) {
-            if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
-                boolean correct = p.checkAnswer(answer);
-                if (correct) {
-                    System.out.println("Correct answer for " + puzzleTitle + "!");
-                } else {
-                    System.out.println("Incorrect answer for " + puzzleTitle);
-                }
-                return correct;
-            }
+    if (currentRoom == null) return false;
+
+    for (Puzzle p : currentRoom.getPuzzles()) {
+        if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
+            return p.checkAnswer(answer);
         }
-        return false;
     }
+
+    return false;
+}
 
     
     public String useHint(String puzzleTitle) {
-        if (currentRoom == null) return "No room!";
-        for (Puzzle p : currentRoom.getPuzzles()) {
-            if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
-                currentSession.useHint();
-                if (!p.getHints().isEmpty()) {
-                    return p.getHints().get(Math.min(currentSession.getHintsUsed()-1, p.getHints().size()-1));
-                }
-                return "No more hints available!";
-            }
+    if (currentRoom == null) return "No room!";
+
+    for (Puzzle p : currentRoom.getPuzzles()) {
+        if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
+            currentSession.useHint();
+
+            if (p.getHints().isEmpty()) return "No more hints available!";
+
+            int index = Math.min(currentSession.getHintsUsed() - 1, p.getHints().size() - 1);
+            return p.getHints().get(index);
         }
-        return "Puzzle not found.";
     }
+
+    return "Puzzle not found.";
+}
 
     public User getCurrentUser() {
         return currentUser;
