@@ -106,8 +106,6 @@ public class EscapeRoomFacade {
 
     public void endGame() {
         if (currentSession != null) currentSession.endSession();
-        DataWriter.saveUsers();
-        DataWriter.saveRooms();
     }
 
     
