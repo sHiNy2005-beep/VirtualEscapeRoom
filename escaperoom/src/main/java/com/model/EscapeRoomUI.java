@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.speech.Speek;
+
 public class EscapeRoomUI {
 
   private EscapeRoomFacade facade;
@@ -241,6 +243,7 @@ public class EscapeRoomUI {
     public static void main(String[] args) {
 		EscapeRoomUI EscaperoomInterface = new EscapeRoomUI();
 		EscaperoomInterface.run();
+        Speek.speak("Thank you for playing the Virtual Escape Room! Goodbye!");
 
 	}
    
