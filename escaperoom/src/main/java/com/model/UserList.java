@@ -39,5 +39,21 @@ public class UserList
         throw new UnsupportedOperationException("Unimplemented method 'authenticate'");
     }
 
+    public boolean signUp(String username, String password) {
+      if (username == null || password == null ) return false;
+      username = username.trim();
+      if (username.isEmpty() || password.isEmpty()) return false;
+
+      for (User u : userList.getUsers()) {
+          if (u.getUserName().equalsIgnoreCase(username)) {
+            return false; // for the username 
+          }
+      }
+      User newUser = new User(username, password, null);
+      userList.addUser(newUser);
+      DataWriter.saveUsers();
+      return true;
+    }
+
 
 }

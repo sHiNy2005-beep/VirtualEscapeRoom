@@ -83,8 +83,9 @@ public class EscapeRoomUI {
         System.out.println("\nScenario 2: ");
 
         // Sign up AND login
-        if (!facade.signUp("diana_k", "DianaStrong*77")) {
+        if (UserList.getInstance().signUp("diana_k", "DianaStrong*77")) {
             System.out.println("User already exists or could not sign up.");
+            return;
         }
 
         if (!facade.login("diana_k", "DianaStrong*77")) {
