@@ -243,7 +243,8 @@ public class EscapeRoomUI {
     public static void main(String[] args) {
 		EscapeRoomUI EscaperoomInterface = new EscapeRoomUI();
 		EscaperoomInterface.run();
-        Speek.speak("Thank you for playing the Virtual Escape Room! Goodbye!");
+        String welcomeMessage = "Welcome to the Virtual Escape Room!";
+        Speek.speak(welcomeMessage);
 
 	}
    
