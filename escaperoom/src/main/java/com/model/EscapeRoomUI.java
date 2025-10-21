@@ -244,7 +244,7 @@ public class EscapeRoomUI {
     public static void main(String[] args) {
 		EscapeRoomUI EscaperoomInterface = new EscapeRoomUI();
 		EscaperoomInterface.run();
-
+        Speek.speak("Welcome to the Virtual Escape Room!");
 	}
    
 }
