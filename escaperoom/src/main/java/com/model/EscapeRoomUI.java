@@ -197,45 +197,45 @@ public class EscapeRoomUI {
 
     public void scenario4() {
         System.out.println("\nScenario 4: ");
-    
+
         if (!facade.login("alice123", "Alice!2025Secure")) {
             System.out.println("Sorry we couldn't login.");
             return;
         }
         System.out.println("Logged in as " + facade.getCurrentUser().getUserName());
-    
+
         ArrayList<Room> rooms = facade.getAllRooms();
         System.out.println("\nSearching for Easy difficulty rooms...");
-    
+
         boolean foundEasyRoom = false;
         for (Room r : rooms) {
             if ("Easy".equalsIgnoreCase(r.getDifficulty())) {
                 foundEasyRoom = true;
                 System.out.println("\n--- Room: " + r.getTitle() + " (" + r.getDifficulty() + ") ---");
-            
-                ArrayList<String> leaderboard = facade.displayLeaderboard(r);
-            
-                if (leaderboard.isEmpty() || leaderboard.get(0).equals("No scores recorded yet")) {
+        
+                Map<User, Integer> leaderboard = facade.getSortedLeaderboard(r);
+        
+                if (leaderboard.isEmpty()) {
                     System.out.println("No scores recorded yet for this room.");
                 } else {
                     System.out.println("Leaderboard:");
                     System.out.println("Rank | Username | Score");
                     System.out.println("-----|----------|-------");
-                    for (String entry : leaderboard) {
-                        String[] parts = entry.split("\\|");
-                        if (parts.length == 3) {
-                            System.out.println(String.format("%-5s| %-8s | %s", 
-                                parts[0], parts[1], parts[2]));
-                        }
+                
+                    int rank = 1;
+                    for (Map.Entry<User, Integer> entry : leaderboard.entrySet()) {
+                        System.out.println(String.format("%-5d| %-8s | %d", 
+                            rank, entry.getKey().getUserName(), entry.getValue()));
+                        rank++;
                     }
                 }
             }
         }
-    
+
         if (!foundEasyRoom) {
             System.out.println("No Easy difficulty rooms found.");
         }
-    
+
         facade.logout();
     }
 
