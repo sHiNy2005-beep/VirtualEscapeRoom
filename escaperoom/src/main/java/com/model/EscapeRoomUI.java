@@ -248,10 +248,7 @@ public class EscapeRoomUI {
     public static void main(String[] args) {
 		EscapeRoomUI EscaperoomInterface = new EscapeRoomUI();
 		EscaperoomInterface.run();
-        Speek.speak("Welcome to the Virtual Escape Room!");
-        Speek.speak("You must gather evidence of the real culprit by solving puzzles in each room.");
-	    Speek.speak("Each correctly solved puzzle rewards you with a clue, which points to more than one person.");
-        Speek.speak("Gather all the clues, and they will point to one person. Good luck!");
+        Speek.speak("Welcome to the Virtual Escape Room. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person.");;
 	}
    
 }
