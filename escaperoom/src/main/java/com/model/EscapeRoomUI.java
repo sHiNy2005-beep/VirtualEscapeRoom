@@ -18,7 +18,11 @@ public class EscapeRoomUI {
     
 	public void run() {
     System.out.println("\n****Welcome to the Virtual Escape Room!****");
-	scenario1(); //login, list rooms, select room, start game, solve puzzle, end game
+    System.out.println("Goal: ");
+    System.out.println("You must gather evidence of the real culprit by solving puzzles in each room.");
+	System.out.println("Each correctly solved puzzle rewards you with a clue, which points to more than one person.");
+    System.out.println("Gather all the clues, and they will point to one person. Good luck!");
+    scenario1(); //login, list rooms, select room, start game, solve puzzle, end game
 	scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
     scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game
     scenario4(); //login, search for an easy room, and check the leaderboard for aformentioned room
@@ -244,7 +248,7 @@ public class EscapeRoomUI {
     public static void main(String[] args) {
 		EscapeRoomUI EscaperoomInterface = new EscapeRoomUI();
 		EscaperoomInterface.run();
-        Speek.speak("Welcome to the Virtual Escape Room!");
+        Speek.speak("Welcome to the Virtual Escape Room. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person.");;
 	}
    
 }
