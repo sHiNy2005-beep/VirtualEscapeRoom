@@ -92,7 +92,7 @@ public class EscapeRoomFacade {
 
     for (Puzzle p : currentRoom.getPuzzles()) {
         if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
-            currentSession.useHint();
+            currentSession.useHint(puzzleTitle);
 
             if (p.getHints().isEmpty()) return "No more hints available!";
 

@@ -13,6 +13,7 @@ public class GameSession {
     private boolean isCompleted;
     private long getDuration;
     private ArrayList<String> inventory;
+    private ArrayList<PuzzleSession> puzzleSessions;
     
 
     public GameSession(User user, Room room) {
@@ -22,8 +23,17 @@ public class GameSession {
         this.hintsUsed = 0;
         this.isCompleted = false;
         this.sessionId = "sessions"+ System.currentTimeMillis(); 
+        this.puzzleSessions = new ArrayList<>();
+
+        for (Puzzle p : room.getPuzzles()) {
+        puzzleSessions.add(new PuzzleSession(p.getTitle()));
+    }
     }
 
+    public ArrayList<PuzzleSession> getPuzzleSessions() {
+    return puzzleSessions;
+   }
+    
     public void startSession() {
         this.startTime = System.currentTimeMillis();
     }
@@ -33,13 +43,26 @@ public class GameSession {
         this.isCompleted = true;
     }
 
-    public void useHint() {
+    public void useHint(String puzzleTitle) {
         hintsUsed++;
+    for (PuzzleSession ps : puzzleSessions) {
+        if (ps.getPuzzleTitle().equalsIgnoreCase(puzzleTitle)) {
+            ps.useHint();
+            break;
+        }
+    }
     }
 
-    public void submitAnswer(String answer) {
-        
+    public boolean submitAnswer(String puzzleTitle, String answer) {
+    for (PuzzleSession ps : puzzleSessions) {
+        if (ps.getPuzzleTitle().equalsIgnoreCase(puzzleTitle)) {
+            ps.markSolved(answer);
+            return true;
+        }
     }
+    return false;
+   }
+
 
     public void collectItem(String item) {
         inventory.add(item);

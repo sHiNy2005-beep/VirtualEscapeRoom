@@ -47,6 +47,17 @@ public class DataWriter extends DataConstants {
             sJSON.put("hintsUsed", session.getHintsUsed());
             sJSON.put("isCompleted", session.isCompleted());
 
+            JSONArray puzzlesArray = new JSONArray();
+        for (PuzzleSession ps : session.getPuzzleSessions()) {
+        JSONObject psJSON = new JSONObject();
+           psJSON.put("puzzleTitle", ps.getPuzzleTitle());
+           psJSON.put("numHintsUsed", ps.getNumHintsUsed());
+           psJSON.put("solved", ps.isSolved());
+           psJSON.put("finalAnswer", ps.getFinalAnswer());
+           puzzlesArray.add(psJSON);
+      }
+          sJSON.put("puzzleSessions", puzzlesArray);
+
             
             JSONArray invArray = new JSONArray();
             for (String item : session.getInventory()) {
@@ -67,7 +78,8 @@ public class DataWriter extends DataConstants {
         return userDetails;
     }
 
-    
+
+
     public static void saveRooms() {
         RoomList roomList = RoomList.getInstance();
         ArrayList<Room> rooms = roomList.getRooms();

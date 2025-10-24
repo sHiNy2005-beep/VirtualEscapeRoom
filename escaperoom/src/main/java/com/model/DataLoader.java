@@ -27,6 +27,7 @@ public class DataLoader extends DataConstants {
             User user = new User(userName, email, password);
 
             
+            
             JSONArray sessionsArray = (JSONArray) userJSON.get("sessions");
             if (sessionsArray != null) {
                 for (Object sObj : sessionsArray) {
@@ -48,7 +49,22 @@ public class DataLoader extends DataConstants {
 
                     JSONArray invArray = (JSONArray) sJSON.get("inventory");
                     for (Object item : invArray) {
-                        session.collectItem((String) item);
+                     session.collectItem((String) item);
+
+                    JSONArray puzzleSessions = (JSONArray) sJSON.get("puzzleSessions");
+                    if (puzzleSessions != null) {
+                    for (Object pObj : puzzleSessions) {
+                    JSONObject psJSON = (JSONObject) pObj;
+                    PuzzleSession ps = new PuzzleSession((String) psJSON.get("puzzleTitle"));
+                    for (int i = 0; i < ((Long) psJSON.get("numHintsUsed")).intValue(); i++) {
+                     ps.useHint();
+                   }
+                   if ((boolean) psJSON.get("solved")) {
+                   ps.markSolved((String) psJSON.get("finalAnswer"));
+                   }
+                   session.getPuzzleSessions().add(ps);
+                   }
+                 }
                     }
 
                     user.addSession(session);
