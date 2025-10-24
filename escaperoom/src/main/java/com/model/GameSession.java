@@ -13,6 +13,7 @@ public class GameSession {
     private boolean isCompleted;
     private long getDuration;
     private ArrayList<String> inventory;
+    
 
     public GameSession(User user, Room room) {
         this.user = user;

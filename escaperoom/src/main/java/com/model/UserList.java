@@ -20,10 +20,16 @@ public class UserList
 		  return userList;
   	}
 
-    public void addUser(User user) 
-    {
-      if (user != null) users.add(user);
+    public boolean addUser(String username, String email, String password) {
+    for (User u : users) {
+        if (u.getUserName().equalsIgnoreCase(username) || u.getEmail().equalsIgnoreCase(email)) {
+            return false; 
+        }
     }
+    users.add(new User(username, email, password));
+    DataWriter.saveUsers(); 
+    return true;
+}
 
    public  ArrayList<User> getUsers() {
     return users;
@@ -50,7 +56,6 @@ public class UserList
           }
       }
       User newUser = new User(username, password, null);
-      userList.addUser(newUser);
       DataWriter.saveUsers();
       return true;
     }
