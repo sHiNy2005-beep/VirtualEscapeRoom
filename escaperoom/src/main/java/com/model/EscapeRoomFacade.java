@@ -21,6 +21,10 @@ public class EscapeRoomFacade {
         this.roomList = RoomList.getInstance();
     }
 
+    public boolean createAccount(String username, String email, String password) {
+    return userList.addUser(username, email, password);
+}
+
    public boolean login(String username, String password) {
         for (User u : userList.getUsers()) {
             if (u.getUserName().equals(username) && u.getPassword().equals(password)) {

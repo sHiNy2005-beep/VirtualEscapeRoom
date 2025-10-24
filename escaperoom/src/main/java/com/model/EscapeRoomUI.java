@@ -22,7 +22,7 @@ public class EscapeRoomUI {
     System.out.println("You must gather evidence of the real culprit by solving puzzles in each room.");
 	System.out.println("Each correctly solved puzzle rewards you with a clue, which points to more than one person.");
     System.out.println("Gather all the clues, and they will point to one person. Good luck!");
-    scenario1(); //login, list rooms, select room, start game, solve puzzle, end game
+    scenario1(); 
 	scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
     scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game
     scenario4(); //login, search for an easy room, and check the leaderboard for aformentioned room
@@ -30,54 +30,26 @@ public class EscapeRoomUI {
 
 
     public void scenario1(){
-        System.out.println("Scenario 1: ");
+        System.out.println("\nCreate Account - Duplicate User: ");
 
-        if(!facade.login("bob_dev","BobPass#88")){
-            System.out.println("Sorry we couldn't login.");
-            return;
-        }
-        System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
+        System.out.println("Attempting to create account for Bob Dev...");
+      if (!facade.createAccount("bob_dev", "bob.dev@example.com", "BobPass#88")) {
+        System.out.println("Account creation failed! Duplicate username or email found.");
+      } else {
+        System.out.println("Account successfully created!");
+      }
 
-        ArrayList<Room> rooms = facade.getAllRooms();
-        System.out.println("\nAvailable Rooms:");
-        for (Room r : rooms) {
-            System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
-        }
+      System.out.println("\nCreate Account - Sucess: ");
+    if (!facade.createAccount("leni_rivers", "leni.r@example.com", "LeniPass#123")) {
+      System.out.println("Account successfully created for Leni Rivers!");
 
-        System.out.println("\nStarting room: Vault Room...");
-        Room selectedRoom = null;
-        for (Room r : rooms) {
-            if ("Vault Room".equals(r.getTitle())) {
-                selectedRoom = r;
-                break;
-            }
-        }
-        if (selectedRoom != null) {
-            GameSession session = facade.startGame(selectedRoom);
-            if (session != null) {
-                System.out.println("Entered the Vault Room.");
-            } else {
-                System.out.println("Could not start game.");
-            }
-        } else {
-            System.out.println("Could not start game.");
-        }
-
-        Puzzle puzzle = selectedRoom.getPuzzles().get(0);
-                System.out.println("Puzzle: " + puzzle.getTitle());
-                System.out.println("Description: " + puzzle.getDescription());
-        System.out.println("Submitting answer +'2929'...");
-                boolean solved = facade.submitAnswer(puzzle.getTitle(), 2929);
-                if (solved) {
-                    System.out.println("Puzzle solved successfully!");
-                } else {
-                    System.out.println("Incorrect solution. Try again!");
-                }
-
-
-        System.out.println("Ending game...");
-        facade.endGame();
-        System.out.println("Game ended. Progress saved.");
+    
+    if (facade.login("leni_rivers", "LeniPass#123")) {
+        System.out.println("Login successful for Leni Rivers!");
+    } else {
+        System.out.println("Login failed for Leni Rivers!");
+    }
+    }
         
     }
 

@@ -40,11 +40,6 @@ public class UserList
       DataWriter.saveUsers();
     }
 
-    public boolean authenticate(String username, String password) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'authenticate'");
-    }
-
     public boolean signUp(String username, String password) {
       if (username == null || password == null ) return false;
       username = username.trim();
