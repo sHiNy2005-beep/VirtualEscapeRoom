@@ -149,8 +149,8 @@ public class EscapeRoomUI {
         System.out.println("Puzzle: " + StudyPuzzle.getTitle());
         System.out.println("Description: " + StudyPuzzle.getDescription());
 
-        System.out.println("Submitting answer 'red-blue-green-yellow'...");
-        facade.submitAnswer(StudyPuzzle.getTitle(), "red-blue-green-yellow");
+        System.out.println("Submitting answer '140'...");
+        facade.submitAnswer(StudyPuzzle.getTitle(), 140);
         if(StudyPuzzle.isSolved()) {
             System.out.println("Puzzle solved!");
         } else {
