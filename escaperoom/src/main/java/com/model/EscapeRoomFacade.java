@@ -111,6 +111,7 @@ public class EscapeRoomFacade {
 
     public void endGame() {
         if (currentSession != null) currentSession.endSession();
+        currentRoom.getLeaderboard().put(currentUser, currentSession.calculateScore());
     }
 
 
@@ -124,6 +125,15 @@ public class EscapeRoomFacade {
         ));
     
     return sortedLeaderboard;
+    }
+
+    public HashMap<User, Integer> getLeaderboard(Room room) {
+    return room.getLeaderboard();
+    }
+
+    public void updateLeaderboard(Room room, int score) {
+    room.getLeaderboard().put(currentUser, score);
+    DataWriter.saveRooms();
     }
 
     public boolean submitAnswer(String title, int i) {

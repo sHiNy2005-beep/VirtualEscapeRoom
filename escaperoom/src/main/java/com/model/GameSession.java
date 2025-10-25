@@ -33,6 +33,11 @@ public class GameSession {
     public ArrayList<PuzzleSession> getPuzzleSessions() {
     return puzzleSessions;
    }
+
+    public int getCompletionPercent() {
+    long solved = puzzleSessions.stream().filter(PuzzleSession::isSolved).count();
+    return (int) ((solved * 100) / puzzleSessions.size());
+}
     
     public void startSession() {
         this.startTime = System.currentTimeMillis();

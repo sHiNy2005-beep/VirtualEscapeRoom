@@ -13,7 +13,7 @@
     "difficulty": "Hard",
     "isLocked": true
 }, {
-    "title": "Study",
+    "title": "Garden",
     "roomId": "room_002",
     "leaderboard": {"user": "score"},
     "puzzles": [{
@@ -45,7 +45,7 @@
     "isLocked": true
 },
 {
-    "title": "Vault Room",
+    "title": "Study",
     "roomId": "room_004",
     "leaderboard": {},
     "puzzles": [{
