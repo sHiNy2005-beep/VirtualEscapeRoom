@@ -26,7 +26,9 @@ public class EscapeRoomUI {
 	scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
     scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game
     scenario4(); //login, search for an easy room, and check the leaderboard for aformentioned room
+    scenario5();// enter the escape room and hear the story, narration of the story.
 	}
+
 
 
     public void scenario1(){
@@ -40,26 +42,38 @@ public class EscapeRoomUI {
       }
 
       System.out.println("\nCreate Account - Sucess: ");
-    if (!facade.createAccount("leni_rivers", "leni.r@example.com", "LeniPass#123")) {
-      System.out.println("Account successfully created for Leni Rivers!");
+        // Try creating an account for Leni Rivers and then log in
+        if (facade.createAccount("leni_rivers", "leni.r@example.com", "LeniPass#123")) {
+            System.out.println("Account successfully created for Leni Rivers!");
 
-    
-    if (facade.login("leni_rivers", "LeniPass#123")) {
-        System.out.println("Login successful for Leni Rivers!");
-    } else {
-        System.out.println("Login failed for Leni Rivers!");
-    }
-    }
+            if (facade.login("leni_rivers", "LeniPass#123")) {
+                System.out.println("Login successful for Leni Rivers!");
+            } else {
+                System.out.println("Login failed for Leni Rivers!");
+            }
+        } else {
+            System.out.println("Failed to create account for Leni Rivers (duplicate username or email). Trying signup via UserList.signUp...");
+            // Demonstrate usage of the signUp method (username + password)
+            boolean signupOk = UserList.getInstance().signUp("leni_rivers", "LeniPass#123");
+            if (signupOk) {
+                System.out.println("Signup succeeded for Leni Rivers using UserList.signUp.");
+                if (facade.login("leni_rivers", "LeniPass#123")) {
+                    System.out.println("Login successful for Leni Rivers after signUp!");
+                }
+            } else {
+                System.out.println("Signup (UserList.signUp) failed for Leni Rivers.");
+            }
+        }
         
     }
 
 
 
-    public void scenario2() {
+    public void scenario2() { //shiny
         System.out.println("\nScenario 2: ");
 
         // Sign up AND login
-        if (UserList.getInstance().signUp("diana_k", "DianaStrong*77")) {
+        if (!UserList.getInstance().signUp("diana_k", "DianaStrong*77")) {
             System.out.println("User already exists or could not sign up.");
             return;
         }
@@ -116,12 +130,7 @@ public class EscapeRoomUI {
         }
     }
 
-
-            
-    
-
-
-    public void scenario3()
+    public void scenario3() 
     {
         System.out.println("\nScenario 3: ");
         if(!facade.login("charlie_x", "CharPwd@123"))
@@ -171,7 +180,7 @@ public class EscapeRoomUI {
         facade.logout();
     }
 
-    public void scenario4() {
+    public void scenario4() { //dhruv 
         System.out.println("\nScenario 4: ");
 
         if (!facade.login("alice123", "Alice!2025Secure")) {
@@ -215,6 +224,59 @@ public class EscapeRoomUI {
         facade.logout();
     }
 
+    public void scenario5() { // Enter the escape room and hear the story // shiny 
+        System.out.println("\nScenario 5: Enter an Escape Room - Hear the Story");
+
+        ArrayList<Room> rooms = facade.getAllRooms();
+        if (rooms.isEmpty()) {
+            System.out.println("No rooms available to enter.");
+            return;
+        }
+
+        Room chosenRoom = rooms.get(0);
+
+        String playerName = "Player";
+        if (facade.getCurrentUser() == null || facade.getCurrentUser().getUserName() == null) {
+            System.out.println("No user logged in. Please log in before entering a room.");
+            return;
+        } else {
+            playerName = facade.getCurrentUser().getUserName();
+        }
+
+        System.out.println(playerName + " looks at the list of rooms and chooses: " + chosenRoom.getTitle());
+        System.out.println("(There " + (rooms.size() == 1 ? "is only one room" : "are " + rooms.size() + " rooms") + " available to enter.)");
+
+        System.out.println(playerName + " has entered the room: " + chosenRoom.getTitle());
+
+        StringBuilder story = new StringBuilder();
+        story.append(playerName).append(" pushes open the heavy door to the ").append(chosenRoom.getTitle()).append(". ");
+        story.append("The air is thick with dust and the faint residue of forgotten secrets. ");
+        story.append("This room is marked as '").append(chosenRoom.getDifficulty()).append("', and promises ");
+        story.append(chosenRoom.getPuzzles().size()).append(" challenge");
+        if (chosenRoom.getPuzzles().size() != 1) story.append("s");
+        story.append(" to solve. ");
+
+        if (!chosenRoom.getPuzzles().isEmpty()) {
+            Puzzle firstPuzzle = chosenRoom.getPuzzles().get(0);
+            if (firstPuzzle.getDescription() != null && !firstPuzzle.getDescription().trim().isEmpty()) {
+                story.append("On a dusty table lies a note. It reads: \"")
+                    .append(firstPuzzle.getDescription()).append("\". ");
+            }
+        }
+
+        story.append("Shadows gather in the corners; the clock ticks somewhere beyond the walls. ");
+        story.append("Solve the puzzles, gather the clues, and escape before time runs out.");
+
+        System.out.println("\nStory:\n" + story.toString());
+        Speek.speak(story.toString()); 
+
+        GameSession session = facade.startGame(chosenRoom);
+        if (session == null) {
+            System.out.println("Could not start game session. Make sure user is logged in.");
+            return;
+        }
+
+    }
 
 
     public static void main(String[] args) {

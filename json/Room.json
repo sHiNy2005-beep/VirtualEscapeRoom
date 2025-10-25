@@ -61,5 +61,23 @@
     "items": ["note", "safe"],
     "difficulty": "Easy",
     "isLocked": false
+},
+{
+    "title": "Main Hall",
+    "roomId": "room_005",
+    "leaderboard": {},
+    "puzzles": [{
+        "title": "The Clue Sequence",
+        "type": "Match",
+        "description": "All the evidence has been collected. You need to figure out who they all point to.",
+        "solution": "The Gardener - Mr. Louis",
+        "hints": [
+            "Who is always around but never seems to be doing much?",
+            "Each clue points to more than one person, but whose name appears in all of them?."
+        ]
+    }],
+    "items": ["Will - which the son was removed from", "Envelopes- Letters between Mr. Hamton & Mrs. Donatelli (The wife finds suspicious)", "Bottle of Poison- found under a bush in the garden", "", ""],
+    "difficulty": "Medium",
+    "isLocked": false
 }
 ]
