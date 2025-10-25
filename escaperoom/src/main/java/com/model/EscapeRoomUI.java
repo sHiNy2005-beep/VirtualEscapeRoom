@@ -26,7 +26,8 @@ public class EscapeRoomUI {
 	scenario2();//sign up,select different room, start game, use hint, solve puzzle, end game
     scenario3();//login as different user, list rooms, select room, start game, solve puzzle, end game
     scenario4(); //login, search for an easy room, and check the leaderboard for aformentioned room
-    scenario5();// enter the escape room and hear the story, narration of the story.
+    scenario5();//enter the escape room and hear the story
+    scenario6(); // logout, login, show user progress and persisted JSON
 	}
 
 
@@ -66,8 +67,6 @@ public class EscapeRoomUI {
         }
         
     }
-
-
 
     public void scenario2() { //shiny
         System.out.println("\nScenario 2: ");
@@ -224,6 +223,7 @@ public class EscapeRoomUI {
         facade.logout();
     }
 
+   
     public void scenario5() { // Enter the escape room and hear the story // shiny 
         System.out.println("\nScenario 5: Enter an Escape Room - Hear the Story");
 
@@ -276,6 +276,84 @@ public class EscapeRoomUI {
             return;
         }
 
+    }
+
+    public void scenario6() {
+        System.out.println("\nScenario 6: Logout -> Login -> Show Data Persistence and Progress");
+        String demoUser = "leni_rivers";
+        if (facade.getCurrentUser() != null) {
+            try {
+                facade.logout();
+            } catch (Exception e) {
+                System.out.println("Logout encountered an issue: " + e.getMessage());
+            }
+        }
+        String demoPass = null;
+        for (User u : UserList.getInstance().getUsers()) {
+            if (u.getUserName().equalsIgnoreCase(demoUser)) {
+                demoPass = u.getPassword();
+                break;
+            }
+        }
+        if (demoPass == null) {
+            System.out.println("Demo user '" + demoUser + "' not found in user store. Cannot demonstrate persistence.");
+            return;
+        }
+        if (!facade.login(demoUser, demoPass)) {
+            System.out.println("Failed to login as '" + demoUser + "' for demo.");
+            return;
+        }
+        User current = facade.getCurrentUser();
+        if (current == null) {
+            System.out.println("No current user after login. Aborting.");
+            return;
+        }
+        System.out.println("Logged in as: " + current.getUserName());
+        if (current.getSessions() == null || current.getSessions().isEmpty()) {
+            System.out.println("No saved sessions for user: " + current.getUserName());
+        } else {
+            System.out.println("User sessions:");
+            for (GameSession s : current.getSessions()) {
+                Room r = s.getRoom();
+                int totalPuzzles = r != null ? r.getPuzzles().size() : 0;
+                int solved = 0;
+                System.out.println("\nSession: " + s.getSessionId());
+                System.out.println("Room: " + (r != null ? r.getTitle() : "Unknown") + " | Completed: " + s.isCompleted());
+
+                for (PuzzleSession ps : s.getPuzzleSessions()) {
+                    if (ps.isSolved()) solved++;
+                }
+
+                int percent = (totalPuzzles == 0) ? 0 : (int) ((solved * 100.0) / totalPuzzles);
+                System.out.println("Progress: " + percent + "% (" + solved + "/" + totalPuzzles + " puzzles solved)");
+                System.out.println("Questions answered:");
+                for (PuzzleSession ps : s.getPuzzleSessions()) {
+                    if (ps.isSolved()) {
+                        System.out.println(" - " + ps.getPuzzleTitle() + " -> Answer: " + ps.getFinalAnswer());
+                    }
+                }
+                System.out.println("Hints used per question:");
+                for (PuzzleSession ps : s.getPuzzleSessions()) {
+                    if (ps.getNumHintsUsed() > 0) {
+                        System.out.println(" - " + ps.getPuzzleTitle() + " : " + ps.getNumHintsUsed() + " hint(s)");
+                    }
+                }
+
+                System.out.println("Total hints used in session: " + s.getHintsUsed());
+            }
+        }
+        System.out.println("\nPersisted json/User.json contents:");
+        try {
+            java.nio.file.Path p = java.nio.file.Paths.get("json/User.json");
+            if (java.nio.file.Files.exists(p)) {
+                java.util.List<String> lines = java.nio.file.Files.readAllLines(p);
+                for (String line : lines) System.out.println(line);
+            } else {
+                System.out.println("json/User.json not found in workspace.");
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to read persisted JSON: " + e.getMessage());
+        }
     }
 
 
