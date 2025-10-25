@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 public class EscapeRoomFacade {
     private UserList userList;
     private RoomList roomList;
@@ -56,6 +57,8 @@ public class EscapeRoomFacade {
     public Room getCurrentRoom() {
          return currentRoom; 
     }
+
+   
 
     
     public ArrayList<Puzzle> getCurrentRoomPuzzles() {
