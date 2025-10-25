@@ -135,6 +135,20 @@ public class DataLoader extends DataConstants {
                         System.out.println("Invalid math puzzle solution: " + solution);
                     }
                 }
+                else if ("Matching".equalsIgnoreCase(type)) {
+                    JSONObject solutionObj = (JSONObject) pJSON.get("solution");
+                       if (solutionObj != null) {
+                    ArrayList<String> leftSide = new ArrayList<>();
+                    ArrayList<String> rightSide = new ArrayList<>();
+
+                   for (Object key : solutionObj.keySet()) {
+                    leftSide.add((String) key);
+                    rightSide.add((String) solutionObj.get(key));
+                 }
+
+                   puzzle = new FinalPuzzle(title, description, leftSide, rightSide);
+                 }
+                }
 
                 if (puzzle != null) {
                     JSONArray hints = (JSONArray) pJSON.get("hints");
