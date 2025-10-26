@@ -22,9 +22,9 @@
 ═══════════════════════════════════════════════════════════
 
   Difficulty Level:        All Rooms
-  Puzzles Solved:          2
+  Puzzles Solved:          1
   Hints Used:              10
-  Final Detective Score:   20000
+  Final Detective Score:   18000
 
 ═══════════════════════════════════════════════════════════
                     CASE CLOSED
