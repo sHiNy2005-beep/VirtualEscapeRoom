@@ -120,20 +120,11 @@ public class EscapeRoomUI {
         }
 
         // First Puzzle
-        System.out.println("\nStarting room: Library...");
         Room selectedRoom = null;
         for (Room r : rooms) {
             if ("Library".equals(r.getTitle())) {
                 selectedRoom = r;
                 break;
-            }
-        }
-        if (selectedRoom != null) {
-            GameSession session = facade.startGame(selectedRoom);
-            if (session != null) {
-                System.out.println("Entered the Library.");
-            } else {
-                System.out.println("Could not start game.");
             }
         }
 
@@ -153,15 +144,15 @@ public class EscapeRoomUI {
 
         // Second Puzzle
         System.out.println("\nStarting next room: Garden...");
-        selectedRoom = null;
+        Room GardenRoom = null;
         for (Room r : rooms) {
             if ("Garden".equals(r.getTitle())) {
-                selectedRoom = r;
+                GardenRoom = r;
                 break;
             }
         }
-        if (selectedRoom != null) {
-            GameSession session = facade.startGame(selectedRoom);
+        if (GardenRoom != null) {
+            GameSession session = facade.startGame(GardenRoom);
             if (session != null) {
                 System.out.println("Entered the Garden.");
             } else {
@@ -169,11 +160,15 @@ public class EscapeRoomUI {
             }
         }
 
-        room = facade.getAllRooms().get(0);
-        Puzzle GardenPuzzle = room.getPuzzles().get(0);
 
+        Puzzle GardenPuzzle = GardenRoom.getPuzzles().get(0);
         System.out.println("Puzzle: " + GardenPuzzle.getTitle());
         System.out.println("Description: " + GardenPuzzle.getDescription());
+        //room = facade.getAllRooms().get(1);
+        //Puzzle GardenPuzzle = room.getPuzzles().get(1);
+
+        //System.out.println("Puzzle: " + GardenPuzzle.getTitle());
+        //System.out.println("Description: " + GardenPuzzle.getDescription());
 
         System.out.println("Submitting answer 'STATUE'...");
         facade.submitAnswer(GardenPuzzle.getTitle(), "STATUE");
@@ -185,15 +180,15 @@ public class EscapeRoomUI {
 
         // Third Puzzle
         System.out.println("\nStarting the next room: Bedroom...");
-        selectedRoom = null;
+        Room BedRoom = null;
         for (Room r : rooms) {
             if ("Bedroom".equals(r.getTitle())) {
-                selectedRoom = r;
+                BedRoom = r;
                 break;
             }
         }
-        if (selectedRoom != null) {
-            GameSession session = facade.startGame(selectedRoom);
+        if (BedRoom != null) {
+            GameSession session = facade.startGame(BedRoom);
             if (session != null) {
                 System.out.println("Entered the Bedroom.");
             } else {
@@ -201,11 +196,15 @@ public class EscapeRoomUI {
             }
         }
 
-        room = facade.getAllRooms().get(0);
-        Puzzle BedroomPuzzle = room.getPuzzles().get(0);
-
+        Puzzle BedroomPuzzle = BedRoom.getPuzzles().get(0);
         System.out.println("Puzzle: " + BedroomPuzzle.getTitle());
         System.out.println("Description: " + BedroomPuzzle.getDescription());
+
+        //room = facade.getAllRooms().get(0);
+        //Puzzle BedroomPuzzle = room.getPuzzles().get(0);
+
+        //System.out.println("Puzzle: " + BedroomPuzzle.getTitle());
+        //System.out.println("Description: " + BedroomPuzzle.getDescription());
 
         System.out.println("Submitting answer 'secret'...");
         facade.submitAnswer(BedroomPuzzle.getTitle(), "secret");
