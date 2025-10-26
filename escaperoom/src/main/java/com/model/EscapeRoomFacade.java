@@ -103,15 +103,8 @@ public class EscapeRoomFacade {
 
         
     public boolean submitAnswer(String puzzleTitle, String answer) {
-        if (currentRoom == null) return false;
-
-        for (Puzzle p : currentRoom.getPuzzles()) {
-            if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
-                return p.checkAnswer(answer);
-            }
-        }
-
-        return false;
+        if (currentRoom == null || currentSession == null) return false;
+        return currentSession.submitAnswer(puzzleTitle, answer);
     }
 
     
@@ -165,15 +158,8 @@ public class EscapeRoomFacade {
     }
 
     public boolean submitAnswer(String title, int i) {
-        if (currentRoom == null) return false;
-
-        for (Puzzle p : currentRoom.getPuzzles()) {
-            if (p.getTitle().equalsIgnoreCase(title) && p instanceof MathPuzzle) {
-                return ((MathPuzzle) p).checkAnswer(i);
-            }
-        }
-
-        return false;
+        if (currentRoom == null || currentSession == null) return false;
+        return currentSession.submitAnswer(title, String.valueOf(i));
     }
 
 }

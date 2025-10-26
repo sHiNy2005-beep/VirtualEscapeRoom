@@ -46,13 +46,16 @@ public class GameSession {
     
 
     public ArrayList<PuzzleSession> getPuzzleSessions() {
-    return puzzleSessions;
-   }
+        return puzzleSessions;
+    }
 
     public int getCompletionPercent() {
-    long solved = puzzleSessions.stream().filter(PuzzleSession::isSolved).count();
-    return (int) ((solved * 100) / puzzleSessions.size());
-}
+        if (puzzleSessions == null || puzzleSessions.isEmpty()) {
+            return 0;
+        }
+        long solved = puzzleSessions.stream().filter(PuzzleSession::isSolved).count();
+        return (int) ((solved * 100) / puzzleSessions.size());
+    }
     
     /*
      * Record the session start time.
@@ -174,7 +177,6 @@ public class GameSession {
     int calculatedScore = (int)((baseScore + puzzleBonus - hintPenalty) * difficultyMultiplier);
     this.score = calculatedScore;
     return calculatedScore;
-        return 0;
     }
 
     //getters and setters

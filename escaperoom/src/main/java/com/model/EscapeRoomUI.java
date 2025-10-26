@@ -14,6 +14,7 @@ public class EscapeRoomUI {
    }
     
 	public void run() {
+
     System.out.println("\n****Murder Mystery Escape Room****");
     //Speek.speak("Welcome to the Hamton Mansion. Mr.Hamton has mysteriusly died under suspicious circumstances, and you a detective must investigate his death and find his killer. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person--the killer.");;
     scenario1_CreateAccount(); 

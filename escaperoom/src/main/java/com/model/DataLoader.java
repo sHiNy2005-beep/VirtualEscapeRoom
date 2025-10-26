@@ -120,56 +120,59 @@ public class DataLoader extends DataConstants {
                 for (Object pObj : puzzles) {
                     JSONObject pJSON = (JSONObject) pObj;
 
-                 String type = (String) pJSON.get("type");
-                 String title = (String) pJSON.get("title");
-                 String description = (String) pJSON.get("description");
-                 String solution = (String) pJSON.get("solution");
-                 Puzzle puzzle = null;
+                    String type = (String) pJSON.get("type");
+                    String title = (String) pJSON.get("title");
+                    String description = (String) pJSON.get("description");
+                    Puzzle puzzle = null;
 
-                if ("Code".equalsIgnoreCase(type)) {
-                    puzzle = new CodePuzzle(title, description, solution);
-                } else if ("Riddle".equalsIgnoreCase(type)) {
-                    puzzle = new RiddlePuzzle(title, description, solution);
-                } else if ("Item".equalsIgnoreCase(type)) {
-                    puzzle = new ItemPuzzle(title, description, solution);
-                    JSONArray required = (JSONArray) pJSON.get("requiredItems");
-                    if (required != null) {
-                        for (Object item : required) {
-                            ((ItemPuzzle)puzzle).addRequiredItem((String)item);
+                    if ("Code".equalsIgnoreCase(type)) {
+                        String solution = (String) pJSON.get("solution");
+                        puzzle = new CodePuzzle(title, description, solution);
+                    } else if ("Riddle".equalsIgnoreCase(type)) {
+                        String solution = (String) pJSON.get("solution");
+                        puzzle = new RiddlePuzzle(title, description, solution);
+                    } else if ("Item".equalsIgnoreCase(type)) {
+                        String solution = (String) pJSON.get("solution");
+                        puzzle = new ItemPuzzle(title, description, solution);
+                        JSONArray required = (JSONArray) pJSON.get("requiredItems");
+                        if (required != null) {
+                            for (Object item : required) {
+                                ((ItemPuzzle)puzzle).addRequiredItem((String)item);
+                            }
+                        }
+                    } else if ("Math".equalsIgnoreCase(type)) {
+                        String solution = (String) pJSON.get("solution");
+                        try {
+                            int code = Integer.parseInt(solution);
+                            puzzle = new MathPuzzle(title, description, code);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid math puzzle solution: " + solution);
+                        }
+                    } else if ("Matching".equalsIgnoreCase(type)) {
+                        // FIX: For Matching type, solution is a JSONObject, not a String
+                        JSONObject solutionObj = (JSONObject) pJSON.get("solution");
+                        if (solutionObj != null) {
+                            ArrayList<String> leftSide = new ArrayList<>();
+                            ArrayList<String> rightSide = new ArrayList<>();
+
+                            for (Object key : solutionObj.keySet()) {
+                                leftSide.add((String) key);
+                                rightSide.add((String) solutionObj.get(key));
+                            }
+
+                            puzzle = new FinalPuzzle(title, description, leftSide, rightSide);
                         }
                     }
-                } else if ("Math".equalsIgnoreCase(type)) {
-                    try {
-                        int code = Integer.parseInt(solution);
-                        puzzle = new MathPuzzle(title, description, code);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Invalid math puzzle solution: " + solution);
-                    }
-                }
-                else if ("Matching".equalsIgnoreCase(type)) {
-                    JSONObject solutionObj = (JSONObject) pJSON.get("solution");
-                       if (solutionObj != null) {
-                    ArrayList<String> leftSide = new ArrayList<>();
-                    ArrayList<String> rightSide = new ArrayList<>();
 
-                   for (Object key : solutionObj.keySet()) {
-                    leftSide.add((String) key);
-                    rightSide.add((String) solutionObj.get(key));
-                 }
-
-                   puzzle = new FinalPuzzle(title, description, leftSide, rightSide);
-                 }
-                }
-
-                if (puzzle != null) {
-                    JSONArray hints = (JSONArray) pJSON.get("hints");
-                    if (hints != null) {
-                        for (Object h : hints) {
-                            puzzle.addHint((String) h);
+                    if (puzzle != null) {
+                        JSONArray hints = (JSONArray) pJSON.get("hints");
+                        if (hints != null) {
+                            for (Object h : hints) {
+                                puzzle.addHint((String) h);
+                            }
                         }
+                        room.addPuzzle(puzzle.getTitle(), puzzle);
                     }
-                    room.addPuzzle(puzzle.getTitle(), puzzle);
-                }
                     
                 }
 
