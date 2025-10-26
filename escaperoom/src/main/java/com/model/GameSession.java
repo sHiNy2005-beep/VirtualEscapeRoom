@@ -144,14 +144,36 @@ public class GameSession {
 
     /**
      * Calculate and return the session score.
-     *
-     * <p>This method is currently a stub and returns 0. Implement scoring
-     * logic here (for example based on solved puzzles, hints used and time).</p>
-     *
      * @return computed score for the session
      */
     public int calculateScore() {
-        
+            int totalPuzzlesSolved = 0;
+    int totalHints = 0;
+    
+    for (PuzzleSession ps : puzzleSessions) {
+        if (ps.isSolved()) {
+            totalPuzzlesSolved++;
+        }
+        totalHints += ps.getNumHintsUsed();
+    }
+    int baseScore = 10000;
+    int puzzleBonus = totalPuzzlesSolved * 1000;
+    int hintPenalty = totalHints * 200;
+    double difficultyMultiplier = 1.0;
+    if (room != null) {
+        String difficulty = room.getDifficulty();
+        if ("Easy".equalsIgnoreCase(difficulty)) {
+            difficultyMultiplier = 1.0;
+        } else if ("Medium".equalsIgnoreCase(difficulty)) {
+            difficultyMultiplier = 1.5;
+        } else if ("Hard".equalsIgnoreCase(difficulty)) {
+            difficultyMultiplier = 2.0;
+        }
+    }
+    
+    int calculatedScore = (int)((baseScore + puzzleBonus - hintPenalty) * difficultyMultiplier);
+    this.score = calculatedScore;
+    return calculatedScore;
         return 0;
     }
 
