@@ -1,7 +1,10 @@
 package com.model;
 
 import java.util.ArrayList;
-import java.util.UUID;;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
+
 
 public class User {
     private UUID userId;
@@ -10,7 +13,12 @@ public class User {
     private String password;
     private ArrayList<GameSession> sessions;
 
-    
+    /**
+     * Create a new user (generates a random UUID).
+     * @param username chosen username
+     * @param email user's email
+     * @param password password 
+     */
     public User(String username, String email, String password) {
         this.userId = UUID.randomUUID();
         this.username = username;
@@ -19,7 +27,9 @@ public class User {
         this.sessions = new ArrayList<>();
     }
 
-    
+    /**
+     *   user with a known UUID.
+     */
     public User(UUID userId, String username, String email, String password) {
         this.userId = userId;
         this.username = username;
@@ -28,37 +38,42 @@ public class User {
         this.sessions = new ArrayList<>();
     }
 
-
-    
-    public UUID getUserId() { 
-        return userId; 
+    public UUID getUserId() {
+        return userId;
     }
 
     public String getUserName() {
-         return username; 
+        return username;
     }
 
     public String getEmail() {
-         return email; 
+        return email;
     }
 
     public String getPassword() {
-         return password; 
+        return password;
     }
 
-    public ArrayList<GameSession> getSessions() {
-         return sessions; 
+    /**
+     * @return  list of GameSession
+     */
+    public List<GameSession> getSessions() {
+        return Collections.unmodifiableList(sessions);
     }
 
+    /**
+     * Append a session to the user's session list.
+     * @param session GameSession
+     */
     public void addSession(GameSession session) {
         if (session != null) sessions.add(session);
     }
+
 
     public void setSessions(ArrayList<GameSession> sessions) {
         this.sessions = sessions;
     }
 
-    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

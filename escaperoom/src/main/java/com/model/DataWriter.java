@@ -8,12 +8,15 @@ import java.util.Map;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+
 public class DataWriter extends DataConstants {
 
-  
+    /**
+     * Serialize all users (and their sessions) to the users JSON file.
+     */
     public static void saveUsers() {
         UserList userList = UserList.getInstance();
-        ArrayList<User> users = userList.getUsers();
+        ArrayList<User> users = (ArrayList<User>) userList.getUsers();
 
         JSONArray jsonUsers = new JSONArray();
 
@@ -29,6 +32,13 @@ public class DataWriter extends DataConstants {
         }
     }
 
+    /**
+     * Build a {@link JSONObject} representing the provided {@link User},
+     * including their saved sessions, inventory and puzzle sessions.
+     *
+     * @param user the user to convert
+     * @return a JSONObject  to be added to the users array
+     */
     private static JSONObject getUserJSON(User user) {
         JSONObject userDetails = new JSONObject();
         userDetails.put("userId", user.getUserId().toString());
@@ -80,9 +90,12 @@ public class DataWriter extends DataConstants {
 
 
 
+    /**
+     * Show rooms (their puzzles, items and leaderboards) to the rooms JSON file.
+     */
     public static void saveRooms() {
         RoomList roomList = RoomList.getInstance();
-        ArrayList<Room> rooms = roomList.getRooms();
+        ArrayList<Room> rooms = (ArrayList<Room>) roomList.getRooms();
 
         JSONArray jsonRooms = new JSONArray();
 
@@ -98,6 +111,13 @@ public class DataWriter extends DataConstants {
         }
     }
 
+    /**
+     * Build a {@link JSONObject} representing the provided {@link Room},
+     * including items, puzzles and leaderboard entries.
+     *
+     * @param room the room to convert
+     * @return a JSONObject ready to be added to the rooms array
+     */
     private static JSONObject getRoomJSON(Room room) {
         JSONObject roomDetails = new JSONObject();
         roomDetails.put("roomId", room.getRoomId());
@@ -137,6 +157,12 @@ public class DataWriter extends DataConstants {
         return roomDetails;
     }
 
+    /**
+     * Development helper that writes current in-memory users and rooms to disk.
+     * Not used during normal application flow but useful when testing data persistence.
+     *
+     * @param args ignored
+     */
     public static void main(String[] args) {
         saveUsers();
         saveRooms();

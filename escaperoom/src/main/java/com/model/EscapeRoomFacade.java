@@ -50,7 +50,7 @@ public class EscapeRoomFacade {
     }
 
     public ArrayList<Room> getAllRooms() { 
-        return roomList.getRooms(); 
+        return new ArrayList<>(roomList.getRooms());
     }
 
     public Room getCurrentRoom() {

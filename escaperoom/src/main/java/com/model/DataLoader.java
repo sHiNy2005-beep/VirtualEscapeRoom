@@ -8,8 +8,14 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+
 public class DataLoader extends DataConstants {
 
+    /**
+     * Read users and their saved sessions from the users JSON file.
+     *
+     * @return a list of {@link User} objects populated from the persisted file.
+     */
     public static ArrayList<User> getUsers() {
     ArrayList<User> users = new ArrayList<>();
 
@@ -81,6 +87,11 @@ public class DataLoader extends DataConstants {
     return users;
 }
 
+    /**
+     * Read rooms, their puzzles, items and leaderboards from the rooms JSON file.
+     *
+     * @return a list of {@link Room} objects populated from the persisted file.
+     */
     public static ArrayList<Room> getRooms() {
         ArrayList<Room> rooms = new ArrayList<>();
 
@@ -161,6 +172,13 @@ public class DataLoader extends DataConstants {
         return rooms;
     }
 
+    /**
+     * Small test runner used during dev time to quickly print out
+     * the users and rooms that would be loaded by this class. This is not
+     * used by the application at runtime but is convenient for manual testing.
+     *
+     * @param args command-line arguments (ignored)
+     */
     public static void main(String[] args) {
     
     System.out.println("Loaded Users:");

@@ -9,6 +9,12 @@ public abstract class Puzzle {
     protected ArrayList<String> hints;
     protected boolean isSolved;
 
+    /**
+     * Create a puzzle with the provided metadata.
+     * @param title       puzzle title
+     * @param description puzzle description
+     * @param solution     solution string
+     */
     public Puzzle(String title, String description, String solution) {
         this.title = title;
         this.description = description;
@@ -17,6 +23,12 @@ public abstract class Puzzle {
         this.isSolved = false;
     }
 
+    /**
+     * Check solution with provided answer with the puzzle's solution.
+     * @param answer player's submitted answer
+     * @return {@code true} when the answer matches the solution, {@code false}
+        *         otherwise        
+     */
     public boolean checkAnswer(String answer) {
         if (answer == null || solution == null) return false;
         boolean ok = solution.equalsIgnoreCase(answer.trim());
@@ -24,31 +36,55 @@ public abstract class Puzzle {
         return ok;
     }
 
-    public void addHint(String hint) { 
-        if (hint != null) hints.add(hint); 
+    /**
+     * Add a hint to this puzzle.
+     * @param hint
+     */
+    public void addHint(String hint) {
+        if (hint != null) hints.add(hint);
     }
 
-    public ArrayList<String> getHints() { 
-        return hints; 
+    /**
+     * Return the list of hints for this puzzle. 
+     * @return list of hint strings
+     */
+    public ArrayList<String> getHints() {
+        return hints;
     }
 
-    public String getTitle() { 
+    /**
+     * @return title
+     */
+    public String getTitle() {
         return title;
- }
-
-    public String getDescription() { 
-        return description; 
+    }
+    /**
+     * @return description
+     */
+    public String getDescription() {
+        return description;
     }
 
+    /**
+     * See if this puzzle has been solved during the session.
+     * @return true if solved
+     */
     public boolean isSolved() {
-         return isSolved; 
+        return isSolved;
     }
 
-    public String getSolution() { 
-        return solution; 
+    /**
+     * @return solution
+     */
+    public String getSolution() {
+        return solution;
     }
 
-    public void setSolved(boolean solved) { 
-        isSolved = solved; 
+    /**
+     * Manually set the solved flag for this puzzle.
+     * @param solved true if the puzzle should be marked solved
+     */
+    public void setSolved(boolean solved) {
+        isSolved = solved;
     }
 }

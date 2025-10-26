@@ -43,7 +43,6 @@ public class EscapeRoomUI {
       }
 
       System.out.println("\nCreate Account - Sucess: ");
-        // Try creating an account for Leni Rivers and then log in
         if (facade.createAccount("leni_rivers", "leni.r@example.com", "LeniPass#123")) {
             System.out.println("Account successfully created for Leni Rivers!");
 
@@ -54,7 +53,6 @@ public class EscapeRoomUI {
             }
         } else {
             System.out.println("Failed to create account for Leni Rivers (duplicate username or email). Trying signup via UserList.signUp...");
-            // Demonstrate usage of the signUp method (username + password)
             boolean signupOk = UserList.getInstance().signUp("leni_rivers", "LeniPass#123");
             if (signupOk) {
                 System.out.println("Signup succeeded for Leni Rivers using UserList.signUp.");
@@ -62,7 +60,7 @@ public class EscapeRoomUI {
                     System.out.println("Login successful for Leni Rivers after signUp!");
                 }
             } else {
-                System.out.println("Signup (UserList.signUp) failed for Leni Rivers.");
+                System.out.println("Signup failed for Leni Rivers.");
             }
         }
         
@@ -84,7 +82,6 @@ public class EscapeRoomUI {
         System.out.println("Logged in as " + facade.getCurrentUser().getUserName());
 
         ArrayList<Room> rooms = facade.getAllRooms();
-        System.out.println("\nAvailable Rooms:");
         for (Room r : rooms) {
             System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
         }
@@ -224,7 +221,7 @@ public class EscapeRoomUI {
     }
 
    
-    public void scenario5() { // Enter the escape room and hear the story // shiny 
+    public void scenario5() { // Enter the escape room and hear the story  
         System.out.println("\nScenario 5: Enter an Escape Room - Hear the Story");
 
         ArrayList<Room> rooms = facade.getAllRooms();
@@ -277,8 +274,8 @@ public class EscapeRoomUI {
         }
 
     }
-
-    public void scenario6() {
+  
+    public void scenario6() { //logout, login, show user progress and persisted JSON 
         System.out.println("\nScenario 6: Logout -> Login -> Show Data Persistence and Progress");
         String demoUser = "leni_rivers";
         if (facade.getCurrentUser() != null) {
@@ -342,7 +339,7 @@ public class EscapeRoomUI {
                 System.out.println("Total hints used in session: " + s.getHintsUsed());
             }
         }
-        System.out.println("\nPersisted json/User.json contents:");
+        System.out.println("\n json/User.json contents:");
         try {
             java.nio.file.Path p = java.nio.file.Paths.get("json/User.json");
             if (java.nio.file.Files.exists(p)) {
