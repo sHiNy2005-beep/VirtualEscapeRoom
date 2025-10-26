@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
+import com.model.RoomList;
+import com.model.GameSession
+;
 import com.speech.Speek;
 
 public class EscapeRoomUI {
@@ -17,11 +19,8 @@ public class EscapeRoomUI {
    }
     
 	public void run() {
-    System.out.println("\n****Welcome to the Virtual Escape Room!****");
-    System.out.println("Goal: ");
-    System.out.println("You must gather evidence of the real culprit by solving puzzles in each room.");
-	System.out.println("Each correctly solved puzzle rewards you with a clue, which points to more than one person.");
-    System.out.println("Gather all the clues, and they will point to one person. Good luck!");
+    System.out.println("\n****Murder Mystery Escape Room****");
+    Speek.speak("Welcome to the Hamton Mansion. Mr.Hamton has mysteriusly died under suspicious circumstances, and you a detective must investigate his death and find his killer. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person--the killer.");;
     scenario1_CreateAccount(); 
 	scenario2_EnterAnEscapeRoom();
     scenario3_Complete3Puzzles();
@@ -111,6 +110,7 @@ public class EscapeRoomUI {
 
     }
 
+    
     
 
     public void scenario3_Complete3Puzzles() //murewa
@@ -220,6 +220,7 @@ public class EscapeRoomUI {
         }
     }
 
+    
 
 
 
@@ -357,7 +358,7 @@ public class EscapeRoomUI {
     public static void main(String[] args) {
 		EscapeRoomUI EscaperoomInterface = new EscapeRoomUI();
 		EscaperoomInterface.run();
-        Speek.speak("Welcome to the Virtual Escape Room. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person.");;
+        
 	}
    
 }

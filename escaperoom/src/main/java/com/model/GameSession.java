@@ -30,6 +30,8 @@ public class GameSession {
     }
     }
 
+    
+
     public ArrayList<PuzzleSession> getPuzzleSessions() {
     return puzzleSessions;
    }
@@ -67,6 +69,7 @@ public class GameSession {
     }
     return false;
    }
+
 
 
     public void collectItem(String item) {
