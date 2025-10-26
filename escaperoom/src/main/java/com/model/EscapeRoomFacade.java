@@ -43,11 +43,19 @@ public class EscapeRoomFacade {
 
     public GameSession startGame(Room room) {
         if (currentUser == null || room == null) return null;
-            GameSession session = new GameSession(currentUser, room);
-            currentUser.addSession(session);
-            currentSession = session;
-            currentRoom = room;
-            return session;
+
+    for (GameSession s : currentUser.getSessions()) {
+        if (s.getRoom() != null && s.getRoom().getTitle().equalsIgnoreCase(room.getTitle())) {
+            System.out.println("Resuming previous session in " + room.getTitle());
+            currentSession = s;
+            return s;
+        }
+    }
+
+    GameSession session = new GameSession(currentUser, room);
+    currentUser.addSession(session);
+    currentSession = session;
+    return session;
     }
 
     public GameSession getExistingSession(Room room) {
@@ -103,8 +111,25 @@ public class EscapeRoomFacade {
 
         
     public boolean submitAnswer(String puzzleTitle, String answer) {
-        if (currentRoom == null || currentSession == null) return false;
-        return currentSession.submitAnswer(puzzleTitle, answer);
+       if (currentSession == null || currentSession.getRoom() == null) return false;
+
+    for (Puzzle p : currentSession.getRoom().getPuzzles()) {
+        if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
+            boolean correct = p.checkAnswer(answer);
+            PuzzleSession ps = currentSession.getPuzzleSession(p);
+            ps.setFinalAnswer(answer);
+           
+            if (correct) {
+                ps.setSolved(true);
+                System.out.println("Correct! The solution was: " + answer);
+            } else {
+                System.out.println(" Incorrect! Try again.");
+            }
+            return correct;
+        }
+    }
+    System.out.println("Puzzle not found: " + puzzleTitle);
+    return false;
     }
 
     

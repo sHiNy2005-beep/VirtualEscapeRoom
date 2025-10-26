@@ -30,13 +30,17 @@ public class GameSession {
      * @param room the room being played
      */
     public GameSession(User user, Room room) {
+        if ( room == null) {
+            throw new IllegalArgumentException(" Room cannot be null");
+        }
         this.user = user;
         this.room = room;
         this.inventory = new ArrayList<>();
         this.hintsUsed = 0;
         this.isCompleted = false;
-        this.sessionId = "sessions"+ System.currentTimeMillis(); 
         this.puzzleSessions = new ArrayList<>();
+        this.sessionId = "session_" + room.getTitle().toLowerCase().replace(" ", "_") 
+          + "_" + user.getUserName().toLowerCase();
 
         for (Puzzle p : room.getPuzzles()) {
         puzzleSessions.add(new PuzzleSession(p.getTitle()));
@@ -56,7 +60,34 @@ public class GameSession {
         long solved = puzzleSessions.stream().filter(PuzzleSession::isSolved).count();
         return (int) ((solved * 100) / puzzleSessions.size());
     }
+
+    public int getTotalPuzzles() {
+    return (room == null) ? 0 : room.getPuzzles().size();
+    }
+
+    public int getSolvedCount() {
+    int s=0;
+    for (PuzzleSession ps : puzzleSessions) if (ps.isSolved()) s++;
+    return s;
+    }
+
+    public double getProgressPercent() {
+    int total = getTotalPuzzles();
+    return (total == 0) ? 0.0 : (getSolvedCount() * 100.0 / total);
+    }
     
+    public void addPuzzleSession(Puzzle puzzle) {
+    if (puzzle == null) return;
+
+    
+    for (PuzzleSession ps : puzzleSessions) {
+        if (ps.getPuzzleTitle().equalsIgnoreCase(puzzle.getTitle())) {
+            return; 
+        }
+    }
+
+    puzzleSessions.add(new PuzzleSession(puzzle.getTitle()));
+}
     /*
      * Record the session start time.
      */

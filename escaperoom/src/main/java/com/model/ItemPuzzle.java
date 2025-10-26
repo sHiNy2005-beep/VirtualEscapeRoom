@@ -1,6 +1,6 @@
 package com.model;
 
-import java.util.ArrayList; //import for arryas 
+import java.util.ArrayList; //import for arrays
 public class ItemPuzzle extends Puzzle {
     private ArrayList<String> requiredItems;
 

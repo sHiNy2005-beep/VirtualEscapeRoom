@@ -251,40 +251,52 @@ public class EscapeRoomUI {
             return;
         }
         System.out.println("Logged in as: " + current.getUserName());
-        if (current.getSessions() == null || current.getSessions().isEmpty()) {
-            System.out.println("No saved sessions for user: " + current.getUserName());
-        } else {
-            System.out.println("User sessions:");
-            for (GameSession s : current.getSessions()) {
-                Room r = s.getRoom();
-                int totalPuzzles = r != null ? r.getPuzzles().size() : 0;
-                int solved = 0;
-                System.out.println("\nSession: " + s.getSessionId());
-                System.out.println("Room: " + (r != null ? r.getTitle() : "Unknown") + " | Completed: " + s.isCompleted());
+       if (current.getSessions() == null || current.getSessions().isEmpty()) {
+       System.out.println("No saved sessions for user: " + current.getUserName());
+       } else {
+       System.out.println("User sessions:");
 
-                for (PuzzleSession ps : s.getPuzzleSessions()) {
-                    if (ps.isSolved()) solved++;
-                }
+       java.util.Set<String> printedSessions = new java.util.HashSet<>();
 
-                int percent = (totalPuzzles == 0) ? 0 : (int) ((solved * 100.0) / totalPuzzles);
-                System.out.println("Progress: " + percent + "% (" + solved + "/" + totalPuzzles + " puzzles solved)");
-                System.out.println("Questions answered:");
-                for (PuzzleSession ps : s.getPuzzleSessions()) {
-                    if (ps.isSolved()) {
-                        System.out.println(" - " + ps.getPuzzleTitle() + " -> Answer: " + ps.getFinalAnswer());
-                    }
-                }
-                System.out.println("Hints used per question:");
-                for (PuzzleSession ps : s.getPuzzleSessions()) {
-                    if (ps.getNumHintsUsed() > 0) {
-                        System.out.println(" - " + ps.getPuzzleTitle() + " : " + ps.getNumHintsUsed() + " hint(s)");
-                    }
-                }
+       for (GameSession s : current.getSessions()) {
+        
+        if (!printedSessions.add(s.getSessionId())) {
+            continue;
+        }
 
-                System.out.println("Total hints used in session: " + s.getHintsUsed());
+        Room r = s.getRoom();
+        int totalPuzzles = r != null ? r.getPuzzles().size() : 0;
+        int solved = 0;
+
+        System.out.println("\nSession: " + s.getSessionId());
+        System.out.println("Room: " + (r != null ? r.getTitle() : "Unknown") +
+                           " | Completed: " + s.isCompleted());
+
+        for (PuzzleSession ps : s.getPuzzleSessions()) {
+            if (ps.isSolved()) solved++;
+        }
+
+        int percent = (totalPuzzles == 0) ? 0 : (int) ((solved * 100.0) / totalPuzzles);
+        System.out.println("Progress: " + percent + "% (" + solved + "/" + totalPuzzles + " puzzles solved)");
+
+        System.out.println("Questions answered:");
+        for (PuzzleSession ps : s.getPuzzleSessions()) {
+            if (ps.isSolved()) {
+                System.out.println(" - " + ps.getPuzzleTitle() + " -> Answer: " + ps.getFinalAnswer());
             }
         }
-        System.out.println("\n json/User.json contents:");
+
+        System.out.println("Hints used per question:");
+        for (PuzzleSession ps : s.getPuzzleSessions()) {
+            if (ps.getNumHintsUsed() > 0) {
+                System.out.println(" - " + ps.getPuzzleTitle() + " : " + ps.getNumHintsUsed() + " hint(s)");
+            }
+        }
+
+        System.out.println("Total hints used in session: " + s.getHintsUsed());
+    }
+   }
+         System.out.println("\n json/User.json contents:");
         try {
             java.nio.file.Path p = java.nio.file.Paths.get("json/User.json");
             if (java.nio.file.Files.exists(p)) {
