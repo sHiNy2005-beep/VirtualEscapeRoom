@@ -22,11 +22,11 @@ public class EscapeRoomUI {
     System.out.println("You must gather evidence of the real culprit by solving puzzles in each room.");
 	System.out.println("Each correctly solved puzzle rewards you with a clue, which points to more than one person.");
     System.out.println("Gather all the clues, and they will point to one person. Good luck!");
-    //scenario1_CreateAccount(); 
-	//scenario2_EnterAnEscapeRoom();
+    scenario1_CreateAccount(); 
+	scenario2_EnterAnEscapeRoom();
     scenario3_Complete3Puzzles();
-    //scenario4_DataPersistence(); 
-    //scenario5_EndGame();
+    scenario4_DataPersistence(); 
+    scenario5_EndGame();
     
 	}
 
