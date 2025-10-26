@@ -205,8 +205,8 @@ public class EscapeRoomUI {
             }
         }
 
-        room = facade.getAllRooms().get(2);
-        Puzzle BedroomPuzzle = room.getPuzzles().get(2);
+        room = facade.getAllRooms().get(1);
+        Puzzle BedroomPuzzle = room.getPuzzles().get(1);
 
         System.out.println("Puzzle: " + BedroomPuzzle.getTitle());
         System.out.println("Description: " + BedroomPuzzle.getDescription());
