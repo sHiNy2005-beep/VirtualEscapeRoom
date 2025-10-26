@@ -14,4 +14,3 @@ UML Class Diagram - https://lucid.app/lucidchart/c7511d96-20de-44ca-87e6-ff38423
 
 Excel Requirements Document - https://docs.google.com/spreadsheets/d/1vgKbUIGw4BRAfXslYwYXHGpWlzJrjhsamQNjp4liThE/edit?gid=0#gid=0
 
-Youtube Presentation link - https://youtu.be/11FLWUD6lO0
