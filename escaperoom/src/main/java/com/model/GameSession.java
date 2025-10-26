@@ -61,14 +61,36 @@ public class GameSession {
     }
 
     public boolean submitAnswer(String puzzleTitle, String answer) {
-    for (PuzzleSession ps : puzzleSessions) {
-        if (ps.getPuzzleTitle().equalsIgnoreCase(puzzleTitle)) {
-            ps.markSolved(answer);
-            return true;
+    if (this.getRoom() == null) return false;
+
+    for (Puzzle p : this.getRoom().getPuzzles()) {
+        if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
+            boolean correct = p.checkAnswer(answer);
+            PuzzleSession ps = this.getPuzzleSession(p);
+            ps.setFinalAnswer(answer);
+            if (correct) {
+                ps.setSolved(true);
+                System.out.println(" Correct! The solution was: " + answer);
+            } else {
+                System.out.println(" Incorrect! Try again.");
+            }
+            return correct;
         }
     }
     return false;
+    
    }
+
+   public PuzzleSession getPuzzleSession(Puzzle puzzle) {
+    for (PuzzleSession ps : puzzleSessions) {
+        if (ps.getPuzzleTitle().equalsIgnoreCase(puzzle.getTitle())) {
+            return ps;
+        }
+    }
+    PuzzleSession newPS = new PuzzleSession(puzzle.getTitle());
+    puzzleSessions.add(newPS);
+    return newPS;
+}
 
 
 

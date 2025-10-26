@@ -52,4 +52,12 @@ public class PuzzleSession {
     public String getFinalAnswer() { 
         return finalAnswer; 
     }
+
+    public void setFinalAnswer(String finalAnswer) {
+        this.finalAnswer = finalAnswer;
+    }
+
+    public void setSolved(boolean solved) {
+        this.solved = solved;
+    }
 }

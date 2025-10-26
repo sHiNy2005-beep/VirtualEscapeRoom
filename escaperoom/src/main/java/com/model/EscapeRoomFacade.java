@@ -42,12 +42,22 @@ public class EscapeRoomFacade {
 
 
     public GameSession startGame(Room room) {
-        if (currentUser == null) return null;
-        this.currentRoom = room;
-        currentSession = new GameSession(currentUser, room);
-        currentSession.startSession();
-        currentUser.addSession(currentSession);
-        return currentSession;
+       if (currentUser == null || room == null) return null;
+
+    
+    for (GameSession s : currentUser.getSessions()) {
+        if (s.getRoom().getTitle().equalsIgnoreCase(room.getTitle())) {
+            System.out.println("Resuming previous session in " + room.getTitle());
+            currentSession = s;
+            return s;
+        }
+    }
+
+    
+    GameSession session = new GameSession(currentUser, room);
+    currentUser.addSession(session);
+    currentSession = session;
+    return session;
     }
 
     public ArrayList<Room> getAllRooms() { 
@@ -57,7 +67,6 @@ public class EscapeRoomFacade {
     public Room getCurrentRoom() {
          return currentRoom; 
     }
-
    
 
     

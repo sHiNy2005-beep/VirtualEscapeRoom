@@ -1,12 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-import com.model.RoomList;
-import com.model.GameSession
-;
 import com.speech.Speek;
 
 public class EscapeRoomUI {
@@ -20,7 +15,7 @@ public class EscapeRoomUI {
     
 	public void run() {
     System.out.println("\n****Murder Mystery Escape Room****");
-    Speek.speak("Welcome to the Hamton Mansion. Mr.Hamton has mysteriusly died under suspicious circumstances, and you a detective must investigate his death and find his killer. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person--the killer.");;
+    //Speek.speak("Welcome to the Hamton Mansion. Mr.Hamton has mysteriusly died under suspicious circumstances, and you a detective must investigate his death and find his killer. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person--the killer.");;
     scenario1_CreateAccount(); 
 	scenario2_EnterAnEscapeRoom();
     scenario3_Complete3Puzzles();
@@ -173,8 +168,8 @@ public class EscapeRoomUI {
             }
         }
 
-        room = facade.getAllRooms().get(1);
-        Puzzle GardenPuzzle = room.getPuzzles().get(1);
+        room = facade.getAllRooms().get(0);
+        Puzzle GardenPuzzle = room.getPuzzles().get(0);
 
         System.out.println("Puzzle: " + GardenPuzzle.getTitle());
         System.out.println("Description: " + GardenPuzzle.getDescription());
@@ -205,8 +200,8 @@ public class EscapeRoomUI {
             }
         }
 
-        room = facade.getAllRooms().get(2);
-        Puzzle BedroomPuzzle = room.getPuzzles().get(2);
+        room = facade.getAllRooms().get(0);
+        Puzzle BedroomPuzzle = room.getPuzzles().get(0);
 
         System.out.println("Puzzle: " + BedroomPuzzle.getTitle());
         System.out.println("Description: " + BedroomPuzzle.getDescription());
@@ -352,6 +347,7 @@ public class EscapeRoomUI {
 
 
     
+
 
 
 
