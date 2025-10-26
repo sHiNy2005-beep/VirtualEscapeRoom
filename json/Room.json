@@ -1,1 +1,83 @@
-[{"difficulty":"Hard","leaderboard":[],"puzzles":[{"solution":"THOMASISDISOWNED","hints":["Look only at the capitalized letters.","The message hides a name."],"description":"Decode the message hidden in Hamton's will. Each capitalized letter hides the truth of inheritance..","title":"Hidden Will Cipher"}],"isLocked":false,"title":"Library","items":["torn will page","magnifying glass"],"roomId":"room_001"},{"difficulty":"Medium","leaderboard":[],"puzzles":[{"solution":"STATUE","hints":["It's something heavy and hidden.","Roses hide more than thorns."],"description":"Use the shovel and rope to dig where the roses grow.","title":"The Buried Truth"}],"isLocked":false,"title":"Garden","items":["shovel","rope","bloody statue","glove"],"roomId":"room_002"},{"difficulty":"Hard","leaderboard":[],"puzzles":[{"solution":"secret","hints":["It's something intangible.","It's often shared in whispers."],"description":"What exists when one person has it but ceases to exist when another person gets it?","title":"The Betrayal Riddle"}],"isLocked":true,"title":"Bedroom","items":["locket","love letter"],"roomId":"room_003"}]
+[{
+    "title": "Library",
+    "roomId": "room_001",
+    "leaderboard": {"user": "score"},
+    "puzzles": [{
+        "title": "Hidden Will Cipher",
+        "type": "Code",
+        "description": "Decode the hidden message in Hamton's will. Each capitalized letter hides the truth of inheritance.",
+        "solution": "THOMASISDISOWNED",
+        "hints": ["Look only at capitalized letters.", "The message hides a name."]
+    }],
+    "items": ["torn will page", "magnifying glass"],
+    "difficulty": "Hard",
+    "isLocked": true
+}, 
+{
+    "title": "Garden",
+    "roomId": "room_002",
+    "leaderboard": {"user": "score"},
+    "puzzles": [{
+        "title": "The Buried Truth",
+        "type": "Item",
+        "description": "Use the shovel and rope to dig where the roses grow.",
+        "solution": "STATUE",
+        "hints": ["It's something heavy and hidden.", "Roses hide more than thorns."]
+ }
+   ],
+    "items": ["shovel", "rope", "bloody statue", "gloves"],
+    "difficulty": "Medium",
+    "isLocked": false
+},
+{
+    "title": "Bedroom",
+    "roomId": "room_003",
+    "leaderboard": {"user": "score"},
+    "puzzles": [{
+        "title": "The Betrayal Riddle",
+        "type": "Riddle",
+        "description": "What exists when one person has it but ceases to exist when another person gets it?.",
+        "solution": "secret",
+        "hints": ["It's something intangible.", "It often shared in whispers."]
+    }],
+    "items": ["locket", "love letter"],
+    "difficulty": "Hard",
+    "isLocked": true
+},
+{
+    "title": "Vault Room",
+    "roomId": "room_004",
+    "leaderboard": {},
+    "puzzles": [{
+        "title": "The Safe Code Note",
+        "type": "Math",
+        "description": "A note on the safe says: Add 10 and 5, multiply by 2, subtract 1, then repeat the last two digits twice.",
+        "solution": "2929",
+        "hints": [
+            "Do the math step by step.",
+            "Focus on the final two digits."
+        ]
+    }],
+    "items": ["note", "safe"],
+    "difficulty": "Easy",
+    "isLocked": false
+},
+{
+    "title": "Main Hall",
+    "roomId": "room_005",
+    "leaderboard": {},
+    "puzzles": [{
+        "title": "The Clue Sequence",
+        "type": "Match",
+        "description": "All the evidence has been collected. You need to figure out who they all point to.",
+        "solution": "The Gardener - Mr. Louis",
+        "hints": [
+            "Who is always around but never seems to be doing much?",
+            "Each clue points to more than one person, but whose name appears in all of them?."
+        ]
+    }],
+    "items": ["Will - which the son was removed from", "Envelopes- Letters between Mr. Hamton & Mrs. Donatelli (The wife finds suspicious)", "Bottle of Poison- found under a bush in the garden", "", ""],
+    "difficulty": "Medium",
+    "isLocked": false
+}
+]

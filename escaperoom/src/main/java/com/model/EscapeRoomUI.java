@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import com.model.RoomList;
-import com.model.GameSession
-;
+import com.model.GameSession;
 import com.speech.Speek;
 
 public class EscapeRoomUI {
@@ -173,8 +172,8 @@ public class EscapeRoomUI {
             }
         }
 
-        room = facade.getAllRooms().get(1);
-        Puzzle GardenPuzzle = room.getPuzzles().get(1);
+        room = facade.getAllRooms().get(0);
+        Puzzle GardenPuzzle = room.getPuzzles().get(0);
 
         System.out.println("Puzzle: " + GardenPuzzle.getTitle());
         System.out.println("Description: " + GardenPuzzle.getDescription());
@@ -205,8 +204,8 @@ public class EscapeRoomUI {
             }
         }
 
-        room = facade.getAllRooms().get(1);
-        Puzzle BedroomPuzzle = room.getPuzzles().get(1);
+        room = facade.getAllRooms().get(0);
+        Puzzle BedroomPuzzle = room.getPuzzles().get(0);
 
         System.out.println("Puzzle: " + BedroomPuzzle.getTitle());
         System.out.println("Description: " + BedroomPuzzle.getDescription());
