@@ -1,0 +1,34 @@
+╔═══════════════════════════════════════════════════════════╗
+║           CERTIFICATE OF COMPLETION                      ║
+╚═══════════════════════════════════════════════════════════╝
+
+                Murder Mystery Escape Room
+              Hamton Mansion Investigation
+
+═════════════════════════════════════════════════════════════
+
+  This certifies that Detective:
+
+                  LENI_RIVERS_DETECTIVE
+
+  has successfully solved the mysterious death of
+  Mr. Reginald Hamton and brought the killer to justice!
+
+  Through keen observation and logical deduction,
+  the truth was revealed: Ms. Louise is the murderer.
+
+═════════════════════════════════════════════════════════════
+                   INVESTIGATION STATS
+═════════════════════════════════════════════════════════════
+
+  Difficulty Level:        Murder Mystery
+  Puzzles Solved:          20
+  Hints Used:              8
+  Final Detective Score:   81900
+
+═════════════════════════════════════════════════════════════
+                    CASE CLOSED
+═════════════════════════════════════════════════════════════
+  Date: 2025-10-26
+  "Justice Prevails in the Darkness"
+═════════════════════════════════════════════════════════════

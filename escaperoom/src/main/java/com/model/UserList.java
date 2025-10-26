@@ -8,10 +8,10 @@ import java.util.List;
 public class UserList {
   private ArrayList<User> users;
   private static UserList userList;
+  private boolean usersLoaded = false;
 
     private UserList() {
-      this.users = DataLoader.getUsers();
-      if (this.users == null) this.users = new ArrayList<>();
+      this.users = new ArrayList<>();
     }
 
     /**
@@ -24,12 +24,30 @@ public class UserList {
       }
       return userList;
     }
+    
+    /**
+     * Lazily load users from data file.
+     * This is called after RoomList is initialized to avoid circular dependency.
+     */
+    private void ensureUsersLoaded() {
+        if (!usersLoaded) {
+            RoomList.getInstance();
+            
+            ArrayList<User> loadedUsers = DataLoader.getUsers();
+            if (loadedUsers != null && !loadedUsers.isEmpty()) {
+                this.users.addAll(loadedUsers);
+            }
+            usersLoaded = true;
+        }
+    }
 
     /**
      * Add a user if the username or email are not already taken.
      * @return true if user was added, false if duplicate found
      */
     public boolean addUser(String username, String email, String password) {
+      ensureUsersLoaded();
+      
       for (User u : users) {
           if ((u.getUserName() != null && u.getUserName().equalsIgnoreCase(username)) ||
               (u.getEmail() != null && u.getEmail().equalsIgnoreCase(email))) {
@@ -45,6 +63,7 @@ public class UserList {
     * Return an unmodifiable view of the users.
     */
    public List<User> getUsers() {
+    ensureUsersLoaded();
     return Collections.unmodifiableList(users);
    }
 
@@ -54,16 +73,18 @@ public class UserList {
 
     /**
      * Sign-up that only requires username and password.
-     * Email is nothing. Returns false when username is taken or inputs are ialid.
+     * Email is nothing. Returns false when username is taken or inputs are invalid.
      */
     public boolean signUp(String username, String password) {
+      ensureUsersLoaded();
+      
       if (username == null || password == null ) return false;
       username = username.trim();
       if (username.isEmpty() || password.isEmpty()) return false;
 
       for (User u : users) {
           if (u.getUserName() != null && u.getUserName().equalsIgnoreCase(username)) {
-            return false; // username already taken
+            return false;
           }
       }
       User newUser = new User(username, null, password);
@@ -71,6 +92,4 @@ public class UserList {
       DataWriter.saveUsers();
       return true;
     }
-
-
 }
