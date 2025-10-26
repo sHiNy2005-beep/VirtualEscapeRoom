@@ -16,8 +16,8 @@ public class GameSession {
     private long sessionStartTime;
     private long sessionEndTime;
     private boolean isSessionCompleted;
-    private HashMap<String, RoomSession> roomSessionMap; // Maps roomId to RoomSession
-    private RoomSession currentRoomSession; // The room currently being played
+    private HashMap<String, RoomSession> roomSessionMap;
+    private RoomSession currentRoomSession;
     
     /**
      * Create a new GameSession for the given user.
@@ -46,11 +46,8 @@ public class GameSession {
         if (room == null) {
             throw new IllegalArgumentException("Room cannot be null");
         }
-        
-        // Check if session already exists for this room
         RoomSession roomSession = roomSessionMap.get(room.getRoomId());
         if (roomSession == null) {
-            // Create new session for this room
             roomSession = new RoomSession(room);
             roomSessionMap.put(room.getRoomId(), roomSession);
         }
@@ -168,8 +165,6 @@ public class GameSession {
     public int calculateTotalScore() {
         int totalScore = 0;
         for (RoomSession roomSession : roomSessionMap.values()) {
-            // You'll need to pass the room difficulty somehow
-            // This is a simplified version
             totalScore += roomSession.calculateScore("Medium");
         }
         return totalScore;
@@ -261,7 +256,6 @@ public class GameSession {
         return (sessionEndTime - sessionStartTime) / 1000;
     }
     
-    // Getters and Setters
     
     public String getSessionId() {
         return sessionId;

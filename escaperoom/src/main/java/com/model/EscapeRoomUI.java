@@ -29,7 +29,6 @@ public class EscapeRoomUI {
         System.out.println("She tries to use the email 'rivers.family@example.com'...");
         System.out.println("But her brother Logan Rivers already registered with that email!");
         
-        // Simulate trying to create with duplicate credentials
         if (!facade.createAccount("leni_rivers", "bob.dev@example.com", "LeniPass#123")) {
             System.out.println("Account creation failed! Duplicate username or email found.");
             System.out.println("(The email is already taken by another user)");
@@ -39,8 +38,6 @@ public class EscapeRoomUI {
 
         System.out.println("\n====== Create Account - Success ===== ");
         System.out.println("Leni changes her credentials to avoid conflicts...");
-        
-        // Check if account already exists from previous run
         boolean accountExists = false;
         for (User u : UserList.getInstance().getUsers()) {
             if (u.getUserName().equals("leni_rivers_detective")) {
@@ -56,8 +53,6 @@ public class EscapeRoomUI {
         } else {
             System.out.println("Account already exists for Leni Rivers!");
         }
-        
-        // Now login
         if (facade.login("leni_rivers_detective", "LeniPass#123")) {
             System.out.println("Login successful for Leni Rivers!");
         } else {
@@ -74,7 +69,7 @@ public class EscapeRoomUI {
             return;
         }
 
-        Room chosenRoom = rooms.get(0); // Start with Library
+        Room chosenRoom = rooms.get(0);
 
         String playerName = "Player";
         if (facade.getCurrentUser() == null || facade.getCurrentUser().getUserName() == null) {
@@ -129,7 +124,6 @@ public class EscapeRoomUI {
             System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
         }
 
-        // ===== First Puzzle: Library =====
         System.out.println("\n===== Puzzle 1: Library =====");
         Room libraryRoom = null;
         for (Room r : rooms) {
@@ -148,7 +142,6 @@ public class EscapeRoomUI {
                 System.out.println("\nPuzzle: " + libraryPuzzle.getTitle());
                 System.out.println("Description: " + libraryPuzzle.getDescription());
                 
-                // Use a hint
                 System.out.println("\nLeni uses a hint...");
                 String hint = facade.useHint(libraryPuzzle.getTitle());
                 System.out.println("Hint: " + hint);
@@ -163,7 +156,6 @@ public class EscapeRoomUI {
             }
         }
 
-        // ===== Second Puzzle: Garden (requires items) =====
         System.out.println("\n===== Puzzle 2: Garden - Using Items =====");
         Room gardenRoom = null;
         for (Room r : rooms) {
@@ -178,7 +170,6 @@ public class EscapeRoomUI {
             if (session != null) {
                 System.out.println("Entered the Garden.");
                 
-                // Collect items
                 System.out.println("\nLeni collects items from the garden:");
                 for (String item : gardenRoom.getItems()) {
                     session.collectItem(item);
@@ -189,14 +180,12 @@ public class EscapeRoomUI {
                 System.out.println("\nPuzzle: " + gardenPuzzle.getTitle());
                 System.out.println("Description: " + gardenPuzzle.getDescription());
                 
-                // Check required items
                 if (gardenPuzzle instanceof ItemPuzzle) {
                     ItemPuzzle itemPuzzle = (ItemPuzzle) gardenPuzzle;
                     System.out.println("Required items: " + itemPuzzle.getRequiredItems());
                     System.out.println("Leni uses the shovel and rope to dig...");
                 }
                 
-                // Use another hint
                 System.out.println("\nLeni uses another hint...");
                 String hint = facade.useHint(gardenPuzzle.getTitle());
                 System.out.println("Hint: " + hint);
@@ -210,8 +199,7 @@ public class EscapeRoomUI {
                 }
             }
         }
-
-        // ===== Third Puzzle: Bedroom =====
+        
         System.out.println("\n===== Puzzle 3: Bedroom =====");
         Room bedroomRoom = null;
         for (Room r : rooms) {
@@ -248,14 +236,12 @@ public class EscapeRoomUI {
         
         String demoUser = "leni_rivers_detective";
         
-        // Logout
         if (facade.getCurrentUser() != null) {
             System.out.println("Logging out " + facade.getCurrentUser().getUserName() + "...");
             facade.logout();
             System.out.println("Logged out successfully.");
         }
         
-        // Login again
         System.out.println("\nLogging back in as " + demoUser + "...");
         String demoPass = null;
         for (User u : UserList.getInstance().getUsers()) {
@@ -283,7 +269,6 @@ public class EscapeRoomUI {
         
         System.out.println("✓ Logged in as: " + current.getUserName());
         
-        // Display session data
         if (current.getSessions() == null || current.getSessions().isEmpty()) {
             System.out.println("No saved sessions for user: " + current.getUserName());
         } else {
@@ -297,7 +282,6 @@ public class EscapeRoomUI {
                 System.out.println("Total Hints Used: " + gameSession.getTotalHintsUsed());
                 System.out.println("Total Puzzles Solved: " + gameSession.getTotalPuzzlesSolved());
                 
-                // Display each room's progress
                 System.out.println("\n--- Room-by-Room Progress ---");
                 for (Map.Entry<String, RoomSession> entry : gameSession.getAllRoomSessions().entrySet()) {
                     RoomSession roomSession = entry.getValue();
@@ -306,7 +290,6 @@ public class EscapeRoomUI {
                     System.out.println("  Puzzles Solved: " + roomSession.getSolvedCount() + "/" + roomSession.getTotalPuzzles());
                     System.out.println("  Hints Used: " + roomSession.getHintsUsed());
                     
-                    // Show puzzle sessions
                     System.out.println("  Puzzle Details:");
                     for (PuzzleSession ps : roomSession.getPuzzleSessions()) {
                         System.out.println("    • " + ps.getPuzzleTitle());
@@ -319,8 +302,7 @@ public class EscapeRoomUI {
                 }
             }
         }
-        
-        // Show JSON file contents
+
         System.out.println("\n===== json/User.json contents =====");
         try {
             java.nio.file.Path p = java.nio.file.Paths.get("json/User.json");
@@ -340,7 +322,6 @@ public class EscapeRoomUI {
     public void scenario5_EndGame() {
         System.out.println("\n======== Finishing the Game and Generating Certificate ========");
         
-        // Ensure user is logged in
         if (facade.getCurrentUser() == null) {
             if (!facade.login("leni_rivers_detective", "LeniPass#123")) {
                 System.out.println("Login failed!");
@@ -349,10 +330,8 @@ public class EscapeRoomUI {
         }
         System.out.println("Continuing as detective " + facade.getCurrentUser().getUserName() + "...");
         
-        // Get fresh room instances
         ArrayList<Room> rooms = facade.getAllRooms();
         
-        // Get current session - this will get or create a session
         GameSession currentSession = facade.getCurrentSession();
         
         System.out.println("\n===== Restoring Session Data =====");
@@ -361,16 +340,13 @@ public class EscapeRoomUI {
             System.out.println("Rooms in session: " + currentSession.getVisitedRoomsCount());
             System.out.println("Total puzzles solved in session: " + currentSession.getTotalPuzzlesSolved());
             
-            // Restore puzzle solved states from the session data
             for (Map.Entry<String, RoomSession> entry : currentSession.getAllRoomSessions().entrySet()) {
                 RoomSession roomSession = entry.getValue();
                 System.out.println("\nRestoring room: " + roomSession.getRoomTitle());
                 System.out.println("  Puzzles solved in this room: " + roomSession.getSolvedCount());
                 
-                // Find the matching room by ID
                 for (Room room : rooms) {
                     if (room.getRoomId().equals(roomSession.getRoomId())) {
-                        // For each puzzle in the room, mark as solved if it was solved in the session
                         for (Puzzle puzzle : room.getPuzzles()) {
                             for (PuzzleSession ps : roomSession.getPuzzleSessions()) {
                                 if (ps.getPuzzleTitle().equals(puzzle.getTitle()) && ps.isSolved()) {
@@ -387,7 +363,6 @@ public class EscapeRoomUI {
             System.out.println("No previous session found. Starting fresh.");
         }
         
-        // ===== Solve Study Puzzle =====
         System.out.println("\n===== Solving Study Room Puzzle =====");
         Room studyRoom = null;
         for (Room r : rooms) {
@@ -416,7 +391,6 @@ public class EscapeRoomUI {
             System.out.println("Study room not available or has no puzzles.");
         }
 
-        // ===== Solve Final Puzzle: Conservatory =====
         System.out.println("\n===== Final Room: Conservatory - The Revelation =====");
         Room conservatoryRoom = null;
         for (Room r : rooms) {
@@ -450,10 +424,8 @@ public class EscapeRoomUI {
             System.out.println("Conservatory room not available or has no puzzles.");
         }
         
-        // End the game session
         facade.endGame();
         
-        // Calculate statistics
         User leni = facade.getCurrentUser();
         int totalPuzzlesSolved = 0;
         int totalHints = 0;
@@ -465,19 +437,15 @@ public class EscapeRoomUI {
         
         int finalScore = facade.getScore();
         
-        // Update leaderboard with multiple users
         if (conservatoryRoom != null) {
-            // Add the current user's score
             conservatoryRoom.getLeaderboard().put(leni, finalScore);
             
-            // Add other users to demonstrate leaderboard with 3+ people
             for (User u : UserList.getInstance().getUsers()) {
                 if (!u.getUserName().equals(leni.getUserName()) && 
                     conservatoryRoom.getLeaderboard().size() < 5) {
-                    // Generate realistic scores for other users
                     int otherScore = 0;
                     if (u.getUserName().equals("alice123")) {
-                        otherScore = 85000; // Higher score
+                        otherScore = 85000; 
                     } else if (u.getUserName().equals("bob_dev")) {
                         otherScore = 72000;
                     } else if (u.getUserName().equals("charlie_x")) {
@@ -499,7 +467,6 @@ public class EscapeRoomUI {
             }
         }
         
-        // Generate and display certificate
         String certificate = generateCertificate(
             leni.getUserName(), 
             totalPuzzlesSolved, 
@@ -510,7 +477,6 @@ public class EscapeRoomUI {
         
         System.out.println("\n" + certificate);
         
-        // Save certificate to file
         try {
             java.io.FileWriter writer = new java.io.FileWriter("certificate_" + leni.getUserName() + ".txt");
             writer.write(certificate);

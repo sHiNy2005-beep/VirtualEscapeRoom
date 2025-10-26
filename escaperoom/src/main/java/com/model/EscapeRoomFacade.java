@@ -45,11 +45,8 @@ public class EscapeRoomFacade {
         for (User u : userList.getUsers()) {
             if (u.getUserName().equals(username) && u.getPassword().equals(password)) {
                 currentUser = u;
-                
-                // Get the most recent session that is NOT completed, or create a new one
                 currentSession = null;
                 if (!currentUser.getSessions().isEmpty()) {
-                    // Look for the most recent incomplete session
                     for (int i = currentUser.getSessions().size() - 1; i >= 0; i--) {
                         GameSession gs = (GameSession) currentUser.getSessions().get(i);
                         if (!gs.isSessionCompleted()) {
@@ -59,8 +56,6 @@ public class EscapeRoomFacade {
                         }
                     }
                 }
-                
-                // If no incomplete session found, create a new one
                 if (currentSession == null) {
                     currentSession = new GameSession(currentUser);
                     currentUser.addSession(currentSession);
@@ -79,7 +74,6 @@ public class EscapeRoomFacade {
     public void logout() {
         if (currentUser != null) {
             System.out.println(currentUser.getUserName() + " logging out.");
-            // Save user data including all sessions
             DataWriter.saveUsers();
         }
         currentUser = null;
@@ -278,7 +272,6 @@ public class EscapeRoomFacade {
         if (currentSession != null) {
             currentSession.endSession();
             
-            // Update leaderboard for each room played
             for (Map.Entry<String, RoomSession> entry : currentSession.getAllRoomSessions().entrySet()) {
                 RoomSession roomSession = entry.getValue();
                 Room room = findRoomById(entry.getKey());

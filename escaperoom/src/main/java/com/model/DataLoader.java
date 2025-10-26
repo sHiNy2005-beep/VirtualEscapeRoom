@@ -29,21 +29,18 @@ public class DataLoader extends DataConstants {
                 String password = (String) userJSON.get("password");
                 
                 User user;
-                // Check if userId exists and create user with it
                 if (userJSON.containsKey("userId")) {
                     String userIdStr = (String) userJSON.get("userId");
                     try {
                         java.util.UUID userId = java.util.UUID.fromString(userIdStr);
                         user = new User(userId, userName, email, password);
                     } catch (IllegalArgumentException e) {
-                        // If UUID is invalid, create user normally
                         user = new User(userName, email, password);
                     }
                 } else {
                     user = new User(userName, email, password);
                 }
 
-                // Load sessions
                 JSONArray sessionsArray = (JSONArray) userJSON.get("sessions");
                 if (sessionsArray != null) {
                     for (Object sObj : sessionsArray) {
@@ -55,36 +52,29 @@ public class DataLoader extends DataConstants {
                         session.setSessionEndTime((long) sJSON.get("sessionEndTime"));
                         session.setSessionCompleted((boolean) sJSON.get("isSessionCompleted"));
 
-                        // Load room sessions for each room in this game session
                         JSONArray roomSessionsArray = (JSONArray) sJSON.get("roomSessions");
                         if (roomSessionsArray != null) {
                             for (Object rsObj : roomSessionsArray) {
                                 JSONObject rsJSON = (JSONObject) rsObj;
                                 
-                                // Find the corresponding room from RoomList singleton
                                 String roomId = (String) rsJSON.get("roomId");
                                 String roomTitle = (String) rsJSON.get("roomTitle");
                                 
-                                // Get the actual Room object from RoomList
                                 Room room = findRoomByIdOrTitle(roomId, roomTitle);
                                 if (room != null) {
                                     RoomSession roomSession = session.enterRoom(room);
                                     
-                                    // Restore room session state
                                     roomSession.setStartTime((long) rsJSON.get("startTime"));
                                     roomSession.setEndTime((long) rsJSON.get("endTime"));
                                     roomSession.setCompleted((boolean) rsJSON.get("isCompleted"));
                                     roomSession.setHintsUsed(((Long) rsJSON.get("hintsUsed")).intValue());
                                     
-                                    // Restore inventory
                                     JSONArray invArray = (JSONArray) rsJSON.get("inventory");
                                     ArrayList<String> inventory = new ArrayList<>();
                                     for (Object item : invArray) {
                                         inventory.add((String) item);
                                     }
                                     roomSession.setInventory(inventory);
-                                    
-                                    // Restore puzzle sessions
                                     JSONArray puzzleSessions = (JSONArray) rsJSON.get("puzzleSessions");
                                     if (puzzleSessions != null) {
                                         ArrayList<PuzzleSession> psList = new ArrayList<>();
@@ -99,7 +89,6 @@ public class DataLoader extends DataConstants {
                                             if ((boolean) psJSON.get("solved")) {
                                                 ps.markSolved((String) psJSON.get("finalAnswer"));
                                                 
-                                                // IMPORTANT: Also mark the actual puzzle as solved
                                                 for (Puzzle puzzle : room.getPuzzles()) {
                                                     if (puzzle.getTitle().equals(ps.getPuzzleTitle())) {
                                                         puzzle.setSolved(true);
@@ -140,17 +129,13 @@ public class DataLoader extends DataConstants {
      * @return the matching Room or null
      */
     private static Room findRoomByIdOrTitle(String roomId, String roomTitle) {
-        // RoomList should be initialized by now
         RoomList roomList = RoomList.getInstance();
-        
-        // First try to find by ID
         for (Room r : roomList.getRooms()) {
             if (r.getRoomId().equals(roomId)) {
                 return r;
             }
         }
         
-        // Fallback to title
         for (Room r : roomList.getRooms()) {
             if (r.getTitle().equalsIgnoreCase(roomTitle)) {
                 return r;
@@ -181,12 +166,10 @@ public class DataLoader extends DataConstants {
                     (boolean) roomJSON.get("isLocked")
                 );
                 
-                // Set the room ID if it exists
                 if (roomJSON.containsKey("roomId")) {
                     room.setRoomId((String) roomJSON.get("roomId"));
                 }
 
-                // Load items
                 JSONArray items = (JSONArray) roomJSON.get("items");
                 if (items != null) {
                     for (Object item : items) {
@@ -194,7 +177,6 @@ public class DataLoader extends DataConstants {
                     }
                 }
 
-                // Load puzzles
                 JSONArray puzzles = (JSONArray) roomJSON.get("puzzles");
                 if (puzzles != null) {
                     for (Object pObj : puzzles) {
@@ -242,7 +224,6 @@ public class DataLoader extends DataConstants {
                                 ArrayList<String> leftSide = new ArrayList<>();
                                 ArrayList<String> rightSide = new ArrayList<>();
 
-                                // Preserve order and ensure proper case handling
                                 for (Object key : solutionJSON.keySet()) {
                                     leftSide.add((String) key);
                                     rightSide.add((String) solutionJSON.get(key));
@@ -264,7 +245,6 @@ public class DataLoader extends DataConstants {
                     }
                 }
 
-                // Load leaderboard if it exists
                 Object leaderboardObj = roomJSON.get("leaderboard");
                 if (leaderboardObj instanceof JSONArray) {
                     JSONArray leaderboardArray = (JSONArray) leaderboardObj;
@@ -281,10 +261,6 @@ public class DataLoader extends DataConstants {
                                 } else if (scoreObj instanceof Integer) {
                                     score = (Integer) scoreObj;
                                 }
-                                
-                                // Find the user and add to leaderboard
-                                // Note: This will be populated after users are loaded
-                                // For now, we'll skip this and let the game populate it
                             }
                         }
                     }

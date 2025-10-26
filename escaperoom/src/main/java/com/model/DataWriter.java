@@ -46,7 +46,6 @@ public class DataWriter extends DataConstants {
         userDetails.put("email", user.getEmail());
         userDetails.put("password", user.getPassword());
 
-        // Serialize game sessions
         JSONArray sessionArray = new JSONArray();
         for (GameSession session : user.getSessions()) {
             JSONObject sJSON = new JSONObject();
@@ -55,7 +54,6 @@ public class DataWriter extends DataConstants {
             sJSON.put("sessionEndTime", session.getSessionEndTime());
             sJSON.put("isSessionCompleted", session.isSessionCompleted());
 
-            // Serialize room sessions for each room in this game session
             JSONArray roomSessionsArray = new JSONArray();
             for (Map.Entry<String, RoomSession> entry : session.getAllRoomSessions().entrySet()) {
                 RoomSession roomSession = entry.getValue();
@@ -68,14 +66,12 @@ public class DataWriter extends DataConstants {
                 rsJSON.put("isCompleted", roomSession.isCompleted());
                 rsJSON.put("hintsUsed", roomSession.getHintsUsed());
                 
-                // Serialize inventory
                 JSONArray invArray = new JSONArray();
                 for (String item : roomSession.getInventory()) {
                     invArray.add(item);
                 }
                 rsJSON.put("inventory", invArray);
                 
-                // Serialize puzzle sessions
                 JSONArray puzzlesArray = new JSONArray();
                 for (PuzzleSession ps : roomSession.getPuzzleSessions()) {
                     JSONObject psJSON = new JSONObject();
@@ -135,14 +131,12 @@ public class DataWriter extends DataConstants {
         roomDetails.put("difficulty", room.getDifficulty());
         roomDetails.put("isLocked", room.isLocked());
 
-        // Serialize items
         JSONArray itemsArray = new JSONArray();
         for (String item : room.getItems()) {
             itemsArray.add(item);
         }
         roomDetails.put("items", itemsArray);
 
-        // Serialize puzzles WITH TYPE INFORMATION
         JSONArray puzzleArray = new JSONArray();
         for (Puzzle puzzle : room.getPuzzles()) {
             JSONObject pJSON = new JSONObject();
@@ -150,10 +144,8 @@ public class DataWriter extends DataConstants {
             pJSON.put("description", puzzle.getDescription());
             pJSON.put("solution", puzzle.getSolution());
             
-            // Determine and store puzzle type
             if (puzzle instanceof FinalPuzzle) {
                 pJSON.put("type", "Matching");
-                // Store the correct pairs for FinalPuzzle
                 FinalPuzzle fp = (FinalPuzzle) puzzle;
                 JSONObject solutionObj = new JSONObject();
                 for (Map.Entry<String, String> entry : fp.getCorrectPairs().entrySet()) {
@@ -175,7 +167,7 @@ public class DataWriter extends DataConstants {
             } else if (puzzle instanceof CodePuzzle) {
                 pJSON.put("type", "Code");
             } else {
-                pJSON.put("type", "Code"); // Default fallback
+                pJSON.put("type", "Code");
             }
             
             JSONArray hintsArray = new JSONArray();
@@ -188,7 +180,6 @@ public class DataWriter extends DataConstants {
         }
         roomDetails.put("puzzles", puzzleArray);
 
-        // Serialize leaderboard as array of objects
         JSONArray leaderboardArray = new JSONArray();
         for (Map.Entry<User, Integer> entry : room.getLeaderboard().entrySet()) {
             JSONObject lbEntry = new JSONObject();

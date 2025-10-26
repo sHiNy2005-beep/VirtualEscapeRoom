@@ -12,7 +12,6 @@ public class UserList {
 
     private UserList() {
       this.users = new ArrayList<>();
-      // Don't load users yet - wait for explicit initialization
     }
 
     /**
@@ -32,7 +31,6 @@ public class UserList {
      */
     private void ensureUsersLoaded() {
         if (!usersLoaded) {
-            // Make sure RoomList is initialized first
             RoomList.getInstance();
             
             ArrayList<User> loadedUsers = DataLoader.getUsers();
@@ -86,7 +84,7 @@ public class UserList {
 
       for (User u : users) {
           if (u.getUserName() != null && u.getUserName().equalsIgnoreCase(username)) {
-            return false; // username already taken
+            return false;
           }
       }
       User newUser = new User(username, null, password);

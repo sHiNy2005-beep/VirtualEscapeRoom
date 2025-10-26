@@ -7,7 +7,7 @@ import java.util.List;
 
 public class RoomList {
     private ArrayList<Room> rooms;
-    private HashMap<String, Room> roomCache; // Cache rooms by ID
+    private HashMap<String, Room> roomCache;
     private static RoomList roomList;
 
     private RoomList() {
@@ -16,7 +16,6 @@ public class RoomList {
         ArrayList<Room> loadedRooms = DataLoader.getRooms();
         if (loadedRooms != null && !loadedRooms.isEmpty()) {
             this.rooms.addAll(loadedRooms);
-            // Build cache
             for (Room r : this.rooms) {
                 roomCache.put(r.getRoomId(), r);
             }

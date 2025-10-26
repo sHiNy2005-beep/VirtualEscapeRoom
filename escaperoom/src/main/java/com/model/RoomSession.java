@@ -30,8 +30,6 @@ public class RoomSession {
         this.isCompleted = false;
         this.puzzleSessions = new ArrayList<>();
         this.startTime = System.currentTimeMillis();
-        
-        // Initialize a puzzle session for each puzzle in the room
         for (Puzzle p : room.getPuzzles()) {
             puzzleSessions.add(new PuzzleSession(p.getTitle()));
         }
@@ -50,7 +48,6 @@ public class RoomSession {
                 return ps;
             }
         }
-        // Create new puzzle session if not found
         PuzzleSession newPS = new PuzzleSession(puzzle.getTitle());
         puzzleSessions.add(newPS);
         return newPS;
@@ -174,8 +171,6 @@ public class RoomSession {
         }
         return (endTime - startTime) / 1000;
     }
-    
-    // Getters and Setters
     
     public String getRoomId() {
         return roomId;
