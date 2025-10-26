@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 public class EscapeRoomFacade {
     private UserList userList;
     private RoomList roomList;
@@ -41,12 +42,22 @@ public class EscapeRoomFacade {
 
 
     public GameSession startGame(Room room) {
-        if (currentUser == null) return null;
-        this.currentRoom = room;
-        currentSession = new GameSession(currentUser, room);
-        currentSession.startSession();
-        currentUser.addSession(currentSession);
-        return currentSession;
+       if (currentUser == null || room == null) return null;
+
+    
+    for (GameSession s : currentUser.getSessions()) {
+        if (s.getRoom().getTitle().equalsIgnoreCase(room.getTitle())) {
+            System.out.println("Resuming previous session in " + room.getTitle());
+            currentSession = s;
+            return s;
+        }
+    }
+
+    
+    GameSession session = new GameSession(currentUser, room);
+    currentUser.addSession(session);
+    currentSession = session;
+    return session;
     }
 
     public ArrayList<Room> getAllRooms() { 
@@ -56,6 +67,7 @@ public class EscapeRoomFacade {
     public Room getCurrentRoom() {
          return currentRoom; 
     }
+   
 
     
     public ArrayList<Puzzle> getCurrentRoomPuzzles() {
@@ -111,6 +123,7 @@ public class EscapeRoomFacade {
 
     public void endGame() {
         if (currentSession != null) currentSession.endSession();
+        currentRoom.getLeaderboard().put(currentUser, currentSession.calculateScore());
     }
 
 
@@ -124,6 +137,15 @@ public class EscapeRoomFacade {
         ));
     
     return sortedLeaderboard;
+    }
+
+    public HashMap<User, Integer> getLeaderboard(Room room) {
+    return room.getLeaderboard();
+    }
+
+    public void updateLeaderboard(Room room, int score) {
+    room.getLeaderboard().put(currentUser, score);
+    DataWriter.saveRooms();
     }
 
     public boolean submitAnswer(String title, int i) {

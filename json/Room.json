@@ -3,29 +3,33 @@
     "roomId": "room_001",
     "leaderboard": {"user": "score"},
     "puzzles": [{
-        "title": "Book Cipher",
+        "title": "Hidden Will Cipher",
         "type": "Code",
-        "description": "Decode the hidden message using the book cipher method.",
-        "solution": "knowledgeispower",
-        "hints": ["Check the first letter of each word", "Look at the index numbers in the margin"]
+        "description": "Decode the hidden message in Hamton's will. Each capitalized letter hides the truth of inheritance.",
+        "solution": "THOMASISDISOWNED",
+        "hints": ["Look only at capitalized letters.", "The message hides a name."]
     }],
-    "items": ["ancient key", "torn map", "lantern"],
+    "items": ["torn will page", "magnifying glass"],
     "difficulty": "Hard",
     "isLocked": true
-}, {
-    "title": "Study",
+}, 
+{
+    "title": "Garden",
     "roomId": "room_002",
     "leaderboard": {"user": "score"},
     "puzzles": [{
-        "title": "Gemstone Pattern",
+        "title": "The Buried Truth",
         "type": "Item",
-        "description": "Arrange the gemstones in the correct order.",
-        "solution": "red-blue-green-yellow",
-        "hints": ["Notice the pictures of the wall carvings", "Colors follow the rainbow order"],
-        "requiredItems": ["gemstone"]
+        "description": "Use the shovel and rope to dig where the roses grow.",
+        "solution": "STATUE",
+        "hints": [
+          "It's something heavy and hidden.",
+          "Roses hide more than thorns."
+        ],
+        "requiredItems": ["shovel", "rope"]
  }
    ],
-    "items": ["shovel", "rope"],
+    "items": ["shovel", "rope", "bloody statue", "glove"],
     "difficulty": "Medium",
     "isLocked": false
 },
@@ -34,50 +38,60 @@
     "roomId": "room_003",
     "leaderboard": {"user": "score"},
     "puzzles": [{
-        "title": "Ghost Riddle",
+        "title": "The Betrayal Riddle",
         "type": "Riddle",
-        "description": "Solve the riddle whispered by the ghost.",
-        "solution": "silence",
-        "hints": ["Think about what can be heard but has no sound"]
-    }],
-    "items": ["ancient key", "torn map", "lantern", "glove", "candle"],
+        "description": "What exists when one person has it but ceases to exist when another person gets it?",
+        "solution": "secret",
+        "hints": [
+            "It's something intangible.",
+            "It's often shared in whispers."
+        ]
+      }],
+    "items": ["locket", "love letter"],
     "difficulty": "Hard",
     "isLocked": true
 },
 {
-    "title": "Vault Room",
+    "title": "Study",
     "roomId": "room_004",
     "leaderboard": {},
     "puzzles": [{
-        "title": "The Safe Code Note",
+        "title": "Safe Equation",
         "type": "Math",
-        "description": "A note on the safe says: Add 10 and 5, multiply by 2, subtract 1, then repeat the last two digits twice.",
-        "solution": "2929",
-        "hints": [
-            "Do the math step by step.",
-            "Focus on the final two digits."
+        "description": "Hamton's safe requires a 4-digit code. Solve: (45 ÷ 5) x 13 - 5",
+        "solution": "104",
+       "hints": [
+          "Follow the order of operations (PEMDAS).",
+          "Try simplifying each step — division first."
         ]
     }],
-    "items": ["note", "safe"],
+    "items": ["safe key", "ledger"],
     "difficulty": "Easy",
     "isLocked": false
 },
 {
-    "title": "Main Hall",
+     "title": "Conservatory",
     "roomId": "room_005",
     "leaderboard": {},
-    "puzzles": [{
-        "title": "The Clue Sequence",
-        "type": "Match",
-        "description": "All the evidence has been collected. You need to figure out who they all point to.",
-        "solution": "The Gardener - Mr. Louis",
+    "puzzles": [
+      {
+        "title": "The Murderer Revealed",
+        "type": "Matching",
+        "description": "Match each suspect to their evidence to find who truly killed Mr. Hamton.",
+        "solution": {
+          "Thomas Hamton": "Will Page",
+          "Lilly Hamton": "Love Letter",
+          "Mr. Barner": "Ledger",
+          "Ms. Louise": "Bloody Statue"
+        },
         "hints": [
-            "Who is always around but never seems to be doing much?",
-            "Each clue points to more than one person, but whose name appears in all of them?."
+          "Each clue belongs to one suspect.",
+          "Who had access to the garden?"
         ]
-    }],
-    "items": ["Will - which the son was removed from", "Envelopes- Letters between Mr. Hamton & Mrs. Donatelli (The wife finds suspicious)", "Bottle of Poison- found under a bush in the garden", "", ""],
-    "difficulty": "Medium",
-    "isLocked": false
-}
+      }
+    ],
+    "items": ["evidence board", "final clue"],
+    "difficulty": "Hard",
+    "isLocked": true
+  }
 ]

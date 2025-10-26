@@ -1,30 +1,52 @@
 package com.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class FinalPuzzle extends Puzzle{
 
-    String solution; 
-    /*
-     * Solution for the puzzle answer.
-     */
-   
-    /*
-     * FinalPuzzle with title, description and solution.
-     * @param title  
-     * @param description puzzle description
-     * @param solution  solution for the puzzle answer
-     */
-    public FinalPuzzle(String title, String description, String solution) {
-        super(title, description, solution);
-        this.solution = solution;
+   private HashMap<String, String> correctPairs;
+
+    public FinalPuzzle(String title, String description, ArrayList<String> left, ArrayList<String> right) {
+        super(title, description, "");
+        this.correctPairs = new HashMap<>();
+
+       
+        for (int i = 0; i < left.size() && i < right.size(); i++) {
+            this.correctPairs.put(left.get(i).trim().toLowerCase(), right.get(i).trim().toLowerCase());
+        }
     }
-    
-    /*
-     * @param answer player's submitted answer
-     * @return true if the answer matches the stored solution if not then its false.
-     */
+
     @Override
     public boolean checkAnswer(String answer) {
-        return super.checkAnswer(answer);
+        if (answer == null || answer.isEmpty()) return false;
+
+        String[] pairs = answer.split(",");
+        int correctCount = 0;
+
+        for (String p : pairs) {
+            String[] parts = p.split("=");
+            if (parts.length != 2) continue;
+
+            String left = parts[0].trim().toLowerCase();
+            String right = parts[1].trim().toLowerCase();
+
+            if (correctPairs.containsKey(left) && correctPairs.get(left).equals(right)) {
+                correctCount++;
+            }
+        }
+
+        
+        boolean ok = (correctCount == correctPairs.size());
+        if (ok) isSolved = true;
+        return ok;
     }
-    
+
+    public HashMap<String, String> getCorrectPairs() {
+        return correctPairs;
+    }
 }
+
+     
+    
+

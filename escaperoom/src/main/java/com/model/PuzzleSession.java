@@ -8,6 +8,7 @@ public class PuzzleSession {
     private long timeEnded;
     private boolean solved;
     private String finalAnswer;
+    private long duration;
 
     /**
      * Create a PuzzleSession for the given puzzle title. The session start
@@ -80,5 +81,13 @@ public class PuzzleSession {
      */
     public String getFinalAnswer() { 
         return finalAnswer; 
+    }
+
+    public void setFinalAnswer(String finalAnswer) {
+        this.finalAnswer = finalAnswer;
+    }
+
+    public void setSolved(boolean solved) {
+        this.solved = solved;
     }
 }
