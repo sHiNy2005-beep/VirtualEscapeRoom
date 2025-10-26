@@ -120,27 +120,31 @@ public class EscapeRoomUI {
         }
 
         // First Puzzle
-        Room selectedRoom = null;
+        Room LibraryRoom = null;
         for (Room r : rooms) {
             if ("Library".equals(r.getTitle())) {
-                selectedRoom = r;
+                LibraryRoom = r;
                 break;
             }
         }
 
-        Room room = facade.getAllRooms().get(0);
-        Puzzle LibraryPuzzle = room.getPuzzles().get(0);
-
+        Puzzle LibraryPuzzle = LibraryRoom.getPuzzles().get(0);
+        System.out.println("Inventory: torn will page, magnifying glass");
         System.out.println("Puzzle: " + LibraryPuzzle.getTitle());
         System.out.println("Description: " + LibraryPuzzle.getDescription());
+        System.out.println("Using items torn will page, magnifying glass...");
 
-        System.out.println("Submitting answer THOMASISDISOWNED...");
+
+        System.out.println("Submitting answer 'THOMASISDISOWNED'...");
         facade.submitAnswer(LibraryPuzzle.getTitle(), "THOMASISDISOWNED");
         if(LibraryPuzzle.isSolved()) {
             System.out.println("Puzzle solved!");
-        } else {
+            System.out.println("2 clues rewarded: shovel, rope");
+        } 
+        else {
             System.out.println("Incorrect answer. Try again.");
         }
+        
 
         // Second Puzzle
         System.out.println("\nStarting next room: Garden...");
@@ -162,21 +166,22 @@ public class EscapeRoomUI {
 
 
         Puzzle GardenPuzzle = GardenRoom.getPuzzles().get(0);
+        System.out.println("Inventory: torn will page, magnifying glass, shovel, rope");
         System.out.println("Puzzle: " + GardenPuzzle.getTitle());
         System.out.println("Description: " + GardenPuzzle.getDescription());
-        //room = facade.getAllRooms().get(1);
-        //Puzzle GardenPuzzle = room.getPuzzles().get(1);
-
-        //System.out.println("Puzzle: " + GardenPuzzle.getTitle());
-        //System.out.println("Description: " + GardenPuzzle.getDescription());
+        System.out.println("Using items shovel, rope...");
+        
 
         System.out.println("Submitting answer 'STATUE'...");
         facade.submitAnswer(GardenPuzzle.getTitle(), "STATUE");
         if(GardenPuzzle.isSolved()) {
             System.out.println("Puzzle solved!");
-        } else {
+            System.out.println("2 clues rewarded: locket, love letter");
+        } 
+        else {
             System.out.println("Incorrect answer. Try again.");
         }
+        
 
         // Third Puzzle
         System.out.println("\nStarting the next room: Bedroom...");
@@ -197,22 +202,21 @@ public class EscapeRoomUI {
         }
 
         Puzzle BedroomPuzzle = BedRoom.getPuzzles().get(0);
+        System.out.println("Inventory: torn will page, magnifying glass, shovel, rope, locket, love letter");
         System.out.println("Puzzle: " + BedroomPuzzle.getTitle());
         System.out.println("Description: " + BedroomPuzzle.getDescription());
+        System.out.println("Using items locket, love letter...");
 
-        //room = facade.getAllRooms().get(0);
-        //Puzzle BedroomPuzzle = room.getPuzzles().get(0);
-
-        //System.out.println("Puzzle: " + BedroomPuzzle.getTitle());
-        //System.out.println("Description: " + BedroomPuzzle.getDescription());
 
         System.out.println("Submitting answer 'secret'...");
         facade.submitAnswer(BedroomPuzzle.getTitle(), "secret");
         if(BedroomPuzzle.isSolved()) {
             System.out.println("Puzzle solved!");
-        } else {
+        } 
+        else {
             System.out.println("Incorrect answer. Try again.");
         }
+        
     }
 
     

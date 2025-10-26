@@ -87,4 +87,5 @@ public abstract class Puzzle {
     public void setSolved(boolean solved) {
         isSolved = solved;
     }
+
 }

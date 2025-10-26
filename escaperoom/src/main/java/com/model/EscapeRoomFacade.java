@@ -13,7 +13,7 @@ public class EscapeRoomFacade {
     private User currentUser;
     private Room currentRoom;
     private Map<String, Integer> sessionProgress = new HashMap<>();
-  
+    private String DELIM = "\t";
 
     
 
@@ -111,26 +111,16 @@ public class EscapeRoomFacade {
 
         
     public boolean submitAnswer(String puzzleTitle, String answer) {
-       if (currentSession == null || currentSession.getRoom() == null) return false;
+    if (currentRoom == null) return false;
 
-    for (Puzzle p : currentSession.getRoom().getPuzzles()) {
+    for (Puzzle p : currentRoom.getPuzzles()) {
         if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
-            boolean correct = p.checkAnswer(answer);
-            PuzzleSession ps = currentSession.getPuzzleSession(p);
-            ps.setFinalAnswer(answer);
-           
-            if (correct) {
-                ps.setSolved(true);
-                System.out.println("Correct! The solution was: " + answer);
-            } else {
-                System.out.println(" Incorrect! Try again.");
-            }
-            return correct;
+            return p.checkAnswer(answer);
         }
     }
-    System.out.println("Puzzle not found: " + puzzleTitle);
+
     return false;
-    }
+}
 
     
     public String useHint(String puzzleTitle) {
