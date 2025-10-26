@@ -1,287 +1,314 @@
 package com.model;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Represents a single play session for a user in a specific room.
- * <p>The session tracks start/end times, collected items, hints used,
- * puzzle progress (via {@link PuzzleSession}), and a session score.
- * Instances are created when a user starts a game and are persisted
- * to the users JSON by {@link DataWriter}.</p>
+ * Represents a player's overall game session across multiple rooms.
+ * Tracks progress in each room via RoomSession objects and maintains
+ * aggregate statistics across all rooms.
  */
 public class GameSession {
 
     private String sessionId;
     private User user;
-    private Room room;
-    private long startTime;
-    private long endTime;
-    private int score;
-    private int hintsUsed;
-    private boolean isCompleted;
-    private long getDuration;
-    private ArrayList<String> inventory;
-    private ArrayList<PuzzleSession> puzzleSessions;
+    private long sessionStartTime;
+    private long sessionEndTime;
+    private boolean isSessionCompleted;
+    private HashMap<String, RoomSession> roomSessionMap;
+    private RoomSession currentRoomSession;
     
-
     /**
-     * Create a new GameSession for the given user and room.
-     * The constructor initializes puzzle sessions for each puzzle in the room.
+     * Create a new GameSession for the given user.
+     * 
      * @param user the player who owns this session
-     * @param room the room being played
      */
-    public GameSession(User user, Room room) {
-        if ( room == null) {
-            throw new IllegalArgumentException(" Room cannot be null");
+    public GameSession(User user) {
+        if (user == null) {
+            throw new IllegalArgumentException("User cannot be null");
         }
         this.user = user;
-        this.room = room;
-        this.inventory = new ArrayList<>();
-        this.hintsUsed = 0;
-        this.isCompleted = false;
-        this.puzzleSessions = new ArrayList<>();
-        this.sessionId = "session_" + room.getTitle().toLowerCase().replace(" ", "_") 
-          + "_" + user.getUserName().toLowerCase();
-
+        this.sessionId = "session_" + System.currentTimeMillis() + "_" + user.getUserName().toLowerCase();
+        this.sessionStartTime = System.currentTimeMillis();
+        this.roomSessionMap = new HashMap<>();
+        this.isSessionCompleted = false;
+    }
+    
+    /**
+     * Start or resume progress in a specific room.
+     * If progress already exists for this room, it will be resumed.
+     * 
+     * @param room the room to enter
+     * @return the RoomSession for this room
+     */
+    public RoomSession enterRoom(Room room) {
+        if (room == null) {
+            throw new IllegalArgumentException("Room cannot be null");
+        }
+        RoomSession roomSession = roomSessionMap.get(room.getRoomId());
+        if (roomSession == null) {
+            roomSession = new RoomSession(room);
+            roomSessionMap.put(room.getRoomId(), roomSession);
+        }
+        
+        this.currentRoomSession = roomSession;
+        return roomSession;
+    }
+    
+    /**
+     * Get the session for a specific room.
+     * 
+     * @param room the room to get session for
+     * @return RoomSession or null if no session exists for this room
+     */
+    public RoomSession getRoomSession(Room room) {
+        if (room == null) return null;
+        return roomSessionMap.get(room.getRoomId());
+    }
+    
+    /**
+     * Get the session for the currently active room.
+     * 
+     * @return current RoomSession or null if no room is active
+     */
+    public RoomSession getCurrentRoomSession() {
+        return currentRoomSession;
+    }
+    
+    /**
+     * Submit an answer for a puzzle in the current room.
+     * 
+     * @param puzzleTitle the title of the puzzle
+     * @param answer the player's answer
+     * @param room the room containing the puzzle
+     * @return true if the answer is correct
+     */
+    public boolean submitAnswer(String puzzleTitle, String answer, Room room) {
+        if (room == null || currentRoomSession == null) return false;
+        
         for (Puzzle p : room.getPuzzles()) {
-        puzzleSessions.add(new PuzzleSession(p.getTitle()));
-    }
-    }
-
-    
-
-    public ArrayList<PuzzleSession> getPuzzleSessions() {
-        return puzzleSessions;
-    }
-
-    public int getCompletionPercent() {
-        if (puzzleSessions == null || puzzleSessions.isEmpty()) {
-            return 0;
+            if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
+                boolean correct = p.checkAnswer(answer);
+                PuzzleSession ps = currentRoomSession.getPuzzleSession(p);
+                ps.setFinalAnswer(answer);
+                
+                if (correct) {
+                    ps.setSolved(true);
+                    System.out.println("Correct! The solution was: " + answer);
+                } else {
+                    System.out.println("Incorrect! Try again.");
+                }
+                return correct;
+            }
         }
-        long solved = puzzleSessions.stream().filter(PuzzleSession::isSolved).count();
-        return (int) ((solved * 100) / puzzleSessions.size());
-    }
-
-    public int getTotalPuzzles() {
-    return (room == null) ? 0 : room.getPuzzles().size();
-    }
-
-    public int getSolvedCount() {
-    int s=0;
-    for (PuzzleSession ps : puzzleSessions) if (ps.isSolved()) s++;
-    return s;
-    }
-
-    public double getProgressPercent() {
-    int total = getTotalPuzzles();
-    return (total == 0) ? 0.0 : (getSolvedCount() * 100.0 / total);
+        return false;
     }
     
-    public void addPuzzleSession(Puzzle puzzle) {
-    if (puzzle == null) return;
-
-    
-    for (PuzzleSession ps : puzzleSessions) {
-        if (ps.getPuzzleTitle().equalsIgnoreCase(puzzle.getTitle())) {
-            return; 
-        }
-    }
-
-    puzzleSessions.add(new PuzzleSession(puzzle.getTitle()));
-}
-    /*
-     * Record the session start time.
-     */
-    public void startSession() {
-        this.startTime = System.currentTimeMillis();
-    }
-
     /**
-     * Mark the session as ended and record the end time.
-     */
-    public void endSession() {
-        this.endTime = System.currentTimeMillis();
-        this.isCompleted = true;
-    }
-
-    /**
-     * Record the use of a hint for a specific puzzle in this session.
-     * Increments the session-level hint counter and the matching PuzzleSession int count.
-     * @param puzzleTitle title of the puzzle for which a hint was used
+     * Use a hint for a puzzle in the current room.
+     * 
+     * @param puzzleTitle the title of the puzzle
      */
     public void useHint(String puzzleTitle) {
-        hintsUsed++;
-    for (PuzzleSession ps : puzzleSessions) {
-        if (ps.getPuzzleTitle().equalsIgnoreCase(puzzleTitle)) {
-            ps.useHint();
-            break;
+        if (currentRoomSession != null) {
+            currentRoomSession.useHint(puzzleTitle);
         }
     }
-    }
-
-    /**
-     * @param puzzleTitle the title of the puzzle 
-     * @param answer the player's answer
-     * @return true if a matching puzzle session was found and updated, false otherwise
-     */
-    public boolean submitAnswer(String puzzleTitle, String answer) {
-    if (this.getRoom() == null) return false;
-
-    for (Puzzle p : this.getRoom().getPuzzles()) {
-        if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
-            boolean correct = p.checkAnswer(answer);
-            PuzzleSession ps = this.getPuzzleSession(p);
-            ps.setFinalAnswer(answer);
-            if (correct) {
-                ps.setSolved(true);
-                System.out.println(" Correct! The solution was: " + answer);
-            } else {
-                System.out.println(" Incorrect! Try again.");
-            }
-            return correct;
-        }
-    }
-    return false;
     
-   }
-
-   public PuzzleSession getPuzzleSession(Puzzle puzzle) {
-    for (PuzzleSession ps : puzzleSessions) {
-        if (ps.getPuzzleTitle().equalsIgnoreCase(puzzle.getTitle())) {
-            return ps;
+    /**
+     * Collect an item in the current room.
+     * 
+     * @param item the item to collect
+     */
+    public void collectItem(String item) {
+        if (currentRoomSession != null) {
+            currentRoomSession.collectItem(item);
         }
     }
-    PuzzleSession newPS = new PuzzleSession(puzzle.getTitle());
-    puzzleSessions.add(newPS);
-    return newPS;
-}
-
-
-
-    /*
-    * Add an item to the session inventory.
-    */
-    public void collectItem(String item) {
-        inventory.add(item);
-    }
-
-    /*
-     * Check whether the session inventory contains the given item.
+    
+    /**
+     * Check if the current room's inventory has a specific item.
+     * 
+     * @param item the item to check for
+     * @return true if the item is in the current room's inventory
      */
     public boolean hasItem(String item) {
-        return inventory.contains(item);
+        if (currentRoomSession != null) {
+            return currentRoomSession.hasItem(item);
+        }
+        return false;
     }
-
-    /** Return a list of items collected during the session. */
-    public ArrayList<String> getInventory() {
-        return inventory;
-    }
-
+    
     /**
-     * Calculate and return the session score.
-     * @return computed score for the session
+     * Mark the current room as completed.
      */
-    public int calculateScore() {
-            int totalPuzzlesSolved = 0;
-    int totalHints = 0;
-    
-    for (PuzzleSession ps : puzzleSessions) {
-        if (ps.isSolved()) {
-            totalPuzzlesSolved++;
-        }
-        totalHints += ps.getNumHintsUsed();
-    }
-    int baseScore = 10000;
-    int puzzleBonus = totalPuzzlesSolved * 1000;
-    int hintPenalty = totalHints * 200;
-    double difficultyMultiplier = 1.0;
-    if (room != null) {
-        String difficulty = room.getDifficulty();
-        if ("Easy".equalsIgnoreCase(difficulty)) {
-            difficultyMultiplier = 1.0;
-        } else if ("Medium".equalsIgnoreCase(difficulty)) {
-            difficultyMultiplier = 1.5;
-        } else if ("Hard".equalsIgnoreCase(difficulty)) {
-            difficultyMultiplier = 2.0;
+    public void completeCurrentRoom() {
+        if (currentRoomSession != null) {
+            currentRoomSession.complete();
         }
     }
     
-    int calculatedScore = (int)((baseScore + puzzleBonus - hintPenalty) * difficultyMultiplier);
-    this.score = calculatedScore;
-    return calculatedScore;
+    /**
+     * End the entire game session.
+     */
+    public void endSession() {
+        this.sessionEndTime = System.currentTimeMillis();
+        this.isSessionCompleted = true;
     }
-
-    //getters and setters
+    
+    /**
+     * Calculate the total score across all rooms in this session.
+     * 
+     * @return aggregate score
+     */
+    public int calculateTotalScore() {
+        int totalScore = 0;
+        for (RoomSession roomSession : roomSessionMap.values()) {
+            totalScore += roomSession.calculateScore("Medium");
+        }
+        return totalScore;
+    }
+    
+    /**
+     * Get the total number of puzzles solved across all rooms.
+     * 
+     * @return total puzzles solved
+     */
+    public int getTotalPuzzlesSolved() {
+        int total = 0;
+        for (RoomSession roomSession : roomSessionMap.values()) {
+            total += roomSession.getSolvedCount();
+        }
+        return total;
+    }
+    
+    /**
+     * Get the total number of hints used across all rooms.
+     * 
+     * @return total hints used
+     */
+    public int getTotalHintsUsed() {
+        int total = 0;
+        for (RoomSession roomSession : roomSessionMap.values()) {
+            total += roomSession.getHintsUsed();
+        }
+        return total;
+    }
+    
+    /**
+     * Get the number of rooms completed in this session.
+     * 
+     * @return count of completed rooms
+     */
+    public int getCompletedRoomsCount() {
+        int count = 0;
+        for (RoomSession roomSession : roomSessionMap.values()) {
+            if (roomSession.isCompleted()) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    /**
+     * Get the total number of rooms visited in this session.
+     * 
+     * @return count of visited rooms
+     */
+    public int getVisitedRoomsCount() {
+        return roomSessionMap.size();
+    }
+    
+    /**
+     * Get the overall completion percentage across all rooms.
+     * 
+     * @return percentage (0-100)
+     */
+    public int getOverallCompletionPercent() {
+        if (roomSessionMap.isEmpty()) return 0;
+        
+        int totalPercent = 0;
+        for (RoomSession roomSession : roomSessionMap.values()) {
+            totalPercent += roomSession.getCompletionPercent();
+        }
+        return totalPercent / roomSessionMap.size();
+    }
+    
+    /**
+     * Get all room session entries.
+     * 
+     * @return map of roomId to RoomSession
+     */
+    public Map<String, RoomSession> getAllRoomSessions() {
+        return new HashMap<>(roomSessionMap);
+    }
+    
+    /**
+     * Get the session duration in seconds.
+     * 
+     * @return duration in seconds
+     */
+    public long getSessionDuration() {
+        if (sessionEndTime == 0) {
+            return (System.currentTimeMillis() - sessionStartTime) / 1000;
+        }
+        return (sessionEndTime - sessionStartTime) / 1000;
+    }
+    
     
     public String getSessionId() {
         return sessionId;
     }
-
+    
     public void setSessionId(String sessionId) {
         this.sessionId = sessionId;
     }
-
-    public int getHintsUsed() {
-        return hintsUsed;
-    }
-
-    public long getStartTime() {
-        return startTime;
-    }
-
-    public long getEndTime() {
-        return endTime;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public boolean isCompleted() {
-        return isCompleted;
-    }
-
+    
     public User getUser() {
         return user;
     }
-
-    public Room getRoom() {
-        return room;
+    
+    public long getSessionStartTime() {
+        return sessionStartTime;
     }
-
-    public long getDuration() {
-        if (endTime == 0) return 0;
-        return (endTime - startTime) / 1000; 
+    
+    public void setSessionStartTime(long sessionStartTime) {
+        this.sessionStartTime = sessionStartTime;
     }
-
-    public void setDuration(long duration) {
-        this.getDuration = duration;
+    
+    public long getSessionEndTime() {
+        return sessionEndTime;
     }
-
-    public void setStartTime(long startTime) {
-        this.startTime = startTime;
+    
+    public void setSessionEndTime(long sessionEndTime) {
+        this.sessionEndTime = sessionEndTime;
     }
-
-    public void setEndTime(long endTime) {
-        this.endTime = endTime;
+    
+    public boolean isSessionCompleted() {
+        return isSessionCompleted;
     }
-
-    public void setScore(int score) {
-        this.score = score;
+    
+    public void setSessionCompleted(boolean sessionCompleted) {
+        this.isSessionCompleted = sessionCompleted;
     }
-
-    public void setHintsUsed(int hintsUsed) {
-        this.hintsUsed = hintsUsed;
+    
+    public HashMap<String, RoomSession> getRoomSessionMap() {
+        return roomSessionMap;
     }
-
-    public void setCompleted(boolean isCompleted) {
-        this.isCompleted = isCompleted;
+    
+    public void setRoomSessionMap(HashMap<String, RoomSession> roomSessionMap) {
+        this.roomSessionMap = roomSessionMap;
     }
-
+    
     @Override
     public String toString() {
-        return "Room: " + (room != null ? room.getTitle() : "Unknown") +
-               " | Score: " + score +
-               " | Hints Used: " + hintsUsed +
-               " | Completed: " + isCompleted;
+        return "GameSession{" +
+               "user=" + user.getUserName() +
+               ", roomsVisited=" + getVisitedRoomsCount() +
+               ", roomsCompleted=" + getCompletedRoomsCount() +
+               ", overallProgress=" + getOverallCompletionPercent() + "%" +
+               ", totalHints=" + getTotalHintsUsed() +
+               '}';
     }
 }

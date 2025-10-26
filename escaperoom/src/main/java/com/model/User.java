@@ -1,10 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
-
 
 public class User {
     private UUID userId;
@@ -28,7 +25,7 @@ public class User {
     }
 
     /**
-     *   user with a known UUID.
+     * Create user with a known UUID.
      */
     public User(UUID userId, String username, String email, String password) {
         this.userId = userId;
@@ -55,10 +52,11 @@ public class User {
     }
 
     /**
-     * @return  list of GameSession
+     * Return the mutable list of GameSession objects.
+     * @return ArrayList of GameSession
      */
-    public List<GameSession> getSessions() {
-        return Collections.unmodifiableList(sessions);
+    public ArrayList<GameSession> getSessions() {
+        return sessions;
     }
 
     /**
@@ -66,10 +64,15 @@ public class User {
      * @param session GameSession
      */
     public void addSession(GameSession session) {
-        if (session != null) sessions.add(session);
+        if (session != null) {
+            sessions.add(session);
+        }
     }
 
-
+    /**
+     * Set the sessions list directly (used during data loading).
+     * @param sessions ArrayList of GameSession
+     */
     public void setSessions(ArrayList<GameSession> sessions) {
         this.sessions = sessions;
     }
@@ -89,4 +92,3 @@ public class User {
         return sb.toString();
     }
 }
-
