@@ -196,37 +196,7 @@
                         "solved": false,
                         "puzzleTitle": "The Buried Truth",
                         "finalAnswer": null
-                    },
-                    {
-                        "numHintsUsed": 0,
-                        "solved": false,
-                        "puzzleTitle": "The Buried Truth",
-                        "finalAnswer": null
-                    },
-                    {
-                        "numHintsUsed": 1,
-                        "solved": false,
-                        "puzzleTitle": "The Buried Truth",
-                        "finalAnswer": null
-                    },
-                    {
-                        "numHintsUsed": 0,
-                        "solved": false,
-                        "puzzleTitle": "The Buried Truth",
-                        "finalAnswer": null
-                    },
-                    {
-                        "numHintsUsed": 1,
-                        "solved": false,
-                        "puzzleTitle": "The Buried Truth",
-                        "finalAnswer": null
-                    },
-                    {
-                        "numHintsUsed": 0,
-                        "solved": false,
-                        "puzzleTitle": "The Buried Truth",
-                        "finalAnswer": null
-                    }
+                    }  
                 ],
                 "room": {
                     "difficulty": "Medium",

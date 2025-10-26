@@ -3,6 +3,7 @@ package com.model;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.json.simple.JSONArray;
@@ -15,23 +16,28 @@ public class DataWriter extends DataConstants {
      * Serialize all users (and their sessions) to the users JSON file.
      */
     public static void saveUsers() {
-        UserList userList = UserList.getInstance();
-        ArrayList<User> users = (ArrayList<User>) userList.getUsers();
+    UserList userlist = UserList.getInstance();
+    ArrayList<User> users = (ArrayList<User>) userlist.getUsers();
+    JSONArray jsonUsers = new JSONArray();
 
-        JSONArray jsonUsers = new JSONArray();
-
-        for (User user : users) {
-            jsonUsers.add(getUserJSON(user));
+    for (User u : users) {
+        // Remove duplicate sessions by sessionId
+        HashMap<String, GameSession> uniqueSessions = new HashMap<>();
+        for (GameSession s : u.getSessions()) {
+            uniqueSessions.put(s.getSessionId(), s);
         }
+        u.setSessions(new ArrayList<>(uniqueSessions.values()));
 
-        try (FileWriter file = new FileWriter(USERS_FILE)) {
-            file.write(jsonUsers.toJSONString());
-            file.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        jsonUsers.add(getUserJSON(u));
     }
 
+    try (FileWriter file = new FileWriter(USERS_FILE)) {
+        file.write(jsonUsers.toJSONString());
+        file.flush();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
     /**
      * Build a {@link JSONObject} representing the provided {@link User},
      * including their saved sessions, inventory and puzzle sessions.

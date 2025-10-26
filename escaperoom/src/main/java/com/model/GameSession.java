@@ -30,13 +30,17 @@ public class GameSession {
      * @param room the room being played
      */
     public GameSession(User user, Room room) {
+        if ( room == null) {
+            throw new IllegalArgumentException(" Room cannot be null");
+        }
         this.user = user;
         this.room = room;
         this.inventory = new ArrayList<>();
         this.hintsUsed = 0;
         this.isCompleted = false;
-        this.sessionId = "sessions"+ System.currentTimeMillis(); 
         this.puzzleSessions = new ArrayList<>();
+        this.sessionId = "session_" + room.getTitle().toLowerCase().replace(" ", "_") 
+          + "_" + user.getUserName().toLowerCase();
 
         for (Puzzle p : room.getPuzzles()) {
         puzzleSessions.add(new PuzzleSession(p.getTitle()));
@@ -46,14 +50,44 @@ public class GameSession {
     
 
     public ArrayList<PuzzleSession> getPuzzleSessions() {
-    return puzzleSessions;
-   }
+        return puzzleSessions;
+    }
 
     public int getCompletionPercent() {
-    long solved = puzzleSessions.stream().filter(PuzzleSession::isSolved).count();
-    return (int) ((solved * 100) / puzzleSessions.size());
-}
+        if (puzzleSessions == null || puzzleSessions.isEmpty()) {
+            return 0;
+        }
+        long solved = puzzleSessions.stream().filter(PuzzleSession::isSolved).count();
+        return (int) ((solved * 100) / puzzleSessions.size());
+    }
+
+    public int getTotalPuzzles() {
+    return (room == null) ? 0 : room.getPuzzles().size();
+    }
+
+    public int getSolvedCount() {
+    int s=0;
+    for (PuzzleSession ps : puzzleSessions) if (ps.isSolved()) s++;
+    return s;
+    }
+
+    public double getProgressPercent() {
+    int total = getTotalPuzzles();
+    return (total == 0) ? 0.0 : (getSolvedCount() * 100.0 / total);
+    }
     
+    public void addPuzzleSession(Puzzle puzzle) {
+    if (puzzle == null) return;
+
+    
+    for (PuzzleSession ps : puzzleSessions) {
+        if (ps.getPuzzleTitle().equalsIgnoreCase(puzzle.getTitle())) {
+            return; 
+        }
+    }
+
+    puzzleSessions.add(new PuzzleSession(puzzle.getTitle()));
+}
     /*
      * Record the session start time.
      */
@@ -144,15 +178,36 @@ public class GameSession {
 
     /**
      * Calculate and return the session score.
-     *
-     * <p>This method is currently a stub and returns 0. Implement scoring
-     * logic here (for example based on solved puzzles, hints used and time).</p>
-     *
      * @return computed score for the session
      */
     public int calculateScore() {
-        
-        return 0;
+            int totalPuzzlesSolved = 0;
+    int totalHints = 0;
+    
+    for (PuzzleSession ps : puzzleSessions) {
+        if (ps.isSolved()) {
+            totalPuzzlesSolved++;
+        }
+        totalHints += ps.getNumHintsUsed();
+    }
+    int baseScore = 10000;
+    int puzzleBonus = totalPuzzlesSolved * 1000;
+    int hintPenalty = totalHints * 200;
+    double difficultyMultiplier = 1.0;
+    if (room != null) {
+        String difficulty = room.getDifficulty();
+        if ("Easy".equalsIgnoreCase(difficulty)) {
+            difficultyMultiplier = 1.0;
+        } else if ("Medium".equalsIgnoreCase(difficulty)) {
+            difficultyMultiplier = 1.5;
+        } else if ("Hard".equalsIgnoreCase(difficulty)) {
+            difficultyMultiplier = 2.0;
+        }
+    }
+    
+    int calculatedScore = (int)((baseScore + puzzleBonus - hintPenalty) * difficultyMultiplier);
+    this.score = calculatedScore;
+    return calculatedScore;
     }
 
     //getters and setters

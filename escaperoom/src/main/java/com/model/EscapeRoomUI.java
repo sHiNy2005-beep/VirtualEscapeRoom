@@ -14,8 +14,9 @@ public class EscapeRoomUI {
    }
     
 	public void run() {
+
     System.out.println("\n****Murder Mystery Escape Room****");
-    //Speek.speak("Welcome to the Hamton Mansion. Mr.Hamton has mysteriusly died under suspicious circumstances, and you a detective must investigate his death and find his killer. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person--the killer.");;
+    System.out.println("Welcome to the Hamton Mansion. Mr.Hamton has mysteriusly died under suspicious circumstances, and you a detective must investigate his death and find his killer. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person--the killer.");
     scenario1_CreateAccount(); 
 	scenario2_EnterAnEscapeRoom();
     scenario3_Complete3Puzzles();
@@ -28,7 +29,7 @@ public class EscapeRoomUI {
 
     public void scenario1_CreateAccount() //Mashal
     {
-       System.out.println("\nCreate Account - Duplicate User: ");
+       System.out.println("\n===== Create Account - Duplicate User ======");
 
         System.out.println("Attempting to create account for Bob Dev...");
       if (!facade.createAccount("bob_dev", "bob.dev@example.com", "BobPass#88")) {
@@ -37,7 +38,7 @@ public class EscapeRoomUI {
         System.out.println("Account successfully created!");
       }
 
-      System.out.println("\nCreate Account - Sucess: ");
+      System.out.println("\n====== Create Account - Sucess ===== ");
     if (!facade.createAccount("leni_rivers", "leni.r@example.com", "LeniPass#123")) {
       System.out.println("Account successfully created for Leni Rivers!");
 
@@ -52,7 +53,7 @@ public class EscapeRoomUI {
 
 
     public void scenario2_EnterAnEscapeRoom() { // Enter the escape room and hear the story // shiny 
-        System.out.println("\nScenario 5: Enter an Escape Room - Hear the Story");
+        System.out.println("\n===== Enter an Escape Room - Hear the Story ======");
 
         ArrayList<Room> rooms = facade.getAllRooms();
         if (rooms.isEmpty()) {
@@ -110,7 +111,7 @@ public class EscapeRoomUI {
 
     public void scenario3_Complete3Puzzles() //murewa
     {
-        System.out.println("\nScenario 3: Completing 3 Puzzles");
+        System.out.println("\n======= Completing 3 Puzzles =======");
 
         ArrayList<Room> rooms = facade.getAllRooms();
         System.out.println("\nAvailable Rooms:");
@@ -220,7 +221,7 @@ public class EscapeRoomUI {
 
 
     public void scenario4_DataPersistence () {
-        System.out.println("\nScenario 6: Logout -> Login -> Show Data Persistence and Progress");
+        System.out.println("\n======= Logout -> Login -> Show Data Persistence and Progress =======");
         String demoUser = "leni_rivers";
         if (facade.getCurrentUser() != null) {
             try {
@@ -250,40 +251,52 @@ public class EscapeRoomUI {
             return;
         }
         System.out.println("Logged in as: " + current.getUserName());
-        if (current.getSessions() == null || current.getSessions().isEmpty()) {
-            System.out.println("No saved sessions for user: " + current.getUserName());
-        } else {
-            System.out.println("User sessions:");
-            for (GameSession s : current.getSessions()) {
-                Room r = s.getRoom();
-                int totalPuzzles = r != null ? r.getPuzzles().size() : 0;
-                int solved = 0;
-                System.out.println("\nSession: " + s.getSessionId());
-                System.out.println("Room: " + (r != null ? r.getTitle() : "Unknown") + " | Completed: " + s.isCompleted());
+      if (current.getSessions() == null || current.getSessions().isEmpty()) {
+      System.out.println("No saved sessions for user: " + current.getUserName());
+       } else {
+       System.out.println("User sessions:");
 
-                for (PuzzleSession ps : s.getPuzzleSessions()) {
-                    if (ps.isSolved()) solved++;
-                }
+       java.util.Set<String> printedSessions = new java.util.HashSet<>();
 
-                int percent = (totalPuzzles == 0) ? 0 : (int) ((solved * 100.0) / totalPuzzles);
-                System.out.println("Progress: " + percent + "% (" + solved + "/" + totalPuzzles + " puzzles solved)");
-                System.out.println("Questions answered:");
-                for (PuzzleSession ps : s.getPuzzleSessions()) {
-                    if (ps.isSolved()) {
-                        System.out.println(" - " + ps.getPuzzleTitle() + " -> Answer: " + ps.getFinalAnswer());
-                    }
-                }
-                System.out.println("Hints used per question:");
-                for (PuzzleSession ps : s.getPuzzleSessions()) {
-                    if (ps.getNumHintsUsed() > 0) {
-                        System.out.println(" - " + ps.getPuzzleTitle() + " : " + ps.getNumHintsUsed() + " hint(s)");
-                    }
-                }
+       for (GameSession s : current.getSessions()) {
+        
+        if (!printedSessions.add(s.getSessionId())) {
+            continue;
+        }
 
-                System.out.println("Total hints used in session: " + s.getHintsUsed());
+        Room r = s.getRoom();
+        int totalPuzzles = r != null ? r.getPuzzles().size() : 0;
+        int solved = 0;
+
+        System.out.println("\nSession: " + s.getSessionId());
+        System.out.println("Room: " + (r != null ? r.getTitle() : "Unknown") +
+                           " | Completed: " + s.isCompleted());
+
+        for (PuzzleSession ps : s.getPuzzleSessions()) {
+            if (ps.isSolved()) solved++;
+        }
+
+        int percent = (totalPuzzles == 0) ? 0 : (int) ((solved * 100.0) / totalPuzzles);
+        System.out.println("Progress: " + percent + "% (" + solved + "/" + totalPuzzles + " puzzles solved)");
+
+        System.out.println("Questions answered:");
+        for (PuzzleSession ps : s.getPuzzleSessions()) {
+            if (ps.isSolved()) {
+                System.out.println(" - " + ps.getPuzzleTitle() + " -> Answer: " + ps.getFinalAnswer());
             }
         }
-        System.out.println("\n json/User.json contents:");
+
+        System.out.println("Hints used per question:");
+        for (PuzzleSession ps : s.getPuzzleSessions()) {
+            if (ps.getNumHintsUsed() > 0) {
+                System.out.println(" - " + ps.getPuzzleTitle() + " : " + ps.getNumHintsUsed() + " hint(s)");
+            }
+        }
+
+        System.out.println("Total hints used in session: " + s.getHintsUsed());
+    }
+}
+System.out.println("\n json/User.json contents:");
         try {
             java.nio.file.Path p = java.nio.file.Paths.get("json/User.json");
             if (java.nio.file.Files.exists(p)) {
@@ -301,53 +314,181 @@ public class EscapeRoomUI {
 
 
 
-    public void scenario5_EndGame() { //dhruv 
-        System.out.println("\nScenario 4: ");
-
-        if (!facade.login("alice123", "Alice!2025Secure")) {
-            System.out.println("Sorry we couldn't login.");
+    public void scenario5_EndGame() {
+        System.out.println("\n======== Finishing the Game and Generating Certificate ========");
+        
+        if (facade.getCurrentUser() != null) {
+            facade.logout();
+        }
+        
+        if (!facade.login("leni_rivers", "LeniPass#123")) {
+            System.out.println("Login failed for Leni Rivers!");
             return;
         }
-        System.out.println("Logged in as " + facade.getCurrentUser().getUserName());
-
+        System.out.println("Login successful for Leni Rivers!");
+        
         ArrayList<Room> rooms = facade.getAllRooms();
-        System.out.println("\nSearching for Easy difficulty rooms...");
-
-        boolean foundEasyRoom = false;
+        Room libraryRoom = null;
         for (Room r : rooms) {
-            if ("Easy".equalsIgnoreCase(r.getDifficulty())) {
-                foundEasyRoom = true;
-                System.out.println("\n--- Room: " + r.getTitle() + " (" + r.getDifficulty() + ") ---");
+            if ("Library".equals(r.getTitle())) {
+                libraryRoom = r;
+                break;
+            }
+        }
         
-                Map<User, Integer> leaderboard = facade.getSortedLeaderboard(r);
-        
-                if (leaderboard.isEmpty()) {
-                    System.out.println("No scores recorded yet for this room.");
-                } else {
-                    System.out.println("Leaderboard:");
-                    System.out.println("Rank | Username | Score");
-                    System.out.println("-----|----------|-------");
+        if (libraryRoom != null) {
+            GameSession existingSession = facade.getExistingSession(libraryRoom);
+            
+            if (existingSession != null) {
+                System.out.println("Found previous session in " + libraryRoom.getTitle());
+                System.out.println("Progress: " + existingSession.getCompletionPercent() + "%");
+                System.out.println("Would you like to continue this session? (yes/no)");
                 
-                    int rank = 1;
-                    for (Map.Entry<User, Integer> entry : leaderboard.entrySet()) {
-                        System.out.println(String.format("%-5d| %-8s | %d", 
-                            rank, entry.getKey().getUserName(), entry.getValue()));
-                        rank++;
-                    }
+                String userInput = "yes";
+                System.out.println("User input: " + userInput);
+                
+                if (userInput.equalsIgnoreCase("yes")) {
+                    facade.continueSession(libraryRoom);
+                    System.out.println("Resumed session in Library.");
+                } else {
+                    facade.startGame(libraryRoom);
+                    System.out.println("Started new session in Library.");
                 }
+            } else {
+                facade.startGame(libraryRoom);
+                System.out.println("Started new session in Library.");
+            }
+        }
+        
+        System.out.println("\nStarting room: Study...");
+        Room studyRoom = null;
+        for (Room r : rooms) {
+            if ("Study".equals(r.getTitle())) {
+                studyRoom = r;
+                break;
+            }
+        }
+        
+        if (studyRoom != null) {
+            GameSession session = facade.startGame(studyRoom);
+            if (session != null) {
+                System.out.println("Entered the Study.");
             }
         }
 
-        if (!foundEasyRoom) {
-            System.out.println("No Easy difficulty rooms found.");
+        Puzzle StudyPuzzle = studyRoom.getPuzzles().get(0);
+        System.out.println("Puzzle: " + StudyPuzzle.getTitle());
+        System.out.println("Description: " + StudyPuzzle.getDescription());
+        System.out.println("Submitting answer '104'...");
+        
+        facade.submitAnswer(StudyPuzzle.getTitle(), 104);
+        if(StudyPuzzle.isSolved()) {
+            System.out.println("Puzzle solved!");
         }
 
-        facade.logout();
+        System.out.println("\nStarting the final room: Conservatory...");
+        Room conservatoryRoom = null;
+        for (Room r : rooms) {
+            if ("Conservatory".equals(r.getTitle())) {
+                conservatoryRoom = r;
+                conservatoryRoom.setLocked(false);
+                break;
+            }
+        }
+        
+        if (conservatoryRoom != null) {
+            GameSession session = facade.startGame(conservatoryRoom);
+            if (session != null) {
+                System.out.println("Entered the Conservatory.");
+                session.startSession();
+            }
+        }
+
+        Puzzle ConservatoryPuzzle = conservatoryRoom.getPuzzles().get(0);
+        System.out.println("Puzzle: " + ConservatoryPuzzle.getTitle());
+        System.out.println("Description: " + ConservatoryPuzzle.getDescription());
+        System.out.println("Submitting answer...");
+        
+        facade.submitAnswer(ConservatoryPuzzle.getTitle(), "Thomas Hamton=Will Page,Lilly Hamton=Love Letter,Mr. Barner=Ledger,Ms. Louise=Bloody Statue");
+        if(ConservatoryPuzzle.isSolved()) {
+            System.out.println("Puzzle solved!");
+            System.out.println("CASE SOLVED! Ms. Louise is the murderer!");
+        }
+        
+        facade.endGame();
+        
+        User leni = facade.getCurrentUser();
+        int totalPuzzlesSolved = 0;
+        int totalHints = 0;
+        int aggregatedScore = 0;
+        
+        for (GameSession s : leni.getSessions()) {
+            for (PuzzleSession ps : s.getPuzzleSessions()) {
+                if (ps.isSolved()) totalPuzzlesSolved++;
+                totalHints += ps.getNumHintsUsed();
+            }
+        }
+        
+        int baseScore = 10000;
+        int puzzleBonus = totalPuzzlesSolved * 1000;
+        int hintPenalty = totalHints * 200;
+        double difficultyMultiplier = 2.0;
+        aggregatedScore = (int)((baseScore + puzzleBonus - hintPenalty) * difficultyMultiplier);
+        
+        conservatoryRoom.getLeaderboard().put(leni, aggregatedScore);
+        
+        System.out.println("\nAggregated Score (all puzzle sessions): " + aggregatedScore);
+        System.out.println("\nConservatory Leaderboard:");
+        
+        Map<User, Integer> leaderboard = facade.getSortedLeaderboard(conservatoryRoom);
+        int rank = 1;
+        for (Map.Entry<User, Integer> entry : leaderboard.entrySet()) {
+            System.out.println(rank + ". " + entry.getKey().getUserName() + " - " + entry.getValue());
+            rank++;
+        }
+        
+        String certificate = generateCertificate(leni.getUserName(), totalPuzzlesSolved, totalHints, "All Rooms", aggregatedScore);
+        System.out.println("\n" + certificate);
+        
+        try {
+            java.io.FileWriter writer = new java.io.FileWriter("certificate_" + leni.getUserName() + ".txt");
+            writer.write(certificate);
+            writer.close();
+            System.out.println("Certificate saved to: certificate_" + leni.getUserName() + ".txt");
+        } catch (java.io.IOException e) {
+            System.out.println("Error saving certificate: " + e.getMessage());
+        }
     }
 
-
-    
-
+    private String generateCertificate(String username, int puzzlesSolved, int hintsUsed, String difficulty, int finalScore) {
+        StringBuilder cert = new StringBuilder();
+        cert.append("═══════════════════════════════════════════════════════════\n");
+        cert.append("           CERTIFICATE OF COMPLETION\n");
+        cert.append("═══════════════════════════════════════════════════════════\n\n");
+        cert.append("                Murder Mystery Escape Room\n");
+        cert.append("              Hamton Mansion Investigation\n\n");
+        cert.append("═══════════════════════════════════════════════════════════\n\n");
+        cert.append("  This certifies that Detective:\n\n");
+        cert.append("                  " + username.toUpperCase() + "\n\n");
+        cert.append("  has successfully solved the mysterious death of\n");
+        cert.append("  Mr. Reginald Hamton and brought the killer to justice!\n\n");
+        cert.append("  Through keen observation and logical deduction,\n");
+        cert.append("  the truth was revealed: Ms. Louise is the murderer.\n\n");
+        cert.append("═══════════════════════════════════════════════════════════\n");
+        cert.append("                   INVESTIGATION STATS\n");
+        cert.append("═══════════════════════════════════════════════════════════\n\n");
+        cert.append("  Difficulty Level:        " + difficulty + "\n");
+        cert.append("  Puzzles Solved:          " + puzzlesSolved + "\n");
+        cert.append("  Hints Used:              " + hintsUsed + "\n");
+        cert.append("  Final Detective Score:   " + finalScore + "\n\n");
+        cert.append("═══════════════════════════════════════════════════════════\n");
+        cert.append("                    CASE CLOSED\n");
+        cert.append("═══════════════════════════════════════════════════════════\n");
+        cert.append("  Date: " + java.time.LocalDate.now() + "\n");
+        cert.append("  \"Justice Prevails in the Darkness\"\n");
+        cert.append("═══════════════════════════════════════════════════════════\n");
+        return cert.toString();
+    }
 
 
 

@@ -13,7 +13,7 @@ public class EscapeRoomFacade {
     private User currentUser;
     private Room currentRoom;
     private Map<String, Integer> sessionProgress = new HashMap<>();
-    private String DELIM = "\t";
+  
 
     
 
@@ -23,8 +23,8 @@ public class EscapeRoomFacade {
     }
 
     public boolean createAccount(String username, String email, String password) {
-    return userList.addUser(username, email, password);
-}
+        return userList.addUser(username, email, password);
+    }
 
    public boolean login(String username, String password) {
         for (User u : userList.getUsers()) {
@@ -42,22 +42,43 @@ public class EscapeRoomFacade {
 
 
     public GameSession startGame(Room room) {
-       if (currentUser == null || room == null) return null;
+        if (currentUser == null || room == null) return null;
 
-    
     for (GameSession s : currentUser.getSessions()) {
-        if (s.getRoom().getTitle().equalsIgnoreCase(room.getTitle())) {
+        if (s.getRoom() != null && s.getRoom().getTitle().equalsIgnoreCase(room.getTitle())) {
             System.out.println("Resuming previous session in " + room.getTitle());
             currentSession = s;
             return s;
         }
     }
 
-    
     GameSession session = new GameSession(currentUser, room);
     currentUser.addSession(session);
     currentSession = session;
     return session;
+    }
+
+    public GameSession getExistingSession(Room room) {
+        if (currentUser == null || room == null) return null;
+        for (GameSession s : currentUser.getSessions()) {
+            if (s.getRoom().getTitle().equalsIgnoreCase(room.getTitle())) {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    public GameSession continueSession(Room room) {
+        if (currentUser == null || room == null) return null;
+        for (GameSession s : currentUser.getSessions()) {
+            if (s.getRoom().getTitle().equalsIgnoreCase(room.getTitle())) {
+                System.out.println("Resuming previous session in " + room.getTitle());
+                currentSession = s;
+                currentRoom = room;
+                return s;
+            }
+        }
+        return null;
     }
 
     public ArrayList<Room> getAllRooms() { 
@@ -65,11 +86,9 @@ public class EscapeRoomFacade {
     }
 
     public Room getCurrentRoom() {
-         return currentRoom; 
+        return currentRoom; 
     }
-   
-
-    
+        
     public ArrayList<Puzzle> getCurrentRoomPuzzles() {
         if (currentRoom == null) return new ArrayList<>();
         return currentRoom.getPuzzles();
@@ -83,38 +102,53 @@ public class EscapeRoomFacade {
             }
         }
         return null;
-    }   
-
-    
-    public boolean submitAnswer(String puzzleTitle, String answer) {
-    if (currentRoom == null) return false;
-
-    for (Puzzle p : currentRoom.getPuzzles()) {
-        if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
-            return p.checkAnswer(answer);
-        }
     }
 
+    public int getScore() {
+        if (currentSession == null) return 0;
+        return currentSession.getScore();
+    }
+
+        
+    public boolean submitAnswer(String puzzleTitle, String answer) {
+       if (currentSession == null || currentSession.getRoom() == null) return false;
+
+    for (Puzzle p : currentSession.getRoom().getPuzzles()) {
+        if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
+            boolean correct = p.checkAnswer(answer);
+            PuzzleSession ps = currentSession.getPuzzleSession(p);
+            ps.setFinalAnswer(answer);
+           
+            if (correct) {
+                ps.setSolved(true);
+                System.out.println("Correct! The solution was: " + answer);
+            } else {
+                System.out.println(" Incorrect! Try again.");
+            }
+            return correct;
+        }
+    }
+    System.out.println("Puzzle not found: " + puzzleTitle);
     return false;
-}
+    }
 
     
     public String useHint(String puzzleTitle) {
-    if (currentRoom == null) return "No room!";
+        if (currentRoom == null) return "No room!";
 
-    for (Puzzle p : currentRoom.getPuzzles()) {
-        if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
-            currentSession.useHint(puzzleTitle);
+        for (Puzzle p : currentRoom.getPuzzles()) {
+            if (p.getTitle().equalsIgnoreCase(puzzleTitle)) {
+                currentSession.useHint(puzzleTitle);
 
-            if (p.getHints().isEmpty()) return "No more hints available!";
+                if (p.getHints().isEmpty()) return "No more hints available!";
 
-            int index = Math.min(currentSession.getHintsUsed() - 1, p.getHints().size() - 1);
-            return p.getHints().get(index);
+                int index = Math.min(currentSession.getHintsUsed() - 1, p.getHints().size() - 1);
+                return p.getHints().get(index);
+            }
         }
-    }
 
-    return "Puzzle not found.";
-}
+        return "Puzzle not found.";
+    }
 
     public User getCurrentUser() {
         return currentUser;
@@ -136,28 +170,21 @@ public class EscapeRoomFacade {
             LinkedHashMap::new
         ));
     
-    return sortedLeaderboard;
+        return sortedLeaderboard;
     }
 
     public HashMap<User, Integer> getLeaderboard(Room room) {
-    return room.getLeaderboard();
+        return room.getLeaderboard();
     }
 
     public void updateLeaderboard(Room room, int score) {
-    room.getLeaderboard().put(currentUser, score);
-    DataWriter.saveRooms();
+        room.getLeaderboard().put(currentUser, score);
+        DataWriter.saveRooms();
     }
 
     public boolean submitAnswer(String title, int i) {
-        if (currentRoom == null) return false;
-
-        for (Puzzle p : currentRoom.getPuzzles()) {
-            if (p.getTitle().equalsIgnoreCase(title) && p instanceof MathPuzzle) {
-                return ((MathPuzzle) p).checkAnswer(i);
-            }
-        }
-
-        return false;
+        if (currentRoom == null || currentSession == null) return false;
+        return currentSession.submitAnswer(title, String.valueOf(i));
     }
 
 }
