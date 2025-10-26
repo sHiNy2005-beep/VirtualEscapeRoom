@@ -8,6 +8,7 @@ public class PuzzleSession {
     private long timeEnded;
     private boolean solved;
     private String finalAnswer;
+    private long duration;
 
     public PuzzleSession(String puzzleTitle) {
         this.puzzleTitle = puzzleTitle;
