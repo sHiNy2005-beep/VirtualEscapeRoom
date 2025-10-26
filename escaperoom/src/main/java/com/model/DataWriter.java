@@ -122,6 +122,7 @@ public class DataWriter extends DataConstants {
     /**
      * Build a JSONObject representing the provided Room,
      * including items, puzzles and leaderboard entries.
+     * NOW INCLUDES PUZZLE TYPE INFORMATION!
      *
      * @param room the room to convert
      * @return a JSONObject ready to be added to the rooms array
@@ -141,13 +142,41 @@ public class DataWriter extends DataConstants {
         }
         roomDetails.put("items", itemsArray);
 
-        // Serialize puzzles
+        // Serialize puzzles WITH TYPE INFORMATION
         JSONArray puzzleArray = new JSONArray();
         for (Puzzle puzzle : room.getPuzzles()) {
             JSONObject pJSON = new JSONObject();
             pJSON.put("title", puzzle.getTitle());
             pJSON.put("description", puzzle.getDescription());
             pJSON.put("solution", puzzle.getSolution());
+            
+            // Determine and store puzzle type
+            if (puzzle instanceof FinalPuzzle) {
+                pJSON.put("type", "Matching");
+                // Store the correct pairs for FinalPuzzle
+                FinalPuzzle fp = (FinalPuzzle) puzzle;
+                JSONObject solutionObj = new JSONObject();
+                for (Map.Entry<String, String> entry : fp.getCorrectPairs().entrySet()) {
+                    solutionObj.put(entry.getKey(), entry.getValue());
+                }
+                pJSON.put("solution", solutionObj);
+            } else if (puzzle instanceof MathPuzzle) {
+                pJSON.put("type", "Math");
+            } else if (puzzle instanceof ItemPuzzle) {
+                pJSON.put("type", "Item");
+                ItemPuzzle ip = (ItemPuzzle) puzzle;
+                JSONArray reqItems = new JSONArray();
+                for (String item : ip.getRequiredItems()) {
+                    reqItems.add(item);
+                }
+                pJSON.put("requiredItems", reqItems);
+            } else if (puzzle instanceof RiddlePuzzle) {
+                pJSON.put("type", "Riddle");
+            } else if (puzzle instanceof CodePuzzle) {
+                pJSON.put("type", "Code");
+            } else {
+                pJSON.put("type", "Code"); // Default fallback
+            }
             
             JSONArray hintsArray = new JSONArray();
             for (String hint : puzzle.getHints()) {
@@ -159,13 +188,13 @@ public class DataWriter extends DataConstants {
         }
         roomDetails.put("puzzles", puzzleArray);
 
-        // Serialize leaderboard
+        // Serialize leaderboard as array of objects
         JSONArray leaderboardArray = new JSONArray();
         for (Map.Entry<User, Integer> entry : room.getLeaderboard().entrySet()) {
-            JSONObject lbJSON = new JSONObject();
-            lbJSON.put("username", entry.getKey().getUserName());
-            lbJSON.put("score", entry.getValue());
-            leaderboardArray.add(lbJSON);
+            JSONObject lbEntry = new JSONObject();
+            lbEntry.put("username", entry.getKey().getUserName());
+            lbEntry.put("score", entry.getValue());
+            leaderboardArray.add(lbEntry);
         }
         roomDetails.put("leaderboard", leaderboardArray);
 

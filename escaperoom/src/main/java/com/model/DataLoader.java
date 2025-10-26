@@ -27,8 +27,21 @@ public class DataLoader extends DataConstants {
                 String userName = (String) userJSON.get("username");
                 String email = (String) userJSON.get("email");
                 String password = (String) userJSON.get("password");
-
-                User user = new User(userName, email, password);
+                
+                User user;
+                // Check if userId exists and create user with it
+                if (userJSON.containsKey("userId")) {
+                    String userIdStr = (String) userJSON.get("userId");
+                    try {
+                        java.util.UUID userId = java.util.UUID.fromString(userIdStr);
+                        user = new User(userId, userName, email, password);
+                    } catch (IllegalArgumentException e) {
+                        // If UUID is invalid, create user normally
+                        user = new User(userName, email, password);
+                    }
+                } else {
+                    user = new User(userName, email, password);
+                }
 
                 // Load sessions
                 JSONArray sessionsArray = (JSONArray) userJSON.get("sessions");
@@ -48,7 +61,7 @@ public class DataLoader extends DataConstants {
                             for (Object rsObj : roomSessionsArray) {
                                 JSONObject rsJSON = (JSONObject) rsObj;
                                 
-                                // Find the corresponding room
+                                // Find the corresponding room from RoomList singleton
                                 String roomId = (String) rsJSON.get("roomId");
                                 String roomTitle = (String) rsJSON.get("roomTitle");
                                 
@@ -85,6 +98,14 @@ public class DataLoader extends DataConstants {
                                             
                                             if ((boolean) psJSON.get("solved")) {
                                                 ps.markSolved((String) psJSON.get("finalAnswer"));
+                                                
+                                                // IMPORTANT: Also mark the actual puzzle as solved
+                                                for (Puzzle puzzle : room.getPuzzles()) {
+                                                    if (puzzle.getTitle().equals(ps.getPuzzleTitle())) {
+                                                        puzzle.setSolved(true);
+                                                        break;
+                                                    }
+                                                }
                                             }
                                             
                                             psList.add(ps);
@@ -112,21 +133,25 @@ public class DataLoader extends DataConstants {
     /**
      * Helper method to find a room by ID or title.
      * This is needed when loading user sessions.
+     * Uses RoomList to get the actual cached room instances.
      * 
      * @param roomId the room ID to search for
      * @param roomTitle fallback title if ID not found
      * @return the matching Room or null
      */
     private static Room findRoomByIdOrTitle(String roomId, String roomTitle) {
+        // RoomList should be initialized by now
+        RoomList roomList = RoomList.getInstance();
+        
         // First try to find by ID
-        for (Room r : getRooms()) {
+        for (Room r : roomList.getRooms()) {
             if (r.getRoomId().equals(roomId)) {
                 return r;
             }
         }
         
         // Fallback to title
-        for (Room r : getRooms()) {
+        for (Room r : roomList.getRooms()) {
             if (r.getTitle().equalsIgnoreCase(roomTitle)) {
                 return r;
             }
@@ -155,70 +180,113 @@ public class DataLoader extends DataConstants {
                     (String) roomJSON.get("difficulty"),
                     (boolean) roomJSON.get("isLocked")
                 );
-                room.setRoomId((String) roomJSON.get("roomId"));
+                
+                // Set the room ID if it exists
+                if (roomJSON.containsKey("roomId")) {
+                    room.setRoomId((String) roomJSON.get("roomId"));
+                }
 
                 // Load items
                 JSONArray items = (JSONArray) roomJSON.get("items");
-                for (Object item : items) {
-                    room.addItem((String) item);
+                if (items != null) {
+                    for (Object item : items) {
+                        room.addItem((String) item);
+                    }
                 }
 
                 // Load puzzles
                 JSONArray puzzles = (JSONArray) roomJSON.get("puzzles");
-                for (Object pObj : puzzles) {
-                    JSONObject pJSON = (JSONObject) pObj;
+                if (puzzles != null) {
+                    for (Object pObj : puzzles) {
+                        JSONObject pJSON = (JSONObject) pObj;
 
-                    String type = (String) pJSON.get("type");
-                    String title = (String) pJSON.get("title");
-                    String description = (String) pJSON.get("description");
-                    Puzzle puzzle = null;
+                        String type = (String) pJSON.get("type");
+                        String title = (String) pJSON.get("title");
+                        String description = (String) pJSON.get("description");
+                        Puzzle puzzle = null;
 
-                    if ("Code".equalsIgnoreCase(type)) {
-                        String solution = (String) pJSON.get("solution");
-                        puzzle = new CodePuzzle(title, description, solution);
-                    } else if ("Riddle".equalsIgnoreCase(type)) {
-                        String solution = (String) pJSON.get("solution");
-                        puzzle = new RiddlePuzzle(title, description, solution);
-                    } else if ("Item".equalsIgnoreCase(type)) {
-                        String solution = (String) pJSON.get("solution");
-                        puzzle = new ItemPuzzle(title, description, solution);
-                        JSONArray required = (JSONArray) pJSON.get("requiredItems");
-                        if (required != null) {
-                            for (Object item : required) {
-                                ((ItemPuzzle)puzzle).addRequiredItem((String)item);
+                        if ("Code".equalsIgnoreCase(type)) {
+                            String solution = (String) pJSON.get("solution");
+                            puzzle = new CodePuzzle(title, description, solution);
+                        } else if ("Riddle".equalsIgnoreCase(type)) {
+                            String solution = (String) pJSON.get("solution");
+                            puzzle = new RiddlePuzzle(title, description, solution);
+                        } else if ("Item".equalsIgnoreCase(type)) {
+                            String solution = (String) pJSON.get("solution");
+                            puzzle = new ItemPuzzle(title, description, solution);
+                            JSONArray required = (JSONArray) pJSON.get("requiredItems");
+                            if (required != null) {
+                                for (Object item : required) {
+                                    ((ItemPuzzle)puzzle).addRequiredItem((String)item);
+                                }
+                            }
+                        } else if ("Math".equalsIgnoreCase(type)) {
+                            Object solutionObj = pJSON.get("solution");
+                            try {
+                                int code;
+                                if (solutionObj instanceof String) {
+                                    code = Integer.parseInt((String) solutionObj);
+                                } else if (solutionObj instanceof Long) {
+                                    code = ((Long) solutionObj).intValue();
+                                } else {
+                                    code = (int) solutionObj;
+                                }
+                                puzzle = new MathPuzzle(title, description, code);
+                            } catch (Exception e) {
+                                System.out.println("Invalid math puzzle solution: " + solutionObj);
+                            }
+                        } else if ("Matching".equalsIgnoreCase(type)) {
+                            Object solutionObj = pJSON.get("solution");
+                            if (solutionObj instanceof JSONObject) {
+                                JSONObject solutionJSON = (JSONObject) solutionObj;
+                                ArrayList<String> leftSide = new ArrayList<>();
+                                ArrayList<String> rightSide = new ArrayList<>();
+
+                                // Preserve order and ensure proper case handling
+                                for (Object key : solutionJSON.keySet()) {
+                                    leftSide.add((String) key);
+                                    rightSide.add((String) solutionJSON.get(key));
+                                }
+
+                                puzzle = new FinalPuzzle(title, description, leftSide, rightSide);
                             }
                         }
-                    } else if ("Math".equalsIgnoreCase(type)) {
-                        String solution = (String) pJSON.get("solution");
-                        try {
-                            int code = Integer.parseInt(solution);
-                            puzzle = new MathPuzzle(title, description, code);
-                        } catch (NumberFormatException e) {
-                            System.out.println("Invalid math puzzle solution: " + solution);
-                        }
-                    } else if ("Matching".equalsIgnoreCase(type)) {
-                        JSONObject solutionObj = (JSONObject) pJSON.get("solution");
-                        if (solutionObj != null) {
-                            ArrayList<String> leftSide = new ArrayList<>();
-                            ArrayList<String> rightSide = new ArrayList<>();
 
-                            for (Object key : solutionObj.keySet()) {
-                                leftSide.add((String) key);
-                                rightSide.add((String) solutionObj.get(key));
+                        if (puzzle != null) {
+                            JSONArray hints = (JSONArray) pJSON.get("hints");
+                            if (hints != null) {
+                                for (Object h : hints) {
+                                    puzzle.addHint((String) h);
+                                }
                             }
-
-                            puzzle = new FinalPuzzle(title, description, leftSide, rightSide);
+                            room.addPuzzle(puzzle.getTitle(), puzzle);
                         }
                     }
+                }
 
-                    if (puzzle != null) {
-                        JSONArray hints = (JSONArray) pJSON.get("hints");
-                        if (hints != null) {
-                            for (Object h : hints) {
-                                puzzle.addHint((String) h);
+                // Load leaderboard if it exists
+                Object leaderboardObj = roomJSON.get("leaderboard");
+                if (leaderboardObj instanceof JSONArray) {
+                    JSONArray leaderboardArray = (JSONArray) leaderboardObj;
+                    for (Object lbObj : leaderboardArray) {
+                        if (lbObj instanceof JSONObject) {
+                            JSONObject lbEntry = (JSONObject) lbObj;
+                            String username = (String) lbEntry.get("username");
+                            Object scoreObj = lbEntry.get("score");
+                            
+                            if (username != null && scoreObj != null) {
+                                int score = 0;
+                                if (scoreObj instanceof Long) {
+                                    score = ((Long) scoreObj).intValue();
+                                } else if (scoreObj instanceof Integer) {
+                                    score = (Integer) scoreObj;
+                                }
+                                
+                                // Find the user and add to leaderboard
+                                // Note: This will be populated after users are loaded
+                                // For now, we'll skip this and let the game populate it
                             }
                         }
-                        room.addPuzzle(puzzle.getTitle(), puzzle);
                     }
                 }
 

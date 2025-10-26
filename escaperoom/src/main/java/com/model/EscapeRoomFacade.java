@@ -45,18 +45,28 @@ public class EscapeRoomFacade {
         for (User u : userList.getUsers()) {
             if (u.getUserName().equals(username) && u.getPassword().equals(password)) {
                 currentUser = u;
-                // Get or create the current session for this user
-                if (currentUser.getSessions().isEmpty()) {
-                    currentSession = new GameSession(currentUser);
-                    currentUser.addSession(currentSession);
-                } else {
-                    // Get the most recent session or create a new one
-                    currentSession = (GameSession) currentUser.getSessions().get(currentUser.getSessions().size() - 1);
-                    if (currentSession.isSessionCompleted()) {
-                        currentSession = new GameSession(currentUser);
-                        currentUser.addSession(currentSession);
+                
+                // Get the most recent session that is NOT completed, or create a new one
+                currentSession = null;
+                if (!currentUser.getSessions().isEmpty()) {
+                    // Look for the most recent incomplete session
+                    for (int i = currentUser.getSessions().size() - 1; i >= 0; i--) {
+                        GameSession gs = (GameSession) currentUser.getSessions().get(i);
+                        if (!gs.isSessionCompleted()) {
+                            currentSession = gs;
+                            System.out.println("Resuming existing session: " + gs.getSessionId());
+                            break;
+                        }
                     }
                 }
+                
+                // If no incomplete session found, create a new one
+                if (currentSession == null) {
+                    currentSession = new GameSession(currentUser);
+                    currentUser.addSession(currentSession);
+                    System.out.println("Created new session: " + currentSession.getSessionId());
+                }
+                
                 return true;
             }
         }
@@ -69,6 +79,7 @@ public class EscapeRoomFacade {
     public void logout() {
         if (currentUser != null) {
             System.out.println(currentUser.getUserName() + " logging out.");
+            // Save user data including all sessions
             DataWriter.saveUsers();
         }
         currentUser = null;
