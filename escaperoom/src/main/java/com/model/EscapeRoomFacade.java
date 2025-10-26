@@ -13,7 +13,7 @@ public class EscapeRoomFacade {
     private User currentUser;
     private Room currentRoom;
     private Map<String, Integer> sessionProgress = new HashMap<>();
-    private String DELIM = "\t";
+  
 
     
 

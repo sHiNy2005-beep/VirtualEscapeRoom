@@ -23,8 +23,8 @@
 
   Difficulty Level:        All Rooms
   Puzzles Solved:          2
-  Hints Used:              16
-  Final Detective Score:   17600
+  Hints Used:              10
+  Final Detective Score:   20000
 
 ═══════════════════════════════════════════════════════════
                     CASE CLOSED

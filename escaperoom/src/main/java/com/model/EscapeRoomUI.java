@@ -16,7 +16,7 @@ public class EscapeRoomUI {
 	public void run() {
 
     System.out.println("\n****Murder Mystery Escape Room****");
-    //Speek.speak("Welcome to the Hamton Mansion. Mr.Hamton has mysteriusly died under suspicious circumstances, and you a detective must investigate his death and find his killer. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person--the killer.");;
+    System.out.println("Welcome to the Hamton Mansion. Mr.Hamton has mysteriusly died under suspicious circumstances, and you a detective must investigate his death and find his killer. You must gather evidence of the real culprit by solving puzzles in each room. Each correctly solved puzzle rewards you with a clue, which points to more than one person. Gather all the clues, and they will point to one person--the killer.");
     scenario1_CreateAccount(); 
 	scenario2_EnterAnEscapeRoom();
     scenario3_Complete3Puzzles();
@@ -29,7 +29,7 @@ public class EscapeRoomUI {
 
     public void scenario1_CreateAccount() //Mashal
     {
-       System.out.println("\nCreate Account - Duplicate User: ");
+       System.out.println("\n===== Create Account - Duplicate User ======");
 
         System.out.println("Attempting to create account for Bob Dev...");
       if (!facade.createAccount("bob_dev", "bob.dev@example.com", "BobPass#88")) {
@@ -38,7 +38,7 @@ public class EscapeRoomUI {
         System.out.println("Account successfully created!");
       }
 
-      System.out.println("\nCreate Account - Sucess: ");
+      System.out.println("\n====== Create Account - Sucess ===== ");
     if (!facade.createAccount("leni_rivers", "leni.r@example.com", "LeniPass#123")) {
       System.out.println("Account successfully created for Leni Rivers!");
 
@@ -53,7 +53,7 @@ public class EscapeRoomUI {
 
 
     public void scenario2_EnterAnEscapeRoom() { // Enter the escape room and hear the story // shiny 
-        System.out.println("\nScenario 5: Enter an Escape Room - Hear the Story");
+        System.out.println("\n===== Enter an Escape Room - Hear the Story ======");
 
         ArrayList<Room> rooms = facade.getAllRooms();
         if (rooms.isEmpty()) {
@@ -111,7 +111,7 @@ public class EscapeRoomUI {
 
     public void scenario3_Complete3Puzzles() //murewa
     {
-        System.out.println("\nScenario 3: Completing 3 Puzzles");
+        System.out.println("\n======= Completing 3 Puzzles =======");
 
         ArrayList<Room> rooms = facade.getAllRooms();
         System.out.println("\nAvailable Rooms:");
@@ -221,7 +221,7 @@ public class EscapeRoomUI {
 
 
     public void scenario4_DataPersistence () {
-        System.out.println("\nScenario 6: Logout -> Login -> Show Data Persistence and Progress");
+        System.out.println("\n======= Logout -> Login -> Show Data Persistence and Progress =======");
         String demoUser = "leni_rivers";
         if (facade.getCurrentUser() != null) {
             try {
@@ -251,8 +251,8 @@ public class EscapeRoomUI {
             return;
         }
         System.out.println("Logged in as: " + current.getUserName());
-       if (current.getSessions() == null || current.getSessions().isEmpty()) {
-       System.out.println("No saved sessions for user: " + current.getUserName());
+      if (current.getSessions() == null || current.getSessions().isEmpty()) {
+      System.out.println("No saved sessions for user: " + current.getUserName());
        } else {
        System.out.println("User sessions:");
 
@@ -295,8 +295,8 @@ public class EscapeRoomUI {
 
         System.out.println("Total hints used in session: " + s.getHintsUsed());
     }
-   }
-         System.out.println("\n json/User.json contents:");
+}
+System.out.println("\n json/User.json contents:");
         try {
             java.nio.file.Path p = java.nio.file.Paths.get("json/User.json");
             if (java.nio.file.Files.exists(p)) {
@@ -315,7 +315,7 @@ public class EscapeRoomUI {
 
 
     public void scenario5_EndGame() {
-        System.out.println("\nScenario 5: Finishing the Game");
+        System.out.println("\n======== Finishing the Game and Generating Certificate ========");
         
         if (facade.getCurrentUser() != null) {
             facade.logout();
