@@ -5,14 +5,15 @@
     "puzzles": [{
         "title": "Hidden Will Cipher",
         "type": "Code",
-        "description": "Decode the message hidden in Hamton's will. Each capitalized letter hides the truth of inheritance..",
+        "description": "Decode the hidden message in Hamton's will. Each capitalized letter hides the truth of inheritance.",
         "solution": "THOMASISDISOWNED",
-        "hints": ["Look only at the capitalized letters.", "The message hides a name."]
+        "hints": ["Look only at capitalized letters.", "The message hides a name."]
     }],
     "items": ["torn will page", "magnifying glass"],
     "difficulty": "Hard",
-    "isLocked": false
-}, {
+    "isLocked": true
+}, 
+{
     "title": "Garden",
     "roomId": "room_002",
     "leaderboard": {"user": "score"},
