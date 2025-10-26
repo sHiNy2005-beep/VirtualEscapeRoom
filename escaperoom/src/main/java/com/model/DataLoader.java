@@ -2,95 +2,143 @@ package com.model;
 
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.UUID;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 
 public class DataLoader extends DataConstants {
 
     /**
      * Read users and their saved sessions from the users JSON file.
      *
-     * @return a list of {@link User} objects populated from the persisted file.
+     * @return a list of User objects populated from the persisted file.
      */
     public static ArrayList<User> getUsers() {
-    ArrayList<User> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList<>();
 
-    try {
-        FileReader reader = new FileReader(USERS_FILE);
-        JSONArray jsonUsers = (JSONArray) new JSONParser().parse(reader);
+        try {
+            FileReader reader = new FileReader(USERS_FILE);
+            JSONArray jsonUsers = (JSONArray) new JSONParser().parse(reader);
 
-        for (Object obj : jsonUsers) {
-            JSONObject userJSON = (JSONObject) obj;
+            for (Object obj : jsonUsers) {
+                JSONObject userJSON = (JSONObject) obj;
 
-            String userName = (String) userJSON.get("username");
-            String email = (String) userJSON.get("email");
-            String password = (String) userJSON.get("password");
+                String userName = (String) userJSON.get("username");
+                String email = (String) userJSON.get("email");
+                String password = (String) userJSON.get("password");
 
-            User user = new User(userName, email, password);
+                User user = new User(userName, email, password);
 
-            
-            
-            JSONArray sessionsArray = (JSONArray) userJSON.get("sessions");
-            if (sessionsArray != null) {
-                for (Object sObj : sessionsArray) {
-                    JSONObject sJSON = (JSONObject) sObj;
-                    JSONObject roomJSON = (JSONObject) sJSON.get("room");
+                // Load sessions
+                JSONArray sessionsArray = (JSONArray) userJSON.get("sessions");
+                if (sessionsArray != null) {
+                    for (Object sObj : sessionsArray) {
+                        JSONObject sJSON = (JSONObject) sObj;
+                        
+                        GameSession session = new GameSession(user);
+                        session.setSessionId((String) sJSON.get("sessionId"));
+                        session.setSessionStartTime((long) sJSON.get("sessionStartTime"));
+                        session.setSessionEndTime((long) sJSON.get("sessionEndTime"));
+                        session.setSessionCompleted((boolean) sJSON.get("isSessionCompleted"));
 
-                    Room room = new Room(
-                        (String) roomJSON.get("title"),
-                        (String) roomJSON.get("difficulty"),
-                        false
-                    );
+                        // Load room sessions for each room in this game session
+                        JSONArray roomSessionsArray = (JSONArray) sJSON.get("roomSessions");
+                        if (roomSessionsArray != null) {
+                            for (Object rsObj : roomSessionsArray) {
+                                JSONObject rsJSON = (JSONObject) rsObj;
+                                
+                                // Find the corresponding room
+                                String roomId = (String) rsJSON.get("roomId");
+                                String roomTitle = (String) rsJSON.get("roomTitle");
+                                
+                                // Get the actual Room object from RoomList
+                                Room room = findRoomByIdOrTitle(roomId, roomTitle);
+                                if (room != null) {
+                                    RoomSession roomSession = session.enterRoom(room);
+                                    
+                                    // Restore room session state
+                                    roomSession.setStartTime((long) rsJSON.get("startTime"));
+                                    roomSession.setEndTime((long) rsJSON.get("endTime"));
+                                    roomSession.setCompleted((boolean) rsJSON.get("isCompleted"));
+                                    roomSession.setHintsUsed(((Long) rsJSON.get("hintsUsed")).intValue());
+                                    
+                                    // Restore inventory
+                                    JSONArray invArray = (JSONArray) rsJSON.get("inventory");
+                                    ArrayList<String> inventory = new ArrayList<>();
+                                    for (Object item : invArray) {
+                                        inventory.add((String) item);
+                                    }
+                                    roomSession.setInventory(inventory);
+                                    
+                                    // Restore puzzle sessions
+                                    JSONArray puzzleSessions = (JSONArray) rsJSON.get("puzzleSessions");
+                                    if (puzzleSessions != null) {
+                                        ArrayList<PuzzleSession> psList = new ArrayList<>();
+                                        for (Object pObj : puzzleSessions) {
+                                            JSONObject psJSON = (JSONObject) pObj;
+                                            PuzzleSession ps = new PuzzleSession((String) psJSON.get("puzzleTitle"));
+                                            
+                                            for (int i = 0; i < ((Long) psJSON.get("numHintsUsed")).intValue(); i++) {
+                                                ps.useHint();
+                                            }
+                                            
+                                            if ((boolean) psJSON.get("solved")) {
+                                                ps.markSolved((String) psJSON.get("finalAnswer"));
+                                            }
+                                            
+                                            psList.add(ps);
+                                        }
+                                        roomSession.setPuzzleSessions(psList);
+                                    }
+                                }
+                            }
+                        }
 
-                    GameSession session = new GameSession(user, room);
-                    session.setStartTime((long) sJSON.get("startTime"));
-                    session.setEndTime((long) sJSON.get("endTime"));
-                    session.setScore(((Long) sJSON.get("score")).intValue());
-                    session.setHintsUsed(((Long) sJSON.get("hintsUsed")).intValue());
-                    session.setCompleted((boolean) sJSON.get("isCompleted"));
-
-                    JSONArray invArray = (JSONArray) sJSON.get("inventory");
-                    for (Object item : invArray) {
-                     session.collectItem((String) item);
-
-                    JSONArray puzzleSessions = (JSONArray) sJSON.get("puzzleSessions");
-                    if (puzzleSessions != null) {
-                    for (Object pObj : puzzleSessions) {
-                    JSONObject psJSON = (JSONObject) pObj;
-                    PuzzleSession ps = new PuzzleSession((String) psJSON.get("puzzleTitle"));
-                    for (int i = 0; i < ((Long) psJSON.get("numHintsUsed")).intValue(); i++) {
-                     ps.useHint();
-                   }
-                   if ((boolean) psJSON.get("solved")) {
-                   ps.markSolved((String) psJSON.get("finalAnswer"));
-                   }
-                   session.getPuzzleSessions().add(ps);
-                   }
-                 }
+                        user.addSession(session);
                     }
-
-                    user.addSession(session);
                 }
+
+                users.add(user);
             }
 
-            users.add(user);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-    } catch (Exception e) {
-        e.printStackTrace();
+        return users;
     }
-
-    return users;
-}
+    
+    /**
+     * Helper method to find a room by ID or title.
+     * This is needed when loading user sessions.
+     * 
+     * @param roomId the room ID to search for
+     * @param roomTitle fallback title if ID not found
+     * @return the matching Room or null
+     */
+    private static Room findRoomByIdOrTitle(String roomId, String roomTitle) {
+        // First try to find by ID
+        for (Room r : getRooms()) {
+            if (r.getRoomId().equals(roomId)) {
+                return r;
+            }
+        }
+        
+        // Fallback to title
+        for (Room r : getRooms()) {
+            if (r.getTitle().equalsIgnoreCase(roomTitle)) {
+                return r;
+            }
+        }
+        
+        return null;
+    }
 
     /**
      * Read rooms, their puzzles, items and leaderboards from the rooms JSON file.
      *
-     * @return a list of {@link Room} objects populated from the persisted file.
+     * @return a list of Room objects populated from the persisted file.
      */
     public static ArrayList<Room> getRooms() {
         ArrayList<Room> rooms = new ArrayList<>();
@@ -109,13 +157,13 @@ public class DataLoader extends DataConstants {
                 );
                 room.setRoomId((String) roomJSON.get("roomId"));
 
-                
+                // Load items
                 JSONArray items = (JSONArray) roomJSON.get("items");
                 for (Object item : items) {
                     room.addItem((String) item);
                 }
 
-                
+                // Load puzzles
                 JSONArray puzzles = (JSONArray) roomJSON.get("puzzles");
                 for (Object pObj : puzzles) {
                     JSONObject pJSON = (JSONObject) pObj;
@@ -149,7 +197,6 @@ public class DataLoader extends DataConstants {
                             System.out.println("Invalid math puzzle solution: " + solution);
                         }
                     } else if ("Matching".equalsIgnoreCase(type)) {
-                        // FIX: For Matching type, solution is a JSONObject, not a String
                         JSONObject solutionObj = (JSONObject) pJSON.get("solution");
                         if (solutionObj != null) {
                             ArrayList<String> leftSide = new ArrayList<>();
@@ -173,7 +220,6 @@ public class DataLoader extends DataConstants {
                         }
                         room.addPuzzle(puzzle.getTitle(), puzzle);
                     }
-                    
                 }
 
                 rooms.add(room);
@@ -193,18 +239,14 @@ public class DataLoader extends DataConstants {
      * @param args command-line arguments (ignored)
      */
     public static void main(String[] args) {
-    
-    System.out.println("Loaded Users:");
-    for (User u : DataLoader.getUsers()) {
-        System.out.println(" - " + u.getUserName());
-    }
+        System.out.println("Loaded Users:");
+        for (User u : DataLoader.getUsers()) {
+            System.out.println(" - " + u.getUserName());
+        }
 
-    System.out.println("\nLoaded Rooms:");
-    for (Room r : DataLoader.getRooms()) {
-        System.out.println(" - " + r);
+        System.out.println("\nLoaded Rooms:");
+        for (Room r : DataLoader.getRooms()) {
+            System.out.println(" - " + r);
+        }
     }
 }
-
-  }
-
-
