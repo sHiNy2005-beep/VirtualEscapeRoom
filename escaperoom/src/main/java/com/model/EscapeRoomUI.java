@@ -111,14 +111,11 @@ public class EscapeRoomUI {
     }
 
     
+    
 
     public void scenario3_Complete3Puzzles() //murewa
     {
-        System.out.println("\nScenario 3: ");
-        if(!facade.login("charlie_x", "CharPwd@123"))
-            System.out.println("Sorry we couldn't login.");
-
-        System.out.println("Logged in as " +facade.getCurrentUser().getUserName());
+        System.out.println("\nScenario 3: Completing 3 Puzzles");
 
         ArrayList<Room> rooms = facade.getAllRooms();
         System.out.println("\nAvailable Rooms:");
@@ -126,10 +123,11 @@ public class EscapeRoomUI {
             System.out.println(" - " + r.getTitle() + " (" + r.getDifficulty() + ")");
         }
 
-        System.out.println("\nStarting room: Study...");
+        // First Puzzle
+        System.out.println("\nStarting room: Library...");
         Room selectedRoom = null;
         for (Room r : rooms) {
-            if ("Study".equals(r.getTitle())) {
+            if ("Library".equals(r.getTitle())) {
                 selectedRoom = r;
                 break;
             }
@@ -137,29 +135,89 @@ public class EscapeRoomUI {
         if (selectedRoom != null) {
             GameSession session = facade.startGame(selectedRoom);
             if (session != null) {
-                System.out.println("Entered the Study.");
+                System.out.println("Entered the Library.");
             } else {
                 System.out.println("Could not start game.");
             }
         }
 
         Room room = facade.getAllRooms().get(0);
-        Puzzle StudyPuzzle = room.getPuzzles().get(0);
+        Puzzle LibraryPuzzle = room.getPuzzles().get(0);
 
-        System.out.println("Puzzle: " + StudyPuzzle.getTitle());
-        System.out.println("Description: " + StudyPuzzle.getDescription());
+        System.out.println("Puzzle: " + LibraryPuzzle.getTitle());
+        System.out.println("Description: " + LibraryPuzzle.getDescription());
 
-        System.out.println("Submitting answer 'red-blue-green-yellow'...");
-        facade.submitAnswer(StudyPuzzle.getTitle(), "red-blue-green-yellow");
-        if(StudyPuzzle.isSolved()) {
+        System.out.println("Submitting answer THOMASISDISOWNED...");
+        facade.submitAnswer(LibraryPuzzle.getTitle(), "THOMASISDISOWNED");
+        if(LibraryPuzzle.isSolved()) {
             System.out.println("Puzzle solved!");
         } else {
             System.out.println("Incorrect answer. Try again.");
         }
 
-        facade.endGame();
-        System.out.println("Game ended. Progress saved.");
-        facade.logout();
+        // Second Puzzle
+        System.out.println("\nStarting next room: Garden...");
+        selectedRoom = null;
+        for (Room r : rooms) {
+            if ("Garden".equals(r.getTitle())) {
+                selectedRoom = r;
+                break;
+            }
+        }
+        if (selectedRoom != null) {
+            GameSession session = facade.startGame(selectedRoom);
+            if (session != null) {
+                System.out.println("Entered the Garden.");
+            } else {
+                System.out.println("Could not start game.");
+            }
+        }
+
+        room = facade.getAllRooms().get(1);
+        Puzzle GardenPuzzle = room.getPuzzles().get(1);
+
+        System.out.println("Puzzle: " + GardenPuzzle.getTitle());
+        System.out.println("Description: " + GardenPuzzle.getDescription());
+
+        System.out.println("Submitting answer 'STATUE'...");
+        facade.submitAnswer(GardenPuzzle.getTitle(), "STATUE");
+        if(GardenPuzzle.isSolved()) {
+            System.out.println("Puzzle solved!");
+        } else {
+            System.out.println("Incorrect answer. Try again.");
+        }
+
+        // Third Puzzle
+        System.out.println("\nStarting the next room: Bedroom...");
+        selectedRoom = null;
+        for (Room r : rooms) {
+            if ("Bedroom".equals(r.getTitle())) {
+                selectedRoom = r;
+                break;
+            }
+        }
+        if (selectedRoom != null) {
+            GameSession session = facade.startGame(selectedRoom);
+            if (session != null) {
+                System.out.println("Entered the Bedroom.");
+            } else {
+                System.out.println("Could not start game.");
+            }
+        }
+
+        room = facade.getAllRooms().get(2);
+        Puzzle BedroomPuzzle = room.getPuzzles().get(2);
+
+        System.out.println("Puzzle: " + BedroomPuzzle.getTitle());
+        System.out.println("Description: " + BedroomPuzzle.getDescription());
+
+        System.out.println("Submitting answer 'secret'...");
+        facade.submitAnswer(BedroomPuzzle.getTitle(), "secret");
+        if(BedroomPuzzle.isSolved()) {
+            System.out.println("Puzzle solved!");
+        } else {
+            System.out.println("Incorrect answer. Try again.");
+        }
     }
 
     

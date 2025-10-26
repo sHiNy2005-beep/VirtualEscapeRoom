@@ -159,11 +159,7 @@ public class DataLoader extends DataConstants {
                     }
                     room.addPuzzle(puzzle.getTitle(), puzzle);
                 }
-                    JSONArray hints = (JSONArray) pJSON.get("hints");
-                    for (Object h : hints) {
-                        puzzle.addHint((String) h);
-                    }
-                    room.addPuzzle(puzzle.getTitle(), puzzle);
+                    
                 }
 
                 rooms.add(room);
