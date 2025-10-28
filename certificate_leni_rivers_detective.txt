@@ -22,8 +22,8 @@
 ═════════════════════════════════════════════════════════════
 
   Difficulty Level:        Murder Mystery
-  Puzzles Solved:          20
-  Hints Used:              8
+  Puzzles Solved:          45
+  Hints Used:              18
   Final Detective Score:   81900
 
 ═════════════════════════════════════════════════════════════
