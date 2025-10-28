@@ -6,7 +6,6 @@ module com.example {
     requires junit;
     
 
-
     opens com.model to javafx.fxml;
     exports com.model;
    
