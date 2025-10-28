@@ -3,6 +3,7 @@ module com.example {
     requires javafx.fxml;
     requires json.simple;
     requires freetts;
+    requires junit;
     
 
 
