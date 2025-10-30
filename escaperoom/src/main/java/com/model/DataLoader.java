@@ -1,6 +1,10 @@
 package com.model;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
@@ -293,4 +297,36 @@ public class DataLoader extends DataConstants {
             System.out.println(" - " + r);
         }
     }
+
+    private static String getFileWritingPath(String USER_FILE, String USER_FILE_JUNIT) {
+		try {
+			if(isJUnitTest()){
+				URI url = DataLoader.class.getResource(USER_FILE_JUNIT).toURI();
+				return url.getPath();
+			} else {
+				return USER_FILE;
+			}
+		} catch(Exception e){
+			System.out.println("Difficulty getting resource path");
+			return "";
+		}
+	}
+
+	private static BufferedReader getReaderFromFile(String fileName, String jsonFileName){
+		try {
+			if(isJUnitTest()){
+				InputStream inputStream = DataLoader.class.getResourceAsStream(jsonFileName);
+				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				return new BufferedReader(inputStreamReader);
+			} else {
+				FileReader reader = new FileReader(fileName);
+				return new BufferedReader(reader);
+			}
+		} catch(Exception e){
+			System.out.println("Can't load");
+			return null;
+		}
+			
+	}
 }
+
