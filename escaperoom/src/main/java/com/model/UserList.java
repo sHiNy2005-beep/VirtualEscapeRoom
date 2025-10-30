@@ -92,4 +92,9 @@ public class UserList {
       DataWriter.saveUsers();
       return true;
     }
+
+    public void clearUsers() {
+    this.users.clear();
+    this.usersLoaded = false;
+}
 }

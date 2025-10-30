@@ -9,6 +9,7 @@ public class RoomList {
     private ArrayList<Room> rooms;
     private HashMap<String, Room> roomCache;
     private static RoomList roomList;
+    private boolean roomsLoaded = false;
 
     private RoomList() {
         this.rooms = new ArrayList<>();
@@ -74,4 +75,10 @@ public class RoomList {
             roomCache.put(room.getRoomId(), room);
         }
     }
+
+    public void clearRooms() {
+    this.rooms.clear();
+    this.roomsLoaded = false;
+}
+
 }
