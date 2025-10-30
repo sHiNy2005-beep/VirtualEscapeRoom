@@ -23,8 +23,10 @@ public class ItemPuzzleTest {
         ItemPuzzle puzzle = new ItemPuzzle("Harmony's Disguise", "You can't see this instrument, but when you play it, everyone hears it", "voice");
         ArrayList<String> requiredItems = new ArrayList<>();
         puzzle.addRequiredItem("microphone");
-        boolean ItemExists = requiredItems.contains("microphone");
-        assertTrue(ItemExists);
+        boolean hasItem = requiredItems.contains("microphone");
+        boolean doesNotHaveItem = requiredItems.contains("shoes");
+        assertTrue(hasItem);
+        assertFalse(doesNotHaveItem);
     }
 
     @Test
@@ -34,7 +36,11 @@ public class ItemPuzzleTest {
         ArrayList<String> requiredItems = puzzle.getRequiredItems();
         puzzle.addRequiredItem("speaker");
         puzzle.addRequiredItem("microphone");
+        boolean ItemsExists = requiredItems.contains("speaker") && requiredItems.contains("microphone");
         assertEquals(2, requiredItems.size());
+        assertEquals("speaker", puzzle.getRequiredItems().get(0));
+        assertEquals("microphone", puzzle.getRequiredItems().get(1));
+        assertTrue(ItemsExists);
         
     }
 
@@ -43,8 +49,8 @@ public class ItemPuzzleTest {
     {
         ItemPuzzle puzzle = new ItemPuzzle("Harmony's Disguise", "You can't see this instrument, but when you play it, everyone hears it", "voice");
         boolean Answer = puzzle.checkAnswer("broom");
-        assertFalse(Answer);
         boolean CorrectAnswer = puzzle.checkAnswer("VOICE".toLowerCase());
+         assertFalse(Answer);
         assertTrue(CorrectAnswer);
     }
 }
