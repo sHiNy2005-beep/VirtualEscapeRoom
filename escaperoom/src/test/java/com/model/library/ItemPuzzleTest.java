@@ -1,4 +1,4 @@
-package com.model;
+package com.model.library;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -16,6 +16,19 @@ public class DataConstants {
          */
         protected final static String USERS_FILE = "json/User.json";
 
+        protected final static String USERS_FILE_JUNIT = "data/json/User.json";
+
+        protected final static String ROOMS_FILE_JUNIT = "data/json/Room.json";
+
+        public static boolean isJUnitTest() {  
+		for (StackTraceElement element : Thread.currentThread().getStackTrace()) {
+		  if (element.getClassName().startsWith("org.junit.")) {
+			return true;
+		  }           
+		}
+		return false;
+	  }
+
     }
 
 
