@@ -1,6 +1,10 @@
-package com.model;
+package com.model.library;
 
 import org.junit.Test;
+
+import com.model.User;
+import com.model.UserList;
+
 import java.util.List;
 import static org.junit.Assert.*;
 

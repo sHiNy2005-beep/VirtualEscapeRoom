@@ -1,7 +1,11 @@
-package com.model;
+package com.model.library;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.model.Room;
+import com.model.RoomList;
+
 import java.util.List;
 import static org.junit.Assert.*;
 

@@ -1,6 +1,11 @@
-package com.model;
+package com.model.library;
 
 import org.junit.Test;
+
+import com.model.DataLoader;
+import com.model.Puzzle;
+import com.model.Room;
+
 import java.util.List;
 import static org.junit.Assert.*;
 
