@@ -63,6 +63,21 @@ public class PuzzleTest {
         assertEquals("This is a test puzzle", puzzle.getDescription());
     }
 
+    @Test
+    public void isSolvedTest() 
+    {
+        Puzzle puzzle = new Puzzle("Test Puzzle", "This is a test puzzle", "Test Answer");
+        puzzle.checkAnswer("Test Answer");
+        assertTrue(puzzle.isSolved());
+    }
+
+    @Test
+    public void getSolutionTest() 
+    {
+        Puzzle puzzle = new Puzzle("Test Puzzle", "This is a test puzzle", "Test Answer");
+        assertEquals("Test Answer", puzzle.getSolution());
+    }
+
     
 
 }
