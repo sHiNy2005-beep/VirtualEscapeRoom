@@ -3,12 +3,11 @@ module com.example {
     requires javafx.fxml;
     requires json.simple;
     requires freetts;
-    //requires junit;
+    
 
-
-opens com.model to javafx.fxml;
-    opens com.model.library to junit;
+    opens com.model to javafx.fxml;
+    opens com.model.library to javafx.fxml;
     exports com.model;
-    exports com.model.library to javafx.fxml, junit;
+    exports com.model.library to javafx.fxml;
      
 }
