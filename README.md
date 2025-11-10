@@ -16,4 +16,4 @@ Excel Requirements Document - https://docs.google.com/spreadsheets/d/1vgKbUIGw4B
 
 Youtube Video Presentation - https://youtu.be/ysKwsHJgoI4
 
-Prototype Version 1 Youtube Video - https://youtu.be/kkxXL6f4RXs
+Prototype Version 1 Youtube Video - https://youtu.be/ZrKuiEAycn8
