@@ -6,8 +6,8 @@ module com.example {
     
 
     opens com.model to javafx.fxml;
-    opens com.model.library to javafx.fxml;
     exports com.model;
-    exports com.model.library to javafx.fxml;
      
+    opens com.example to javafx.fxml;
+    exports com.example;
 }
