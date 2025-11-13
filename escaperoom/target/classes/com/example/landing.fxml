@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane cacheShape="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: h;" styleClass="-fx-background-color: transparent; -fx-border-color: transparent;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField cacheShape="false" prefHeight="50.0" prefWidth="528.0" promptText="Hamton Mansion Escape Room" styleClass="-fx-background-color: transparent;-fx-background-insets: 0;-fx-background-radius: 0;-fx-border-color: transparent;-fx-border-insets: 0;-fx-border-radius: 0;-fx-focus-color: transparent;-fx-faint-focus-color: transparent;" text="Hamton Mansion Escape Room">
+         <font>
+            <Font name="Book Antiqua" size="34.0" />
+         </font>
+      </TextField>
+   </children>
+</Pane>
