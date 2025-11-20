@@ -39,15 +39,4 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0.5, 0, 1);
 }
 
-#signInButton, .button {
-    -fx-background-color: #f4b400;
-    -fx-text-fill: black;
-    -fx-font-weight: bold;
-    -fx-background-radius: 8;
-    -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 3, 0.3, 0, 1);
-}
 
-#signInButton:hover, .button:hover {
-    -fx-background-color: #ffd65c;
-}
