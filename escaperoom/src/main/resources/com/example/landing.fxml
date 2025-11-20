@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650" prefWidth="900" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.example.LandingController">
+<AnchorPane prefHeight="650" prefWidth="900" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LandingController">
 
     <StackPane prefHeight="520" prefWidth="820" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="56.0">
 
@@ -24,28 +24,28 @@
         <Rectangle fill="#000000" height="520.0" opacity="0.12" width="820.0" />
 
         <VBox alignment="TOP_CENTER" prefHeight="572.0" prefWidth="845.0" spacing="10">
-            <Label prefHeight="22.0" prefWidth="546.0" text="THE HAMPTON MANSION">
-                <font>
-                    <Font name="Book Antiqua" size="42.0" />
-                </font>
-                <style>
-                    -fx-text-fill: white;
-                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
-                </style>
-            </Label>
-            <Label text="ESCAPE ROOM">
-                <font>
-                    <Font name="Book Antiqua" size="36.0" />
-                </font>
-                <style>
-                    -fx-text-fill: white;
-                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
-                </style>
-            </Label>
       
            <Pane mouseTransparent="true" prefHeight="520.0" prefWidth="820.0">
             <children>
-                  <Button fx:id="signInButton" layoutX="715.0" layoutY="362.0" onAction="#handleSignIn" style="-fx-background-radius:6;                            -fx-padding:8 14 8 14;                            -fx-background-color: linear-gradient(#c99e2b, #8f6608);                            -fx-text-fill:white;                            -fx-font-weight:bold;" text="Sign In" />
+                  <Button fx:id="signInButton" layoutX="719.0" layoutY="487.0" onAction="#handleSignIn" style="-fx-background-radius:6;                            -fx-padding:8 14 8 14;                            -fx-background-color: linear-gradient(#c99e2b, #8f6608);                            -fx-text-fill:white;                            -fx-font-weight:bold;" text="Sign In" />
+                  <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="61.0" text="ESCAPE ROOM">
+                      <font>
+                          <Font name="Book Antiqua" size="36.0" />
+                      </font>
+                      <style>
+                    -fx-text-fill: white;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
+                </style>
+                  </Label>
+                  <Label alignment="TOP_LEFT" layoutX="14.0" layoutY="8.0" prefHeight="22.0" prefWidth="546.0" text="THE HAMPTON MANSION">
+                      <font>
+                          <Font name="Book Antiqua" size="42.0" />
+                      </font>
+                      <style>
+                    -fx-text-fill: white;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
+                </style>
+                  </Label>
             </children>
            </Pane>
         </VBox>
