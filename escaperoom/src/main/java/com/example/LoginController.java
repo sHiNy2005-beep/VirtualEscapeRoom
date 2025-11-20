@@ -30,7 +30,7 @@ public class LoginController {
 
      @FXML
     private void initialize() {
-    //trying to fix image issues
+   
         try { 
             URL url = getClass().getResource("/images/Mansion.png");
             System.out.println("Image resource URL: " + url);
