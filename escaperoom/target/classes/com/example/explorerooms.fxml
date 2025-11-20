@@ -5,9 +5,9 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
-
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -16,19 +16,24 @@
             <Font name="Book Antiqua" size="32.0" />
          </font>
       </TextField>
-      <MenuBar layoutX="14.0" layoutY="61.0" prefHeight="26.0" prefWidth="269.0">
+      <ImageView fitHeight="127.0" fitWidth="118.0" layoutX="224.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="137.0" fitWidth="118.0" layoutX="137.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="137.0" fitWidth="118.0" layoutX="323.0" layoutY="249.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="127.0" fitWidth="118.0" layoutX="405.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="127.0" fitWidth="118.0" layoutX="54.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true" />
+      <MenuBar layoutX="14.0" layoutY="62.0" prefHeight="26.0" prefWidth="269.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Home">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="Rooms">
             <items>
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Items">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
