@@ -4,30 +4,51 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="rootPane" prefHeight="400.0" prefWidth="589.0" stylesheets="@login.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="650" prefWidth="900" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25" fx:controller="com.example.LandingController">
 
-    <children>
-        <ImageView fx:id="backgroundImage" fitHeight="400.0" fitWidth="657.0" layoutX="-4.0" opacity="0.97" preserveRatio="true">
+    <StackPane prefHeight="520" prefWidth="820" AnchorPane.bottomAnchor="56.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="56.0">
+
+        <ImageView fx:id="heroImage" fitHeight="547.0" fitWidth="822.0" pickOnBounds="true" preserveRatio="true">
             <image>
-                <Image url="@../../../../../../../../../../Downloads/homepagebackground.png" />
+                <Image url="@../../images/Mansion.png" />
             </image>
         </ImageView>
 
-        <Label fx:id="mainTitle" layoutX="20.0" layoutY="20.0" styleClass="header-text" stylesheets="@../../styles.css" text="THE HAMTON MANSION">
-            <font>
-                <Font name="Book Antiqua" size="38.0" />
-            </font>
-        </Label>
+        <Rectangle fill="#000000" height="520.0" opacity="0.12" width="820.0" />
 
-        <Label fx:id="subTitle" graphicTextGap="3.0" layoutX="30.0" layoutY="80.0" styleClass="subheader-text" text="ESCAPE ROOM">
-            <font>
-                <Font name="Book Antiqua" size="32.0" />
-            </font>
-        </Label>
+        <VBox alignment="TOP_CENTER" prefHeight="572.0" prefWidth="845.0" spacing="10">
+            <Label prefHeight="22.0" prefWidth="546.0" text="THE HAMPTON MANSION">
+                <font>
+                    <Font name="Book Antiqua" size="42.0" />
+                </font>
+                <style>
+                    -fx-text-fill: white;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
+                </style>
+            </Label>
+            <Label text="ESCAPE ROOM">
+                <font>
+                    <Font name="Book Antiqua" size="36.0" />
+                </font>
+                <style>
+                    -fx-text-fill: white;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
+                </style>
+            </Label>
+      
+           <Pane mouseTransparent="true" prefHeight="520.0" prefWidth="820.0">
+            <children>
+                  <Button fx:id="signInButton" layoutX="715.0" layoutY="362.0" onAction="#handleSignIn" style="-fx-background-radius:6;                            -fx-padding:8 14 8 14;                            -fx-background-color: linear-gradient(#c99e2b, #8f6608);                            -fx-text-fill:white;                            -fx-font-weight:bold;" text="Sign In" />
+            </children>
+           </Pane>
+        </VBox>
 
-        <Button fx:id="signInButton" layoutX="493.0" layoutY="361.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="75.0" styleClass="button" text="Sign In" />
-    </children>
-</Pane>
+    </StackPane>
+</AnchorPane>
