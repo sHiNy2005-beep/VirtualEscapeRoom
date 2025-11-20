@@ -15,6 +15,7 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
      
         scene = new Scene(loadFXML("login"), 980, 640);
+       // scene=new Scene(loadFXML("landing"), 980, 640);
         stage.setScene(scene);
         stage.setTitle("Hamton Mansion - Login");
         stage.setResizable(true);      
