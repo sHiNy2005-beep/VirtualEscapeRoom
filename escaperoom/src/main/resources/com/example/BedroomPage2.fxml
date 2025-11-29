@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.BedroomPage2Controller"
+            prefWidth="900" prefHeight="600"
+            stylesheets="@styles.css">
+
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="top-bar" padding="12 24 12 24">
+            <Label text="bedroom" styleClass="title"/>
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="nav-links">
+                <Label text="Home" styleClass="nav-item"/>
+                <Label text="Rooms" styleClass="nav-item active"/>
+                <Label text="Items" styleClass="nav-item"/>
+            </HBox>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Label fx:id="clockLabel" text="08:45" styleClass="clock"/>
+        </HBox>
+    </top>
+
+    <center>
+        <StackPane styleClass="room-root" fx:id="rootStack">
+            <ImageView fx:id="bgImage" fitWidth="900" fitHeight="600" preserveRatio="false" mouseTransparent="true" pickOnBounds="true">
+                <image>
+                    <Image url="@../images/bedroom2.png"/>
+                </image>
+            </ImageView>
+
+            <AnchorPane prefWidth="900" prefHeight="600">
+
+                <!-- Bloody heading: two labels stacked to create a smeared/drippy look -->
+                <Label fx:id="bloodShadow" layoutX="80" layoutY="40"
+                       wrapText="true"
+                       text="&quot;WHAT EXISTS WHEN ONE PERSON HAS IT BUT CEASES TO EXIST WHEN ANOTHER PERSON GETS IT?&quot;"
+                       styleClass="blood-shadow" />
+
+                <Label fx:id="bloodLabel" layoutX="76" layoutY="36"
+                       wrapText="true"
+                       text="&quot;WHAT EXISTS WHEN ONE PERSON HAS IT BUT CEASES TO EXIST WHEN ANOTHER PERSON GETS IT?&quot;"
+                       styleClass="blood-text" />
+
+                <Label layoutX="50" layoutY="170" prefWidth="760" wrapText="true" styleClass="description"
+                       text="So cold... the words on the wall... try to make sense of it" />
+
+                <!-- Hint area -->
+                <HBox spacing="12" layoutX="70" layoutY="260" alignment="CENTER_LEFT">
+                    <VBox spacing="6" alignment="CENTER_LEFT">
+                        <Label styleClass="hint-title">
+                            <graphic>
+                                <Label text="💡" style="-fx-font-size:22px;"/>
+                            </graphic>
+                            HINT?
+                        </Label>
+                        <TextField fx:id="hintField" promptText="enter" prefWidth="260" styleClass="hint-field"/>
+                        <Button fx:id="enterBtn" text="ENTER" onAction="#onEnter" styleClass="enter-btn"/>
+                    </VBox>
+                </HBox>
+
+                <Button fx:id="backBtn" layoutX="20" layoutY="520" text="&lt; BACK" onAction="#onBack" styleClass="nav-btn"/>
+                <Button fx:id="nextBtn" layoutX="760" layoutY="520" text="NEXT &gt;" onAction="#onNext" styleClass="nav-btn"/>
+
+            </AnchorPane>
+        </StackPane>
+    </center>
+
+</BorderPane>
