@@ -20,19 +20,11 @@ public class LandingController {
 
     @FXML
     private void handleSignIn(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) signInButton.getScene().getWindow();
-
-            stage.setScene(new Scene(root));
-            stage.setTitle("Login");
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println(" Could not load login.fxml");
-        }
+     try {
+        App.setRoot("login");  
+    } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("Could not load login.fxml");
+    }
     }
 }

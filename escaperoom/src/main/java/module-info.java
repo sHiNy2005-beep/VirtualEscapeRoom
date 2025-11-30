@@ -3,7 +3,8 @@ module com.example {
     requires javafx.fxml;
     requires json.simple;
     requires freetts;
-    
+    requires transitive javafx.graphics;
+
 
     opens com.model to javafx.fxml;
     exports com.model;

@@ -6,12 +6,15 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+
 
 public class LoginController {
 
@@ -24,6 +27,8 @@ public class LoginController {
     @FXML private Button toggleModeBtn;
     @FXML private Button submitBtn;
     @FXML private ImageView imageView;
+    @FXML private Pane rootPane;             
+     
 
     private Mode mode = Mode.LOGIN;
     private final UserList users = UserList.getInstance();
@@ -96,6 +101,13 @@ public class LoginController {
         } else {
             boolean authenticated = authenticate(username, password);
             messageLabel.setText(authenticated ? "Login successful." : "Invalid username/email or password.");
+        }
+
+        try {
+          App.setRoot("explorerooms");   
+        } catch (IOException e) {
+          e.printStackTrace();
+          messageLabel.setText("Failed to open explore screen.");
         }
     }
 

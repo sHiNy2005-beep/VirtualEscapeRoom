@@ -32,7 +32,7 @@ public class ExploreRoomsController implements Initializable {
     private static final String ROOM_FXML_LIBRARY = "LibraryRoom.fxml";
     private static final String ROOM_FXML_GARDEN   = "GardenRoom.fxml";
     private static final String ROOM_FXML_BEDROOM  = "BedroomRoom.fxml";  
-    private static final String ROOM_FXML_STUDY    = "StudyRoom.fxml";
+    private static final String ROOM_FXML_STUDY    = "Studyroom.fxml";
     private static final String ROOM_FXML_DINING   = "DiningRoom.fxml";
 
     private static final String BACK_FXML = "MainMenu.fxml";

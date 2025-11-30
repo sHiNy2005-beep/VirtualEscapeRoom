@@ -1,3 +1,4 @@
+/* mashal */
 .house-background {
     -fx-background-image: url("../../images/Mansion.png");
     -fx-background-repeat: no-repeat;
@@ -23,6 +24,49 @@
     -fx-background-radius: 4px;
 }
 
+.study-room-background {
+    -fx-background-image: url("../../images/StudyRoom.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.safe {
+    -fx-effect: dropshadow(gaussian, rgba(255,215,0,0.18), 18, 0.0, 0, 0);
+    -fx-cursor: hand; 
+    -fx-translate-z: 0; 
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
+    -fx-transition: all 120ms ease-in;
+}
+
+
+.safe:hover {
+    -fx-effect: dropshadow(gaussian, rgba(255,215,80,0.35), 28, 0.0, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
+
+
+.safe-badge {
+    -fx-background-radius: 8;
+    -fx-background-color: rgba(255,255,255,0.85);
+    -fx-padding: 3 6 3 6;
+    -fx-text-fill: #2b2b2b;
+    -fx-font-weight: bold;
+}
+
+.room-root {
+    -fx-background-color:#3a3a3a;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
+.fill{
+    -fx-background-size: cover;
+}
+
+
+/* ruchika */
 #rootPane {
     -fx-background-color: transparent;
 }
@@ -90,6 +134,7 @@
     -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 2 );
 }
 
+/**
 .button {
     -fx-background-color: rgba(255,255,255,0.08);
     -fx-border-color: rgba(255,255,255,0.22);
@@ -104,7 +149,7 @@
     -fx-background-color: rgba(255,255,255,0.12);
     -fx-cursor: hand;
 }
-
+*/
 .label.clock {
     -fx-font-size: 14px;
     -fx-text-fill: white;

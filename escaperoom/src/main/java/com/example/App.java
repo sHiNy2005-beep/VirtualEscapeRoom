@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+
 public class App extends Application {
 
     private static Scene scene;
@@ -14,10 +15,10 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
      
-        scene = new Scene(loadFXML("login"), 980, 640);
+        scene = new Scene(loadFXML("Studyroom3"), 900, 640);
        // scene=new Scene(loadFXML("landing"), 980, 640);
         stage.setScene(scene);
-        stage.setTitle("Hamton Mansion - Login");
+        stage.setTitle("Hamton Mansion Virtual Escape Room");
         stage.setResizable(true);      
         //stage.setMaximized(true);      
         stage.show();
