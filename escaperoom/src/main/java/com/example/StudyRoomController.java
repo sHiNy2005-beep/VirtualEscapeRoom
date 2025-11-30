@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
 import javafx.stage.Window;
 import java.io.IOException;
@@ -15,6 +16,9 @@ public class StudyRoomController {
     @FXML private Label titleLabel;
     @FXML private Label descLabel;
     @FXML private Label hintLabel;
+    @FXML private MenuItem menuHome;
+    @FXML private MenuItem menuRooms;
+    @FXML private MenuItem menuItems;
 
     @FXML
     private void initialize() {
@@ -52,6 +56,33 @@ public class StudyRoomController {
         a.setContentText(message);
         Window w = (backButton != null && backButton.getScene() != null) ? backButton.getScene().getWindow() : null;
         if (w != null) a.initOwner(w);
+        a.showAndWait();
+    }
+
+     @FXML
+    private void onMenuHome() {
+        try {
+            App.setRoot("landing");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onMenuRooms() {
+        try {
+            App.setRoot("explorerooms");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onMenuItems() {
+        javafx.scene.control.Alert a = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        a.setTitle("Items");
+        a.setHeaderText(null);
+        a.setContentText("Items list not implemented yet.");
         a.showAndWait();
     }
 }

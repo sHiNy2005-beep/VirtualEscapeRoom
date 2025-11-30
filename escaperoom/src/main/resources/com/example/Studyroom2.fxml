@@ -12,6 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 
 <AnchorPane prefHeight="500.0" prefWidth="900.0" styleClass="room-root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.StudyRoom2Controller">
 
@@ -141,33 +144,25 @@
             </style>
         </Label>
 
-        <Label layoutX="24.0" layoutY="72.0" text="Home">
-            <font>
-                <Font size="14.0" />
-            </font>
-            <style>
-                -fx-text-fill: white;
-            </style>
-        </Label>
-
-        <Label layoutX="88.0" layoutY="72.0" text="Rooms">
-            <font>
-                <Font size="14.0" />
-            </font>
-            <style>
-                -fx-text-fill: linear-gradient(from 0% 0% to 0% 100%, #f7d884 0%, #b98b2b 100%);
-                -fx-underline: true;
-            </style>
-        </Label>
-
-        <Label layoutX="150.0" layoutY="72.0" text="Items">
-            <font>
-                <Font size="14.0" />
-            </font>
-            <style>
-                -fx-text-fill: white;
-            </style>
-        </Label>
+       <MenuBar layoutX="16.0" layoutY="64.0" prefWidth="300.0">
+            <menus>
+                <Menu text="Home">
+                    <items>
+                        <MenuItem fx:id="menuHome" onAction="#onMenuHome" text="Home" />
+                    </items>
+                </Menu>
+                <Menu text="Rooms">
+                    <items>
+                        <MenuItem fx:id="menuRooms" onAction="#onMenuRooms" text=" Rooms" />
+                    </items>
+                </Menu>
+                <Menu text="Items">
+                    <items>
+                        <MenuItem fx:id="menuItems" onAction="#onMenuItems" text="Items" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
 
     </children>
 

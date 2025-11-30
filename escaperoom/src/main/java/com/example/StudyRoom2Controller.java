@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -22,9 +23,11 @@ public class StudyRoom2Controller {
     @FXML private Button backButton;
     @FXML private Label messageLabel;
     @FXML private ImageView safePreview;
-
     @FXML private Pane hintOverlay;
     @FXML private Button closeHintBtn;
+    @FXML private MenuItem menuHome;
+    @FXML private MenuItem menuRooms;
+    @FXML private MenuItem menuItems;
 
     private static final String CORRECT = "104";
 
@@ -109,7 +112,7 @@ public class StudyRoom2Controller {
         ft.play();
     }
 
-    
+   
     private void shake(Node node) {
         if (node == null) return;
         double distance = 10;
@@ -137,4 +140,32 @@ public class StudyRoom2Controller {
         SequentialTransition seq = new SequentialTransition(t1, t2, t3, t4, reset);
         seq.play();
     }
+
+     @FXML
+    private void onMenuHome() {
+        try {
+            App.setRoot("landing");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onMenuRooms() {
+        try {
+            App.setRoot("explorerooms");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void onMenuItems() {
+        javafx.scene.control.Alert a = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
+        a.setTitle("Items");
+        a.setHeaderText(null);
+        a.setContentText("Items list not implemented yet.");
+        a.showAndWait();
+    }
 }
+
