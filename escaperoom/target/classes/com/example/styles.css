@@ -65,6 +65,12 @@
     -fx-background-size: cover;
 }
 
+.dining-room-background {
+    -fx-background-image: url("../../images/DiningRoom.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+
 
 /* ruchika */
 #rootPane {
