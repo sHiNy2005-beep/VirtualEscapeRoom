@@ -1,10 +1,81 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<?import javafx.scene.layout.VBox?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<Pane prefHeight="400.0" prefWidth="600.0" styleClass="house-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.StoryController">
-</Pane>
+<AnchorPane prefHeight="650.0" prefWidth="900.0" styleClass="house-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.StoryReaderController">
+    <children>
+        <Rectangle fx:id="overlay" fill="#000000" opacity="0.18" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        </Rectangle>
+        
+        <Label fx:id="titleLabel" layoutX="24.0" layoutY="12.0" text="Welcome to the Hamton Mansion">
+            <font>
+                <Font name="Book Antiqua" size="48.0" />
+            </font>
+            <style>
+                -fx-text-fill: white;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
+            </style>
+        </Label>
+        
+        <MenuBar layoutX="16.0" layoutY="64.0" prefWidth="300.0">
+            <menus>
+                <Menu text="Home">
+                    <items>
+                        <MenuItem fx:id="menuHome" onAction="#onMenuHome" text="Home" />
+                    </items>
+                </Menu>
+                <Menu text="Rooms">
+                    <items>
+                        <MenuItem fx:id="menuRooms" onAction="#onMenuRooms" text="Rooms" />
+                    </items>
+                </Menu>
+                <Menu text="Items">
+                    <items>
+                        <MenuItem fx:id="menuItems" onAction="#onMenuItems" text="Items" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>  
+        <StackPane layoutX="0.0" layoutY="120.0" prefWidth="900.0" prefHeight="450.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="120.0" AnchorPane.bottomAnchor="80.0">
+            <ImageView fx:id="storyImage" fitWidth="700.0" preserveRatio="true" pickOnBounds="true">
+            </ImageView>
+            <Label fx:id="storyTextLabel" alignment="CENTER_LEFT" maxWidth="800.0" wrapText="true" StackPane.alignment="CENTER_LEFT">
+                <font>
+                    <Font name="Georgia" size="42.0" />
+                </font>
+                <style>
+                    -fx-text-fill: white;
+                    -fx-font-weight: bold;
+                    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.9), 8, 0, 0, 3);
+                    -fx-padding: 20 20 20 80;
+                </style>
+            </Label>
+        </StackPane>
+        
+        <!-- Replay Button-->
+        <Button fx:id="replayButton" layoutX="50.0" layoutY="590.0" mnemonicParsing="false" onAction="#onReplayButtonClicked" text="REPLAY" styleClass="button-white" visible="false">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+        
+        <!-- Skip/Next Button-->
+        <Button fx:id="skipButton" layoutX="790.0" layoutY="590.0" mnemonicParsing="false" onAction="#onSkipButtonClicked" text="SKIP >" styleClass="button-yellow">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Button>
+    </children>
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+</AnchorPane>
