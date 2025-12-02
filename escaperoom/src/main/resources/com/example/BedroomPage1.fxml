@@ -11,7 +11,7 @@
             prefWidth="900" prefHeight="600"
             stylesheets="@styles.css">
 
-    <top>
+  <!--  <top>
         <HBox alignment="CENTER_LEFT" spacing="20" styleClass="top-bar" padding="12,24,12,24">
             <Label text="Bedroom" styleClass="title"/>
             <HBox spacing="12" alignment="CENTER_LEFT" styleClass="nav-links">
@@ -23,7 +23,7 @@
             <Label fx:id="clockLabel" text="08:45" styleClass="clock"/>
         </HBox>
     </top>
-
+-->
     <center>
         <StackPane fx:id="rootStack" styleClass="room-root">
             <ImageView fx:id="bgImage" fitWidth="900" fitHeight="600" preserveRatio="false" pickOnBounds="true" mouseTransparent="true">

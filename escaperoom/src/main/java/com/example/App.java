@@ -15,7 +15,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
      
-        scene = new Scene(loadFXML("landing"), 900, 640);
+        scene = new Scene(loadFXML("Studyroom"), 900, 640);
        // scene=new Scene(loadFXML("landing"), 980, 640);
         stage.setScene(scene);
         stage.setTitle("Hamton Mansion Virtual Escape Room");
