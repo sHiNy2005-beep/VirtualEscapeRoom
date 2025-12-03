@@ -24,7 +24,7 @@ public class LoginController {
     @FXML private ImageView imageView;
     @FXML private Pane rootPane;
 
-    private final EscapeRoomFacade facade = new EscapeRoomFacade();
+    private final EscapeRoomFacade facade = App.getFacade();
     private Mode mode = Mode.LOGIN;
 
     @FXML

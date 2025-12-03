@@ -2,16 +2,19 @@ package com.example;
 
 import java.io.IOException;
 
+import com.model.EscapeRoomFacade;
+import com.model.Room;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.ImageView;
 import javafx.stage.Window;
 
 public class DiningRoomController {
-    
+
+    private final EscapeRoomFacade facade = App.getFacade();
+    private Room dining;
 
     @FXML private Button backButton;
     @FXML private Label titleLabel;
@@ -22,7 +25,9 @@ public class DiningRoomController {
 
     @FXML
     private void initialize() {
-       
+        dining = App.getRoom("Dining");
+        App.ensureSession(dining);
+
         if (backButton != null) {
             backButton.setOnAction(evt -> {
                 try {

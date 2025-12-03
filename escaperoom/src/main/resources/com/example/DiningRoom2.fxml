@@ -12,26 +12,20 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650.0" prefWidth="900.0"
-            styleClass="dining-room-background"
-            xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.DiningRoom2Controller">
+<AnchorPane prefHeight="650.0" prefWidth="900.0" styleClass="dining-room-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.DiningRoom2Controller">
 
     <children>
 
-        <Rectangle fx:id="overlay" fill="#000000" opacity="0.18"
-                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Rectangle fx:id="overlay" fill="#000000" opacity="0.18" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
         
         <Label fx:id="titleLabel" layoutX="24" layoutY="12" text="DINING ROOM">
-            <font><Font name="Book Antiqua" size="48"/></font>
+            <font><Font name="Book Antiqua" size="48" /></font>
             <style>
                 -fx-text-fill: white;
                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
@@ -42,23 +36,20 @@
         <MenuBar layoutX="16" layoutY="64" prefWidth="300">
             <menus>
                 <Menu text="Home">
-                    <items><MenuItem fx:id="menuHome" onAction="#onMenuHome" text="Home"/></items>
+                    <items><MenuItem fx:id="menuHome" onAction="#onMenuHome" text="Home" /></items>
                 </Menu>
                 <Menu text="Rooms">
-                    <items><MenuItem fx:id="menuRooms" onAction="#onMenuRooms" text="Rooms"/></items>
+                    <items><MenuItem fx:id="menuRooms" onAction="#onMenuRooms" text="Rooms" /></items>
                 </Menu>
                 <Menu text="Items">
-                    <items><MenuItem fx:id="menuItems" onAction="#onMenuItems" text="Items"/></items>
+                    <items><MenuItem fx:id="menuItems" onAction="#onMenuItems" text="Items" /></items>
                 </Menu>
             </menus>
         </MenuBar>
 
         
-        <Label fx:id="descLabel" layoutX="24" layoutY="112"
-               prefWidth="450"
-               wrapText="true"
-               text="Congrats! You made it to the final room. Match each collected item to the suspect it belongs to.">
-            <font><Font name="Book Antiqua" size="20"/></font>
+        <Label fx:id="descLabel" layoutX="24" layoutY="112" prefWidth="450" text="Congrats! You made it to the final room. Match each collected item to the suspect it belongs to." wrapText="true">
+            <font><Font name="Book Antiqua" size="20" /></font>
             <style>
                 -fx-text-fill: white;
                 -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0, 0, 2);
@@ -66,12 +57,11 @@
         </Label>
 
         
-        <AnchorPane layoutX="30" layoutY="200" prefWidth="840" prefHeight="330"
-                    style="-fx-background-color: rgba(0,0,0,0.45); -fx-background-radius: 8;">
+        <AnchorPane layoutX="30" layoutY="200" prefHeight="330" prefWidth="840" style="-fx-background-color: rgba(0,0,0,0.45); -fx-background-radius: 8;">
 
             <children>
 
-                <VBox layoutX="25" layoutY="20" spacing="24">
+                <VBox layoutX="27.0" layoutY="-9.0" spacing="24">
 
                    
                     <HBox spacing="45">
@@ -79,69 +69,64 @@
                         
                         <VBox alignment="CENTER" spacing="6">
                             <ImageView fitHeight="110" fitWidth="110">
-                                <image><Image url="@images/letter.png"/></image>
+                                <image><Image url="@images/letter.png" /></image>
                             </ImageView>
-                            <Label text="Love Letter" textFill="white"/>
-                            <ChoiceBox fx:id="choiceLoveLetter" prefWidth="150"/>
-                            <Label fx:id="labelLoveLetter" text="" textFill="white"/>
+                            <Label text="Love Letter" textFill="white" />
+                            <ChoiceBox fx:id="choiceLoveLetter" prefWidth="150" />
+                            <Label fx:id="labelLoveLetter" text="" textFill="white" />
                         </VBox>
 
                         <VBox alignment="CENTER" spacing="6">
                             <ImageView fitHeight="110" fitWidth="110">
-                                <image><Image url="@images/will.png"/></image>
+                                <image><Image url="@images/will.png" /></image>
                             </ImageView>
-                            <Label text="Will Page" textFill="white"/>
-                            <ChoiceBox fx:id="choiceWillPage" prefWidth="150"/>
-                            <Label fx:id="labelWillPage" text="" textFill="white"/>
+                            <Label text="Will Page" textFill="white" />
+                            <ChoiceBox fx:id="choiceWillPage" prefWidth="150" />
+                            <Label fx:id="labelWillPage" text="" textFill="white" />
                         </VBox>
 
                         <VBox alignment="CENTER" spacing="6">
                             <ImageView fitHeight="110" fitWidth="110">
-                                <image><Image url="@images/ledger.png"/></image>
+                                <image><Image url="@images/ledger.png" /></image>
                             </ImageView>
-                            <Label text="Ledger" textFill="white"/>
-                            <ChoiceBox fx:id="choiceLedger" prefWidth="150"/>
-                            <Label fx:id="labelLedger" text="" textFill="white"/>
+                            <Label text="Ledger" textFill="white" />
+                            <ChoiceBox fx:id="choiceLedger" prefWidth="150" />
+                            <Label fx:id="labelLedger" text="" textFill="white" />
                         </VBox>
 
                         <VBox alignment="CENTER" spacing="6">
                             <ImageView fitHeight="110" fitWidth="110">
-                                <image><Image url="@images/statue.png"/></image>
+                                <image><Image url="@images/statue.png" /></image>
                             </ImageView>
-                            <Label text="Bloody Statue" textFill="white"/>
-                            <ChoiceBox fx:id="choiceStatue" prefWidth="150"/>
-                            <Label fx:id="labelStatue" text="" textFill="white"/>
+                            <Label text="Bloody Statue" textFill="white" />
+                            <ChoiceBox fx:id="choiceStatue" prefWidth="150" />
+                            <Label fx:id="labelStatue" text="" textFill="white" />
                         </VBox>
 
                     </HBox>
 
                    
-                    <Button onAction="#onCheckMatches"
-                            text="SUBMIT MATCHES"
-                            style="-fx-background-color:#c99e2b; -fx-text-fill:white; -fx-font-weight:bold; -fx-background-radius:6;"/>
+                    <Button onAction="#onCheckMatches" style="-fx-background-color:#c99e2b; -fx-text-fill:white; -fx-font-weight:bold; -fx-background-radius:6;" text="SUBMIT MATCHES" />
 
-                    <Label fx:id="overallMatchMessage" text="" textFill="white"/>
+                    <Label fx:id="overallMatchMessage" text="" textFill="white" />
 
                     
-                    <Label text="Based on the evidence the killer is?" textFill="white"/>
+                    <Label text="Based on the evidence the killer is?" textFill="white" />
 
                     <HBox spacing="10">
-                        <TextField fx:id="gardenInput" promptText="enter"/>
-                        <Button onAction="#onHintEnter"
-                                text="ENTER"
-                                style="-fx-background-color:#8f6608; -fx-text-fill:white; -fx-font-weight:bold;"/>
+                        <TextField fx:id="gardenInput" promptText="enter" />
+                        <Button onAction="#onHintEnter" style="-fx-background-color:#8f6608; -fx-text-fill:white; -fx-font-weight:bold;" text="ENTER" />
                     </HBox>
 
-                    <Label fx:id="hintMessage" text="" textFill="#f7d884"/>
+                    <Label fx:id="hintMessage" text="" textFill="#f7d884" />
 
                 </VBox>
 
             </children>
         </AnchorPane>
 
-        
-        <Button fx:id="backButton" layoutX="18" layoutY="578" text="&lt; BACK"
-                onAction="#onBack">
+                 
+                 <Button fx:id="backButton" layoutX="16.0" layoutY="597.0" onAction="#onBack" text="&lt; BACK">
             <style>
                 -fx-background-radius:6;
                 -fx-padding:6 12;
@@ -151,34 +136,18 @@
         </Button>
 
        
-        <Button fx:id="hintBtn" layoutX="750" layoutY="18"
-                text="HINT?"
-                onAction="#onHint"
-                style="-fx-background-radius:6; -fx-padding:8 12; -fx-background-color:transparent;
-                       -fx-border-color:#c99e2b; -fx-border-width:2; -fx-text-fill:#f7d884; -fx-font-weight:bold;"/>
-
-       
-        <Pane fx:id="hintOverlay" visible="false" managed="false"
-              AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Pane fx:id="hintOverlay" managed="false" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
             <children>
 
-                <Rectangle fill="#000000" opacity="0.55"
-                           width="900" height="650"/>
+                <Rectangle fill="#000000" height="650" opacity="0.55" width="900" />
 
-                <VBox layoutX="240" layoutY="160" spacing="12"
-                      prefWidth="420" prefHeight="160"
-                      style="-fx-background-color:#f5f5f5; -fx-background-radius:6; -fx-padding:16;">
+                <VBox layoutX="240" layoutY="160" prefHeight="160" prefWidth="420" spacing="12" style="-fx-background-color:#f5f5f5; -fx-background-radius:6; -fx-padding:16;">
 
-                    <Label text="Each clue belongs to one suspect."/>
-                    <Label text="Who had access to the garden?."/>
+                    <Label text="Each clue belongs to one suspect." />
+                    <Label text="Who had access to the garden?." />
                     <HBox alignment="CENTER_RIGHT">
-                        <Button fx:id="closeHintBtn" onAction="#onCloseHint"
-                                prefWidth="90" prefHeight="34"
-                                text="Close"
-                                style="-fx-background-color:linear-gradient(#c99e2b,#8f6608);
-                                       -fx-text-fill:white; -fx-font-weight:bold; -fx-background-radius:6;"/>
+                        <Button fx:id="closeHintBtn" onAction="#onCloseHint" prefHeight="34" prefWidth="90" style="-fx-background-color:linear-gradient(#c99e2b,#8f6608);                                        -fx-text-fill:white; -fx-font-weight:bold; -fx-background-radius:6;" text="Close" />
                     </HBox>
 
                 </VBox>
@@ -186,10 +155,13 @@
             </children>
         </Pane>
 
+                                  
+                                   <Button fx:id="hintBtn" layoutX="806.0" layoutY="106.0" onAction="#onHint" style="-fx-background-radius:6; -fx-padding:8 12; -fx-background-color:transparent;                        -fx-border-color:#c99e2b; -fx-border-width:2; -fx-text-fill:#f7d884; -fx-font-weight:bold;" text="HINT?" />
+
     </children>
 
     <stylesheets>
-        <URL value="@styles.css"/>
+        <URL value="@styles.css" />
     </stylesheets>
 
 </AnchorPane>

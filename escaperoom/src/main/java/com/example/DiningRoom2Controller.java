@@ -1,5 +1,7 @@
 package com.example;
 
+import com.model.EscapeRoomFacade;
+import com.model.Room;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.PauseTransition;
@@ -21,10 +23,15 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.StringJoiner;
 
 public class DiningRoom2Controller {
 
-    
+    private final EscapeRoomFacade facade = App.getFacade();
+    private Room dining;
+
+    private static final String PUZZLE_TITLE = "The Murderer Revealed";
+
     @FXML private ChoiceBox<String> choiceLoveLetter;
     @FXML private ChoiceBox<String> choiceWillPage;
     @FXML private ChoiceBox<String> choiceLedger;
@@ -39,11 +46,10 @@ public class DiningRoom2Controller {
     @FXML private MenuItem menuHome;
     @FXML private MenuItem menuRooms;
     @FXML private MenuItem menuItems;
-    @FXML private javafx.scene.control.Button backButton;
+    @FXML private Button backButton;
     @FXML private Pane hintOverlay;
     @FXML private Button closeHintBtn;
 
-    
     private final String[] suspects = {
             "Lilly Hamton",
             "Thomas Hamton",
@@ -51,11 +57,9 @@ public class DiningRoom2Controller {
             "Ms. Louise"
     };
 
-
     private final Map<String, String> correctMapping = new LinkedHashMap<>();
 
     public DiningRoom2Controller() {
-        
         correctMapping.put("love letter", "lilly hamton");
         correctMapping.put("will page", "thomas hamton");
         correctMapping.put("ledger", "mr. barner");
@@ -64,7 +68,9 @@ public class DiningRoom2Controller {
 
     @FXML
     private void initialize() {
-       
+        dining = App.getRoom("Dining");
+        App.ensureSession(dining);
+
         for (String s : suspects) {
             choiceLoveLetter.getItems().add(s);
             choiceWillPage.getItems().add(s);
@@ -72,7 +78,6 @@ public class DiningRoom2Controller {
             choiceStatue.getItems().add(s);
         }
 
-        
         choiceLoveLetter.setValue(null);
         choiceWillPage.setValue(null);
         choiceLedger.setValue(null);
@@ -90,7 +95,6 @@ public class DiningRoom2Controller {
         overallMatchMessage.setText("");
     }
 
-    
     @FXML
     private void onCheckMatches(ActionEvent event) {
         clearMatchFeedback();
@@ -104,14 +108,15 @@ public class DiningRoom2Controller {
         if (allCorrect) {
             overallMatchMessage.setText("All correct ");
             overallMatchMessage.setStyle("-fx-text-fill: #2e7d32; -fx-font-weight: bold;");
-          
+            try {
+                facade.submitAnswer(PUZZLE_TITLE, buildAnswerString());
+            } catch (Exception ignored) { }
         } else {
             overallMatchMessage.setText("Some matches are incorrect — fix the highlighted items.");
             overallMatchMessage.setStyle("-fx-text-fill: #c0392b; -fx-font-weight: bold;");
         }
     }
 
-    
     private boolean checkSingle(ChoiceBox<String> choice, Label feedbackLabel, String itemKey) {
         String selected = choice.getValue();
         if (selected == null || selected.trim().isEmpty()) {
@@ -137,7 +142,6 @@ public class DiningRoom2Controller {
         }
     }
 
-   
     @FXML
     private void onHintEnter(ActionEvent event) {
         String typed = (gardenInput.getText() == null) ? "" : gardenInput.getText().trim().toLowerCase();
@@ -153,6 +157,10 @@ public class DiningRoom2Controller {
             hintMessage.setText("Correct — proceeding to next room.");
             hintMessage.setStyle("-fx-text-fill: #2e7d32; -fx-font-weight: bold;");
 
+            try {
+                facade.submitAnswer(PUZZLE_TITLE, buildAnswerString());
+            } catch (Exception ignored) { }
+
             PauseTransition pt = new PauseTransition(Duration.seconds(0.6));
             pt.setOnFinished(e -> loadScene((Node) event.getSource(), "DiningRoom3.fxml"));
             pt.play();
@@ -162,7 +170,7 @@ public class DiningRoom2Controller {
         }
     }
 
-     @FXML
+    @FXML
     private void onMenuHome() {
         try {
             App.setRoot("landing");
@@ -192,22 +200,18 @@ public class DiningRoom2Controller {
     @FXML
     private void onBack() {
         try {
-            
             App.setRoot("DiningRoom");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-
-    
     private void loadScene(Node sourceNode, String fxmlFileName) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(fxmlFileName));
             Stage stage = (Stage) sourceNode.getScene().getWindow();
             stage.setScene(new Scene(root));
         } catch (IOException e) {
-            
             overallMatchMessage.setText("Could not load " + fxmlFileName + ": " + e.getMessage());
             overallMatchMessage.setStyle("-fx-text-fill: #c0392b; -fx-font-weight: bold;");
             e.printStackTrace();
@@ -220,6 +224,12 @@ public class DiningRoom2Controller {
 
     @FXML
     private void onHint() {
+        String hint = null;
+        try { hint = facade.useHint(PUZZLE_TITLE); } catch (Exception ignored) {}
+        if (hint != null && !hint.isBlank()) {
+            hintMessage.setText(hint);
+            hintMessage.setStyle("-fx-text-fill: #e67e22; -fx-font-weight: bold;");
+        }
         showHintOverlay();
     }
 
@@ -252,4 +262,19 @@ public class DiningRoom2Controller {
         ft.play();
     }
 
+    
+    private String buildAnswerString() {
+        StringJoiner sj = new StringJoiner(",");
+        appendPair(sj, choiceLoveLetter != null ? choiceLoveLetter.getValue() : null, "love letter");
+        appendPair(sj, choiceWillPage != null ? choiceWillPage.getValue() : null, "will page");
+        appendPair(sj, choiceLedger != null ? choiceLedger.getValue() : null, "ledger");
+        appendPair(sj, choiceStatue != null ? choiceStatue.getValue() : null, "bloody statue");
+        return sj.toString();
+    }
+
+    private void appendPair(StringJoiner sj, String suspect, String evidence) {
+        if (suspect != null && !suspect.trim().isEmpty()) {
+            sj.add(suspect.trim().toLowerCase() + "=" + evidence);
+        }
+    }
 }

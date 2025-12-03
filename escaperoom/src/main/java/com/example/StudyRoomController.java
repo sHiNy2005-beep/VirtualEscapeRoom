@@ -1,5 +1,7 @@
 package com.example;
 
+import com.model.EscapeRoomFacade;
+import com.model.Room;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -20,9 +22,16 @@ public class StudyRoomController {
     @FXML private MenuItem menuRooms;
     @FXML private MenuItem menuItems;
 
+    private static final EscapeRoomFacade facade = App.getFacade();
+    private Room studyRoom;
+
+   
+
     @FXML
     private void initialize() {
-       
+        studyRoom = App.getRoom("Study");
+        App.ensureSession(studyRoom);
+
         if (backButton != null) {
             backButton.setOnAction(evt -> {
                 try {
@@ -38,7 +47,7 @@ public class StudyRoomController {
     @FXML
     private void onSafeClicked() {
         try {
-            
+            System.out.println("Safe clicked");
             App.setRoot("Studyroom2");
         } catch (IOException e) {
             e.printStackTrace();

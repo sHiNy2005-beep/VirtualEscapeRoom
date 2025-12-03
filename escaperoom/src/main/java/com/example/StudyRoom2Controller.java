@@ -1,5 +1,7 @@
 package com.example;
 
+import com.model.EscapeRoomFacade;
+import com.model.Room;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.SequentialTransition;
@@ -17,6 +19,9 @@ import java.io.IOException;
 
 public class StudyRoom2Controller {
 
+     private final EscapeRoomFacade facade = App.getFacade();
+     private Room studyRoom;
+
     @FXML private TextField answerField;
     @FXML private Button enterBtn;
     @FXML private Button hintBtn;
@@ -29,10 +34,14 @@ public class StudyRoom2Controller {
     @FXML private MenuItem menuRooms;
     @FXML private MenuItem menuItems;
 
-    private static final String CORRECT = "104";
+    private static final String CORRECT = "112";
+    private static final String PUZZLE_TITLE= "Safe Equation";
 
     @FXML
     private void initialize() {
+        studyRoom = App.getRoom("Study");
+        App.ensureSession(studyRoom);
+        
         if (messageLabel != null) messageLabel.setText("");
         
         if (hintOverlay != null) {
@@ -51,17 +60,25 @@ public class StudyRoom2Controller {
             return;
         }
 
-        if (CORRECT.equals(answer)) {
-           
-            javafx.scene.control.Alert ok = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-            ok.setTitle("Unlocked");
-            ok.setHeaderText(null);
-            ok.setContentText("Correct! The safe unlocked and you found a clue.");
-            ok.showAndWait();
+       boolean correct = false;
+        try {
+            correct = facade.submitAnswer(PUZZLE_TITLE, answer);
+        } catch (Exception ignored) { 
+
+        }
+
+        if (!correct) {
+          
+            correct = CORRECT.equals(answer);
+        }
+
+        if (correct) {
+            messageLabel.setText("");
             try {
-                App.setRoot("StudyRoom3");
+                App.setRoot("Studyroom3");
             } catch (IOException e) {
                 e.printStackTrace();
+                messageLabel.setText("Can't open next screen.");
             }
         } else {
             messageLabel.setText("Try again.");
@@ -71,8 +88,20 @@ public class StudyRoom2Controller {
 
     @FXML
     private void onHint() {
-        showHintOverlay();
+        String hint = null;
+       try { hint = facade.useHint(PUZZLE_TITLE); } catch (Exception ignored) {}
+        if (hintOverlay != null) {
+            hintOverlay.setManaged(true);
+            hintOverlay.setVisible(true);
+            FadeTransition ft = new FadeTransition(Duration.millis(200), hintOverlay);
+            ft.setFromValue(0.0); ft.setToValue(1.0); ft.setInterpolator(Interpolator.EASE_OUT);
+            ft.play();
+        } else {
+          
+            if (messageLabel != null) messageLabel.setText(hint != null ? hint : "Follow the order of operations (PEMDAS). Try simplifying each step -- division first.");
+        }
     }
+    
 
     @FXML
     private void onCloseHint() {
@@ -88,16 +117,6 @@ public class StudyRoom2Controller {
         }
     }
 
-    private void showHintOverlay() {
-        if (hintOverlay == null) return;
-        hintOverlay.setManaged(true);
-        hintOverlay.setVisible(true);
-        FadeTransition ft = new FadeTransition(Duration.millis(200), hintOverlay);
-        ft.setFromValue(0.0);
-        ft.setToValue(1.0);
-        ft.setInterpolator(Interpolator.EASE_OUT);
-        ft.play();
-    }
 
     private void hideHintOverlay() {
         if (hintOverlay == null) return;
