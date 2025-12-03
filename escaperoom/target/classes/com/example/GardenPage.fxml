@@ -54,4 +54,33 @@
             </font>
             <style>
                 -fx-text-fill: white;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0, 0, 2);
+            </style>
+        </Label>
+
+        <Button fx:id="backButton" layoutX="18.0" layoutY="578.0" mnemonicParsing="false" text="&lt; BACK">
+            <style>
+                -fx-background-radius:6;
+                -fx-padding:6 12 6 12;
+                -fx-background-color: linear-gradient(#ffffff, #dddddd);
+                -fx-text-fill: #222222;
+            </style>
+        </Button>
+
+        <ImageView fx:id="safeImage" styleClass="safe" fitHeight="160.0" fitWidth="160.0" layoutX="604.0" layoutY="282.0" onMouseClicked="#onSafeClicked" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../images/GardenRoom.png" />
+            </image>
+        </ImageView>
+
+        <Label fx:id="hintLabel" layoutX="540.0" layoutY="180.0" text="">
+            <font>
+                <Font size="12.0" />
+            </font>
+            <style>
+                -fx-text-fill: #f7d884;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 3, 0, 0, 1);
+            </style>
+        </Label>
+    </children>
 </AnchorPane>
