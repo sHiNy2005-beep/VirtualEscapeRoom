@@ -35,8 +35,13 @@ public class BedroomPage2Controller {
 
     @FXML
     public void initialize() {
-        bgImage.setImage(new Image("file:/mnt/data/0faa6182-d6bd-4d9c-acfd-b8483d78d514.png"));
-
+       // bgImage.setImage(new Image("file:/mnt/data/0faa6182-d6bd-4d9c-acfd-b8483d78d514.png"));
+        URL imgUrl = getClass().getResource("/images/bedroom2.png");
+        if (imgUrl != null) {
+            bgImage.setImage(new Image(imgUrl.toExternalForm()));
+        } else {
+            System.err.println("Warning: /images/bedroom2.png not found on classpath.");
+        }
         // small fade for the blood text
         FadeTransition ft = new FadeTransition(Duration.millis(700), bloodLabel);
         ft.setFromValue(0.0);

@@ -340,3 +340,26 @@
 }
 
 /*bedroom styles end */
+
+/* Library room background */
+.library-room-background {
+    -fx-background-image: url("../../images/LibraryRoom.jpg");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+    -fx-background-position: center;
+}
+
+.book {
+    -fx-effect: dropshadow(gaussian, rgba(139,69,19,0.18), 18, 0.0, 0, 0);
+    -fx-cursor: hand; 
+    -fx-translate-z: 0; 
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
+    -fx-transition: all 120ms ease-in;
+}
+
+.book:hover {
+    -fx-effect: dropshadow(gaussian, rgba(139,69,19,0.35), 28, 0.0, 0, 0);
+    -fx-scale-x: 1.03;
+    -fx-scale-y: 1.03;
+}
