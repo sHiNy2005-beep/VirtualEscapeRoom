@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+
+<AnchorPane prefHeight="650.0" prefWidth="900.0" styleClass="garden-room-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.GardenPageController">
+
+    <children>
+
+        <Rectangle fx:id="overlay" fill="#000000" opacity="0.18" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        </Rectangle>
+
+        <Label fx:id="titleLabel" layoutX="24.0" layoutY="12.0" text="GARDEN">
+            <font>
+                <Font name="Book Antiqua" size="48.0" />
+            </font>
+            <style>
+                -fx-text-fill: white;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
+            </style>
+        </Label>
+        
+        <MenuBar layoutX="16.0" layoutY="64.0" prefWidth="300.0">
+            <menus>
+                <Menu text="Home">
+                    <items>
+                        <MenuItem fx:id="menuHome" onAction="#onMenuHome" text="Home" />
+                    </items>
+                </Menu>
+                <Menu text="Rooms">
+                    <items>
+                        <MenuItem fx:id="menuRooms" onAction="#onMenuRooms" text=" Rooms" />
+                    </items>
+                </Menu>
+                <Menu text="Items">
+                    <items>
+                        <MenuItem fx:id="menuItems" onAction="#onMenuItems" text="Items" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+
+        <Label fx:id="descLabel" layoutX="24.0" layoutY="110.0" prefWidth="360.0" text="You step into a beautiful garden filled with vibrant flowers and lush greenery. Amidst the beauty, you notice a locked gate that seems to be your only way out." wrapText="true">
+            <font>
+                <Font name="Book Antiqua" size="20.0" />
+            </font>
+            <style>
+                -fx-text-fill: white;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0, 0, 2);
+            </style>
+        </Label>
+
+        <Button fx:id="backButton" layoutX="18.0" layoutY="578.0" mnemonicParsing="false" text="&lt; BACK">
+            <style>
+                -fx-background-radius:6;
+                -fx-padding:6 12 6 12;
+                -fx-background-color: linear-gradient(#ffffff, #dddddd);
+                -fx-text-fill: #222222;
+            </style>
+        </Button>
+
+        <ImageView fx:id="safeImage" styleClass="safe" fitHeight="160.0" fitWidth="160.0" layoutX="604.0" layoutY="282.0" onMouseClicked="#onSafeClicked" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../images/GardenRoom.png" />
+            </image>
+        </ImageView>
+
+        <Label fx:id="hintLabel" layoutX="540.0" layoutY="180.0" text="">
+            <font>
+                <Font size="12.0" />
+            </font>
+            <style>
+                -fx-text-fill: #f7d884;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 3, 0, 0, 1);
+            </style>
+        </Label>
+    </children>
+</AnchorPane>

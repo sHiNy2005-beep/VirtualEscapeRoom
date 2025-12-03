@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="650.0" prefWidth="900.0" styleClass="library-room-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LibraryController">
+    <children>
+        <!-- Title -->
+        <Label layoutX="32.0" layoutY="32.0" text="LIBRARY" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="36.0" />
+            </font>
+        </Label>
+        
+        <!-- Menu items -->
+        <Label layoutX="40.0" layoutY="85.0" text="Home" textFill="WHITE">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="103.0" layoutY="85.0" text="Rooms" textFill="WHITE">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        <Label layoutX="190.0" layoutY="85.0" text="Items" textFill="WHITE">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+        
+        <!-- Puzzle Description -->
+        <Label fx:id="puzzleDescLabel" layoutX="114.0" layoutY="215.0" prefWidth="520.0" text="" textFill="WHITE" wrapText="true">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        
+        <!-- Answer Input Field -->
+        <TextField fx:id="answerField" layoutX="114.0" layoutY="360.0" prefHeight="45.0" prefWidth="520.0" promptText="enter" style="-fx-background-color: rgba(80, 80, 80, 0.8); -fx-text-fill: white; -fx-prompt-text-fill: rgba(255,255,255,0.5); -fx-font-size: 16px; -fx-padding: 10;" />
+        
+        <!-- Enter Button -->
+        <Button fx:id="enterButton" layoutX="114.0" layoutY="425.0" mnemonicParsing="false" onAction="#onEnterButton" prefHeight="50.0" prefWidth="180.0" text="ENTER" styleClass="button-yellow">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Button>
+        
+        <!-- Hint Button -->
+        <Button fx:id="hintButton" layoutX="314.0" layoutY="425.0" mnemonicParsing="false" onAction="#onHintButton" prefHeight="50.0" prefWidth="180.0" text="HINT?" style="-fx-background-color: transparent; -fx-border-color: #c2a03d; -fx-border-width: 2; -fx-text-fill: #c2a03d; -fx-font-weight: bold; -fx-font-size: 16px;">
+            <font>
+                <Font name="System Bold" size="16.0" />
+            </font>
+        </Button>
+        
+        <!-- Feedback/Hint Label -->
+        <Label fx:id="feedbackLabel" layoutX="114.0" layoutY="490.0" prefWidth="520.0" text="" textFill="#f7d884" wrapText="true">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+        
+        <!-- Back Button -->
+        <Button fx:id="backButton" layoutX="114.0" layoutY="555.0" mnemonicParsing="false" onAction="#onBackButton" text="&lt; BACK" styleClass="button-white">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Button>
+        
+        <!-- Book Image with Text Overlay -->
+        <StackPane layoutX="655.0" layoutY="175.0" prefHeight="400.0" prefWidth="400.0">
+            <!-- Book Image -->
+            <ImageView fx:id="bookImage" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+                <image>
+                    <Image url="@../../images/Book.png" />
+                </image>
+            </ImageView>
+            
+            <!-- Text overlays on left and right pages -->
+            <AnchorPane>
+                <!-- Left Page Text -->
+                <Label layoutX="40.0" layoutY="100.0" prefWidth="150.0" textAlignment="CENTER" wrapText="true" style="-fx-text-fill: #3d2817; -fx-font-style: italic;" text="Today, Hamton&#10;Openly&#10;Mentioned&#10;Another Sibling,&#10;Igniting&#10;Suspicions;">
+                    <font>
+                        <Font name="Book Antiqua" size="16.0" />
+                    </font>
+                </Label>
+                
+                <!-- Right Page Text -->
+                <Label layoutX="210.0" layoutY="100.0" prefWidth="150.0" textAlignment="CENTER" wrapText="true" style="-fx-text-fill: #3d2817; -fx-font-style: italic;" text="Deep Inside,&#10;Some&#10;Observed&#10;Wounds&#10;Never&#10;Entirely&#10;Dissolved">
+                    <font>
+                        <Font name="Book Antiqua" size="16.0" />
+                    </font>
+                </Label>
+            </AnchorPane>
+        </StackPane>
+    </children>
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+</AnchorPane>

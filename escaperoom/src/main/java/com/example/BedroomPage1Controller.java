@@ -32,17 +32,18 @@ public class BedroomPage1Controller {
             "As soon as you enter... the smell of the sheets catches your attention. "
             + "The room feels still. A bedside table glints faintly to your right.";
 
-    private static final String FALLBACK_FILE_URL = "file:/mnt/data/36190bae-8639-459c-a1b7-ff78adf4439b.png";
+   // private static final String FALLBACK_FILE_URL = "file:/mnt/data/36190bae-8639-459c-a1b7-ff78adf4439b.png";
 
     @FXML
     public void initialize() {
         try {
-            URL imgUrl = getClass().getResource("/images/bedroom.png");
+            URL imgUrl = getClass().getResource("/images/bedroom1.png");
             if (imgUrl != null) {
                 bgImage.setImage(new Image(imgUrl.toExternalForm()));
             } else {
-                bgImage.setImage(new Image(FALLBACK_FILE_URL));
-                System.err.println("Warning: /images/bedroom.png not found on classpath; using fallback file URL.");
+               // bgImage.setImage(new Image(FALLBACK_FILE_URL));
+              //  System.err.println("Warning: /images/bedroom.png not found on classpath; using fallback file URL.");
+                System.err.println("Warning: /images/bedroom1.png not found on classpath.");
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -28,7 +28,7 @@
         <StackPane fx:id="rootStack" styleClass="room-root">
             <ImageView fx:id="bgImage" fitWidth="900" fitHeight="600" preserveRatio="false" pickOnBounds="true" mouseTransparent="true">
                 <image>
-                    <Image url="@../images/bedroom.png"/>
+                    <Image url="@../images/bedroom1.png"/>
                 </image>
             </ImageView>
 
