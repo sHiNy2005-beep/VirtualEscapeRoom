@@ -46,6 +46,9 @@ public class LibraryController {
     public void initialize() {
         System.out.println("LibraryController initialize() called");
         
+        // Set the library background programmatically
+        setLibraryBackground();
+        
         // Set up click handler for book
         if (bookImage != null) {
             System.out.println("✓ bookImage injected successfully");
@@ -55,6 +58,34 @@ public class LibraryController {
             });
         } else {
             System.err.println("✗ bookImage is NULL - check fx:id in FXML");
+        }
+    }
+    
+    private void setLibraryBackground() {
+        if (rootPane != null) {
+            // Try multiple path formats to find the image
+            String[] paths = {
+                "/images/LibraryRoom.jpg",
+                "images/LibraryRoom.jpg",
+                "file:src/main/resources/images/LibraryRoom.jpg"
+            };
+            
+            for (String path : paths) {
+                try {
+                    String style = "-fx-background-image: url('" + path + "');" +
+                                  "-fx-background-repeat: no-repeat;" +
+                                  "-fx-background-size: cover;" +
+                                  "-fx-background-position: center;";
+                    rootPane.setStyle(style);
+                    System.out.println("✓ Background set with path: " + path);
+                    return;
+                } catch (Exception e) {
+                    System.err.println("Failed with path: " + path);
+                }
+            }
+            System.err.println("✗ Could not set background - check if LibraryRoom.jpg exists");
+        } else {
+            System.err.println("✗ rootPane is NULL");
         }
     }
     
