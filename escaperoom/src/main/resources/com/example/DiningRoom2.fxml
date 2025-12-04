@@ -61,7 +61,7 @@
 
             <children>
 
-                <VBox layoutX="27.0" layoutY="-9.0" spacing="24">
+                <VBox layoutX="27.0" layoutY="-23.0" prefHeight="428.0" prefWidth="736.0" spacing="24">
 
                    
                     <HBox spacing="45">
@@ -69,7 +69,7 @@
                         
                         <VBox alignment="CENTER" spacing="6">
                             <ImageView fitHeight="110" fitWidth="110">
-                                <image><Image url="@images/letter.png" /></image>
+                                <image><Image url="@../../images/Image%203@1x%20(1).png" /></image>
                             </ImageView>
                             <Label text="Love Letter" textFill="white" />
                             <ChoiceBox fx:id="choiceLoveLetter" prefWidth="150" />
@@ -77,8 +77,8 @@
                         </VBox>
 
                         <VBox alignment="CENTER" spacing="6">
-                            <ImageView fitHeight="110" fitWidth="110">
-                                <image><Image url="@images/will.png" /></image>
+                            <ImageView fitHeight="109.0" fitWidth="131.0">
+                                <image><Image url="@../../images/will.png" /></image>
                             </ImageView>
                             <Label text="Will Page" textFill="white" />
                             <ChoiceBox fx:id="choiceWillPage" prefWidth="150" />
@@ -87,7 +87,7 @@
 
                         <VBox alignment="CENTER" spacing="6">
                             <ImageView fitHeight="110" fitWidth="110">
-                                <image><Image url="@images/ledger.png" /></image>
+                                <image><Image url="@../../images/ledger.png" /></image>
                             </ImageView>
                             <Label text="Ledger" textFill="white" />
                             <ChoiceBox fx:id="choiceLedger" prefWidth="150" />
@@ -95,8 +95,8 @@
                         </VBox>
 
                         <VBox alignment="CENTER" spacing="6">
-                            <ImageView fitHeight="110" fitWidth="110">
-                                <image><Image url="@images/statue.png" /></image>
+                            <ImageView fitHeight="109.0" fitWidth="127.0">
+                                <image><Image url="@../../images/Image%202@1x%20(2).png" /></image>
                             </ImageView>
                             <Label text="Bloody Statue" textFill="white" />
                             <ChoiceBox fx:id="choiceStatue" prefWidth="150" />

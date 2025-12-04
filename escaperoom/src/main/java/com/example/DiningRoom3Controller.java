@@ -44,9 +44,8 @@ public class DiningRoom3Controller {
 
     @FXML
     private void onNext() {
-         try {
-        App.getFacade().endGame();         
-        App.setRoot("certificate");          
+         try {      
+        App.setRoot("Leaderboard");          
     } catch (IOException e) {
         e.printStackTrace();
     }
