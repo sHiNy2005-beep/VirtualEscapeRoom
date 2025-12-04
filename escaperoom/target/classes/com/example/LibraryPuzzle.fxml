@@ -6,10 +6,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="650.0" prefWidth="900.0" styleClass="library-room-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LibraryController">
+<AnchorPane prefHeight="650.0" prefWidth="900.0" style="-fx-background-color: rgba(58, 58, 58, 0.95);" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LibraryPuzzleController">
     <children>
         <!-- Title -->
         <Label layoutX="32.0" layoutY="32.0" text="LIBRARY" textFill="WHITE">
@@ -43,7 +42,8 @@
         </Label>
         
         <!-- Answer Input Field -->
-        <TextField fx:id="answerField" layoutX="114.0" layoutY="360.0" prefHeight="45.0" prefWidth="520.0" promptText="enter" style="-fx-background-color: rgba(80, 80, 80, 0.8); -fx-text-fill: white; -fx-prompt-text-fill: rgba(255,255,255,0.5); -fx-font-size: 16px; -fx-padding: 10;" />
+        <TextField fx:id="answerField" layoutX="114.0" layoutY="360.0" prefHeight="45.0" prefWidth="520.0" promptText="enter" style="-fx-background-color: rgba(80, 80, 80, 0.8); -fx-text-fill: white; -fx-prompt-text-fill: rgba(255,255,255,0.5); -fx-font-size: 16px; -fx-padding: 10;">
+        </TextField>
         
         <!-- Enter Button -->
         <Button fx:id="enterButton" layoutX="114.0" layoutY="425.0" mnemonicParsing="false" onAction="#onEnterButton" prefHeight="50.0" prefWidth="180.0" text="ENTER" styleClass="button-yellow">
@@ -73,32 +73,12 @@
             </font>
         </Button>
         
-        <!-- Book Image with Text Overlay -->
-        <StackPane layoutX="655.0" layoutY="175.0" prefHeight="400.0" prefWidth="400.0">
-            <!-- Book Image -->
-            <ImageView fx:id="bookImage" fitHeight="400.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
-                <image>
-                    <Image url="@../../images/Book.png" />
-                </image>
-            </ImageView>
-            
-            <!-- Text overlays on left and right pages -->
-            <AnchorPane>
-                <!-- Left Page Text -->
-                <Label layoutX="40.0" layoutY="100.0" prefWidth="150.0" textAlignment="CENTER" wrapText="true" style="-fx-text-fill: #3d2817; -fx-font-style: italic;" text="Today, Hamton&#10;Openly&#10;Mentioned&#10;Another Sibling,&#10;Igniting&#10;Suspicions;">
-                    <font>
-                        <Font name="Book Antiqua" size="16.0" />
-                    </font>
-                </Label>
-                
-                <!-- Right Page Text -->
-                <Label layoutX="210.0" layoutY="100.0" prefWidth="150.0" textAlignment="CENTER" wrapText="true" style="-fx-text-fill: #3d2817; -fx-font-style: italic;" text="Deep Inside,&#10;Some&#10;Observed&#10;Wounds&#10;Never&#10;Entirely&#10;Dissolved">
-                    <font>
-                        <Font name="Book Antiqua" size="16.0" />
-                    </font>
-                </Label>
-            </AnchorPane>
-        </StackPane>
+        <!-- Book Image (Puzzle Visual) -->
+        <ImageView fx:id="bookImage" fitHeight="300.0" fitWidth="250.0" layoutX="680.0" layoutY="210.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@/images/Book.png" />
+            </image>
+        </ImageView>
     </children>
     <stylesheets>
         <URL value="@styles.css" />

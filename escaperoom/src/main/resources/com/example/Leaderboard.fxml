@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="LeaderboardController"
+            styleClass="root"
+            stylesheets="@styles.css">
+    
+    <!-- Header -->
+    <top>
+        <VBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets top="20" bottom="20"/>
+            </padding>
+            
+            <Label fx:id="titleLabel" text="LEADERBOARD" styleClass="title"/>
+        </VBox>
+    </top>
+    
+    <!-- Main Content -->
+    <center>
+        <VBox spacing="20" alignment="TOP_CENTER">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <!-- User Score Section -->
+            <VBox fx:id="userScoreSection" 
+                  styleClass="user-score-section" 
+                  alignment="CENTER"
+                  spacing="10">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                
+                <!-- Content will be dynamically added by controller -->
+            </VBox>
+            
+            <!-- Top 10 Label -->
+            <Label text="Top 10 Players" styleClass="section-label"/>
+            
+            <!-- Leaderboard ScrollPane -->
+            <ScrollPane fx:id="scrollPane" 
+                       styleClass="scroll-pane"
+                       fitToWidth="true"
+                       VBox.vgrow="ALWAYS">
+                <content>
+                    <VBox fx:id="leaderboardContainer" 
+                          styleClass="leaderboard-container"
+                          spacing="10">
+                        <!-- Leaderboard entries will be dynamically added by controller -->
+                    </VBox>
+                </content>
+            </ScrollPane>
+        </VBox>
+    </center>
+    
+    <!-- Bottom Button Bar (Optional) -->
+    <bottom>
+        <HBox alignment="CENTER" spacing="20">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <Button text="Back to Menu" 
+                    onAction="#handleBackButton"
+                    styleClass="button"/>
+        </HBox>
+    </bottom>
+    
+</BorderPane>
