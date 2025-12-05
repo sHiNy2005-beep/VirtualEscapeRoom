@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17" 
+<BorderPane xmlns="http://javafx.com/javafx/25" 
             xmlns:fx="http://javafx.com/fxml/1" 
-            fx:controller="LeaderboardController"
+            fx:controller="com.example.LeaderboardController"
             styleClass="root"
             stylesheets="@styles.css">
     
@@ -21,7 +21,7 @@
                 <Insets top="20" bottom="20"/>
             </padding>
             
-            <Label fx:id="titleLabel" text="LEADERBOARD" styleClass="title"/>
+            <Label fx:id="titleLabel" text="Final Score" styleClass="title"/>
         </VBox>
     </top>
     
