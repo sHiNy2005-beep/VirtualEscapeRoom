@@ -72,6 +72,17 @@ public class GardenPage1Controller {
     }
 
     @FXML
+    public void onNext(ActionEvent event) {
+        try 
+        {
+            App.setRoot("gardenroom2");
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     void onCloseHint(ActionEvent event) 
     {
         hideHintOverlay();
