@@ -1,73 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.BedroomPage2Controller"
-            prefWidth="900" prefHeight="600"
-            stylesheets="@styles.css">
-
-    <top>
-        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="top-bar" padding="12 24 12 24">
-            <Label text="bedroom" styleClass="title"/>
-            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="nav-links">
-                <Label text="Home" styleClass="nav-item"/>
-                <Label text="Rooms" styleClass="nav-item active"/>
-                <Label text="Items" styleClass="nav-item"/>
-            </HBox>
-            <Pane HBox.hgrow="ALWAYS"/>
-            <Label fx:id="clockLabel" text="08:45" styleClass="clock"/>
-        </HBox>
-    </top>
+<BorderPane prefHeight="585" prefWidth="974" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.BedroomPage2Controller">
 
     <center>
-        <StackPane styleClass="room-root" fx:id="rootStack">
-            <ImageView fx:id="bgImage" fitWidth="900" fitHeight="600" preserveRatio="false" mouseTransparent="true" pickOnBounds="true">
+        <StackPane>
+
+            <ImageView fx:id="bgImage" fitHeight="585" fitWidth="974" mouseTransparent="true" preserveRatio="false">
                 <image>
-                    <Image url="@../images/bedroom2.png"/>
+                    <Image url="@../../images/bedroom1.png" />
                 </image>
             </ImageView>
 
-            <AnchorPane prefWidth="900" prefHeight="600">
-
-                <!-- Bloody heading: two labels stacked to create a smeared/drippy look -->
-                <Label fx:id="bloodShadow" layoutX="80" layoutY="40"
-                       wrapText="true"
-                       text="&quot;WHAT EXISTS WHEN ONE PERSON HAS IT BUT CEASES TO EXIST WHEN ANOTHER PERSON GETS IT?&quot;"
-                       styleClass="blood-shadow" />
-
-                <Label fx:id="bloodLabel" layoutX="76" layoutY="36"
-                       wrapText="true"
-                       text="&quot;WHAT EXISTS WHEN ONE PERSON HAS IT BUT CEASES TO EXIST WHEN ANOTHER PERSON GETS IT?&quot;"
-                       styleClass="blood-text" />
-
-                <Label layoutX="50" layoutY="170" prefWidth="760" wrapText="true" styleClass="description"
-                       text="So cold... the words on the wall... try to make sense of it" />
-
-                <!-- Hint area -->
-                <HBox spacing="12" layoutX="70" layoutY="260" alignment="CENTER_LEFT">
-                    <VBox spacing="6" alignment="CENTER_LEFT">
-                        <Label styleClass="hint-title">
-                            <graphic>
-                                <Label text="💡" style="-fx-font-size:22px;"/>
-                            </graphic>
-                            HINT?
+             <VBox alignment="CENTER">
+               <BorderPane prefHeight="674.0" prefWidth="1019.0" style="-fx-padding: 18;">
+                   <top>
+                       <VBox spacing="8">
+                           <Label styleClass="title" text="BEDROOM" textFill="WHITE">
+                        <font>
+                           <Font size="48.0" />
+                        </font>
+                     </Label>
+                           <HBox alignment="CENTER_LEFT" prefHeight="11.0" prefWidth="702.0" spacing="16" styleClass="nav-links">
+                               <Label styleClass="nav-item" text="Home" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
                         </Label>
-                        <TextField fx:id="hintField" promptText="enter" prefWidth="260" styleClass="hint-field"/>
-                        <Button fx:id="enterBtn" text="ENTER" onAction="#onEnter" styleClass="enter-btn"/>
-                    </VBox>
-                </HBox>
+                               <Label styleClass="nav-item active" text="Rooms" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                               <Label styleClass="nav-item" text="Items" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                           </HBox>
+                       </VBox>
+                   </top>
+               <right>
+                      <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" maxWidth="648.0" opacity="0.66" prefHeight="262.0" prefWidth="648.0" style="-fx-font-size: 22px;                             -fx-font-weight: bold;                             -fx-text-fill: white;                             -fx-effect: dropshadow(gaussian, black, 8, 0, 0, 2);                             -fx-padding: 20;                             -fx-background-color: rgba(0,0,0,0.45);                             -fx-background-radius: 12;" text="WHAT EXISTS WHEN ONE PERSON HAS IT BUT CEASES TO EXIST WHEN ANOTHER PERSON GETS IT?" textFill="#ff000066" textOverrun="CLIP" wrapText="true" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+               </right>
+               <left>
+                  <TextArea disable="true" opacity="0.24" prefHeight="338.0" prefWidth="250.0" text="SO COLD.. THE WORDS...TRY TO MAKE SENSE OF IT..&#10;&#10;" wrapText="true" BorderPane.alignment="CENTER" />
+               </left>
+               </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="674.0" prefWidth="1019.0" style="-fx-padding: 18;">
+               <top>
+                  <VBox spacing="8">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="11.0" prefWidth="702.0" spacing="16" styleClass="nav-links">
+                           <children>
+                              <TextField promptText="Your answer " />
+                           </children>
+                        </HBox>
+                        <Button mnemonicParsing="false" text="ENTER" />
+                     </children>
+                  </VBox>
+               </top>
+               <bottom>
+                  <BorderPane style="-fx-padding: 8;">
+                     <left>
+                        <Button fx:id="backBtn1" onAction="#onBack" styleClass="nav-btn" text="&lt; BACK" />
+                     </left>
+                     <right>
+                        <Button fx:id="nextBtn1" onAction="#onNext" styleClass="nav-btn" text="NEXT &gt;" />
+                     </right>
+                     <center>
+                        <Button mnemonicParsing="false" text="HINT ?" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
+               </bottom>
+            </BorderPane>
+            </VBox>
+            
 
-                <Button fx:id="backBtn" layoutX="20" layoutY="520" text="&lt; BACK" onAction="#onBack" styleClass="nav-btn"/>
-                <Button fx:id="nextBtn" layoutX="760" layoutY="520" text="NEXT &gt;" onAction="#onNext" styleClass="nav-btn"/>
-
-            </AnchorPane>
         </StackPane>
     </center>
 

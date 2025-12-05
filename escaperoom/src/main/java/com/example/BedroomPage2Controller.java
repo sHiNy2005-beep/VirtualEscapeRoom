@@ -30,33 +30,27 @@ public class BedroomPage2Controller {
     @FXML private Button backBtn;
     @FXML private Button nextBtn;
 
-    // canonical answer to the riddle (case-insensitive)
     private static final String CORRECT_ANSWER = "secret";
 
     @FXML
     public void initialize() {
-       // bgImage.setImage(new Image("file:/mnt/data/0faa6182-d6bd-4d9c-acfd-b8483d78d514.png"));
         URL imgUrl = getClass().getResource("/images/bedroom2.png");
         if (imgUrl != null) {
             bgImage.setImage(new Image(imgUrl.toExternalForm()));
         } else {
             System.err.println("Warning: /images/bedroom2.png not found on classpath.");
         }
-        // small fade for the blood text
         FadeTransition ft = new FadeTransition(Duration.millis(700), bloodLabel);
         ft.setFromValue(0.0);
         ft.setToValue(1.0);
         ft.play();
 
-        // slightly offset shadow fade for depth
         FadeTransition ft2 = new FadeTransition(Duration.millis(900), bloodShadow);
         ft2.setFromValue(0.0);
         ft2.setToValue(0.9);
-        ft2.play();
-
-        // static clock placeholder
-        clockLabel.setText("08:45");
+        ft2.play(); 
     }
+
 
     @FXML
     private void onEnter() {
@@ -69,8 +63,7 @@ public class BedroomPage2Controller {
 
         if (attempt.equals(CORRECT_ANSWER)) {
             showAlert(Alert.AlertType.INFORMATION, "Correct", "You got it — the answer is \"" + CORRECT_ANSWER + "\".\nA small compartment clicks open somewhere.");
-            // optionally auto-advance to next page
-            // onNext();
+        
         } else {
             showAlert(Alert.AlertType.ERROR, "Not quite", "That doesn't look right. Think about what disappears when someone else knows it.");
         }
