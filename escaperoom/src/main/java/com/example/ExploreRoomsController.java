@@ -9,11 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.event.ActionEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,11 +29,12 @@ public class ExploreRoomsController implements Initializable {
     @FXML private ImageView imgStudy;
     @FXML private ImageView imgDining;
     @FXML private Button backButton;
-    @FXML private Label diningLock; 
+    @FXML private Label diningLock;
+    @FXML private MenuItem menuHome;
 
     private static final String ROOM_FXML_LIBRARY = "LibraryRoom.fxml";
     private static final String ROOM_FXML_GARDEN   = "GardenRoom.fxml";
-    private static final String ROOM_FXML_BEDROOM  = "BedroomRoom.fxml";  
+    private static final String ROOM_FXML_BEDROOM  = "Bedroom1.fxml";  
     private static final String ROOM_FXML_STUDY    = "Studyroom.fxml";
     private static final String ROOM_FXML_DINING   = "DiningRoom.fxml";
 
@@ -70,6 +73,44 @@ public class ExploreRoomsController implements Initializable {
         });
     }
 
+    // Menu event handlers
+    @FXML
+    private void onMenuHome(ActionEvent event) {
+        MenuItem menuItem = (MenuItem) event.getSource();
+        loadSceneFromMenuItem(menuItem, BACK_FXML);
+    }
+
+    // Click handlers for individual rooms (called from FXML)
+    @FXML
+    private void onLibraryClicked(MouseEvent event) {
+        loadRoomFxml(event, ROOM_FXML_LIBRARY);
+    }
+
+    @FXML
+    private void onGardenClicked(MouseEvent event) {
+        loadRoomFxml(event, ROOM_FXML_GARDEN);
+    }
+
+    @FXML
+    private void onBedroomClicked(MouseEvent event) {
+        loadRoomFxml(event, ROOM_FXML_BEDROOM);
+    }
+
+    @FXML
+    private void onStudyClicked(MouseEvent event) {
+        loadRoomFxml(event, ROOM_FXML_STUDY);
+    }
+
+    @FXML
+    private void onDiningClicked(MouseEvent event) {
+        loadRoomFxml(event, ROOM_FXML_DINING);
+    }
+
+    @FXML
+    private void onBackButton(ActionEvent event) {
+        loadSceneOnCurrentStage(backButton, BACK_FXML);
+    }
+
     /**
      * Load a room FXML and set it as the current scene root (keeps same stage).
      * @param clickEvent mouse event used to find stage
@@ -78,6 +119,22 @@ public class ExploreRoomsController implements Initializable {
     private void loadRoomFxml(MouseEvent clickEvent, String fxmlResource) {
         Node src = (Node) clickEvent.getSource();
         loadSceneOnCurrentStage(src, fxmlResource);
+    }
+
+    /**
+     * Helper method to load a scene from a MenuItem click
+     */
+    private void loadSceneFromMenuItem(MenuItem menuItem, String fxmlResource) {
+        // MenuItem doesn't have a scene, so we need to get the stage differently
+        // We can use the parent menu's parent (MenuBar) which is in the scene
+        try {
+            Stage stage = (Stage) menuItem.getParentPopup().getOwnerWindow();
+            if (stage != null) {
+                loadSceneOnStage(stage, fxmlResource);
+            }
+        } catch (Exception e) {
+            showAlert("Navigation Error", "Unable to navigate from menu: " + e.getMessage());
+        }
     }
 
     /**
@@ -93,8 +150,13 @@ public class ExploreRoomsController implements Initializable {
             showAlert("Error", "Unable to find the window to change scenes.");
             return;
         }
+        loadSceneOnStage(stage, fxmlResource);
+    }
 
-        
+    /**
+     * Load FXML on a specific stage
+     */
+    private void loadSceneOnStage(Stage stage, String fxmlResource) {
         URL fxmlUrl = getClass().getResource(fxmlResource);
         if (fxmlUrl == null) {
             fxmlUrl = getClass().getResource("/" + fxmlResource);
@@ -118,7 +180,9 @@ public class ExploreRoomsController implements Initializable {
         }
     }
 
-    
+    /**
+     * Set fallback image if the ImageView's image is missing
+     */
     private void setFallbackIfMissing(ImageView iv) {
         if (iv.getImage() == null) {
             try {
@@ -133,7 +197,9 @@ public class ExploreRoomsController implements Initializable {
         iv.setPreserveRatio(false);
     }
 
-    
+    /**
+     * Apply rounded corners to ImageView
+     */
     private void applyRoundedClip(ImageView iv) {
         Rectangle clip = new Rectangle(CARD_SIZE, CARD_SIZE);
         clip.setArcWidth(ARC_RADIUS);
@@ -141,7 +207,9 @@ public class ExploreRoomsController implements Initializable {
         iv.setClip(clip);
     }
 
-    
+    /**
+     * Show an alert dialog
+     */
     private void showAlert(String title, String content) {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         a.setTitle(title);

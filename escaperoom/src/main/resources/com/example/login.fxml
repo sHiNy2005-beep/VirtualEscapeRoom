@@ -8,29 +8,28 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane prefHeight="400.0" prefWidth="600.0" styleClass="house-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.LoginController">
    <children>
 
-      <TextField fx:id="usernameField" layoutX="202.0" layoutY="151.0" prefHeight="31.0" prefWidth="182.0" promptText="Username" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius:6; -fx-border-radius:6; -fx-padding:4 8 4 8;" />
+      <TextField fx:id="usernameField" layoutX="320.0" layoutY="151.0" prefHeight="31.0" prefWidth="182.0" promptText="Username" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius:6; -fx-border-radius:6; -fx-padding:4 8 4 8;" />
 
-      <TextField fx:id="emailField" layoutX="202.0" layoutY="188.0" managed="false" prefHeight="31.0" prefWidth="182.0" promptText="Email" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius:6; -fx-border-radius:6; -fx-padding:4 8 4 8;" visible="false" />
+      <TextField fx:id="emailField" layoutX="320.0" layoutY="188.0" managed="false" prefHeight="31.0" prefWidth="182.0" promptText="Email" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius:6; -fx-border-radius:6; -fx-padding:4 8 4 8;" visible="false" />
 
-      <PasswordField fx:id="passwordField" layoutX="202.0" layoutY="225.0" prefHeight="31.0" prefWidth="182.0" promptText="Password" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius:6; -fx-border-radius:6; -fx-padding:4 8 4 8;" />
+      <PasswordField fx:id="passwordField" layoutX="320.0" layoutY="225.0" prefHeight="31.0" prefWidth="182.0" promptText="Password" style="-fx-background-color: rgba(255,255,255,0.95); -fx-background-radius:6; -fx-border-radius:6; -fx-padding:4 8 4 8;" />
 
-      <Button fx:id="toggleModeBtn" layoutX="202.0" layoutY="274.0" mnemonicParsing="false" onAction="#onToggleMode" prefHeight="23.0" prefWidth="84.0" styleClass="button-white" text="Sign up">
+      <Button fx:id="toggleModeBtn" layoutX="320.0" layoutY="274.0" mnemonicParsing="false" onAction="#onToggleMode" prefHeight="23.0" prefWidth="84.0" styleClass="button-white" text="Sign up">
          <font>
             <Font name="Book Antiqua" size="12.0" />
          </font>
       </Button>
 
-      <Button fx:id="submitBtn" layoutX="300.0" layoutY="274.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="25.0" prefWidth="84.0" styleClass="button-yellow" text="Log in">
+      <Button fx:id="submitBtn" layoutX="411.0" layoutY="274.0" mnemonicParsing="false" onAction="#onSubmit" prefHeight="25.0" prefWidth="84.0" styleClass="button-yellow" text="Log in">
          <font>
             <Font name="Book Antiqua" size="12.0" />
          </font>
       </Button>
 
-      <Label fx:id="messageLabel" layoutX="202.0" layoutY="307.0" prefWidth="182.0" style="-fx-text-fill: red; -fx-font-size:12px;" text="" />
+      <Label fx:id="messageLabel" layoutX="320.0" layoutY="307.0" prefWidth="182.0" style="-fx-text-fill: red; -fx-font-size:12px;" text="" />
    </children>
    <stylesheets>
       <URL value="@styles.css" />

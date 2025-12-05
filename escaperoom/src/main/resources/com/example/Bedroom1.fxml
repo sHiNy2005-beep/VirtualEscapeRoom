@@ -10,8 +10,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="585" prefWidth="974" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.BedroomPage1Controller">
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.BedroomPage1Controller"
+            prefWidth="900" prefHeight="600"
+            stylesheets="@styles.css">
 
+ 
     <center>
         <StackPane>
 

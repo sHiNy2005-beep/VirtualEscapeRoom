@@ -1,11 +1,12 @@
 package com.example;
 
+import com.model.EscapeRoomFacade;
+import com.model.Room;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import java.io.IOException;
 import javafx.scene.image.Image;
 
@@ -22,10 +23,16 @@ public class StudyRoom3Controller {
     @FXML private MenuItem menuHome;
     @FXML private MenuItem menuRooms;
     @FXML private MenuItem menuItems;
+    
+
+    private final EscapeRoomFacade facade = App.getFacade();
+    private Room studyRoom;
 
     @FXML
     private void initialize() {
         
+        studyRoom = App.getRoom("Study");
+        App.ensureSession(studyRoom);
         try {
             Image ledger = new Image(getClass().getResourceAsStream("/images/ledger.png"));
             if (ledger != null && ledgerImage != null) ledgerImage.setImage(ledger);
@@ -36,8 +43,13 @@ public class StudyRoom3Controller {
             if (key != null && keyImage != null) keyImage.setImage(key);
         } catch (Exception ignored) { }
 
-        if (itemsLabel != null) itemsLabel.setText("ITEMS ACQUIRED: SAFE KEY & LEDGER");
-        if (scoreLabel != null) scoreLabel.setText("+100");
+        if (itemsLabel != null) {
+            String itemsText = (studyRoom != null && studyRoom.getItems() != null && !studyRoom.getItems().isEmpty())
+                    ? String.join(", ", studyRoom.getItems())
+                    : "ITEMS ACQUIRED: SAFE KEY & LEDGER";
+            itemsLabel.setText(itemsText);
+        }
+
     }
 
     @FXML

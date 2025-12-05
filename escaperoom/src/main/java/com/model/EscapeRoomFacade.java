@@ -41,6 +41,7 @@ public class EscapeRoomFacade {
      * @param password the password
      * @return true if login was successful
      */
+    
     public boolean login(String username, String password) {
         for (User u : userList.getUsers()) {
             if (u.getUserName().equals(username) && u.getPassword().equals(password)) {

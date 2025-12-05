@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="650.0" prefWidth="900.0" styleClass="room-root"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.LibrarySuccessController">
+
+    <children>
+
+        <!-- Title -->
+        <Label fx:id="titleLabel" layoutX="18.0" layoutY="12.0" text="LIBRARY">
+            <font><Font name="Book Antiqua" size="48.0" /></font>
+            <style>
+                -fx-text-fill: white;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
+            </style>
+        </Label>
+
+        <!-- Menu Bar -->
+        <MenuBar layoutX="16.0" layoutY="64.0" prefWidth="300.0">
+            <menus>
+                <Menu text="Home">
+                    <items>
+                        <MenuItem fx:id="menuHome" text="Home" onAction="#onMenuHome"/>
+                    </items>
+                </Menu>
+                <Menu text="Rooms">
+                    <items>
+                        <MenuItem fx:id="menuRooms" text="Rooms" onAction="#onMenuRooms"/>
+                    </items>
+                </Menu>
+                <Menu text="Items">
+                    <items>
+                        <MenuItem fx:id="menuItems" text="Items" onAction="#onMenuItems"/>
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+
+        <!-- Central Pane (Matches StudyRoom3 Layout) -->
+        <Pane layoutX="40.0" layoutY="110.0" prefHeight="440.0" prefWidth="820.0"
+              style="-fx-background-color:#3a3a3a; -fx-border-radius:4; -fx-background-radius:4;">
+            <children>
+
+                <!-- Story -->
+                <Label fx:id="storyLabel" layoutX="36.0" layoutY="28.0" prefWidth="700.0"
+                       wrapText="true"
+                       text="YOU UNLOCKED THE CASE AND NOW A CLUE WILL BE REVEALED TO YOU....INSIDE THE SAFE WERE LEDGERS AND FINANCIAL INFORMATION. MR. BARNER, THE LOYAL BUTLER OF REGINALD HAMPTON, WAS LISTED ON MANY DOCUMENTS AS A TRUSTED FIDUCIARY. HOW MUCH DID HAMPTON TRUST HIM...AND DID BARNER BETRAY THAT TRUST?">
+                    <font><Font name="Book Antiqua" size="20.0" /></font>
+                    <style>
+                        -fx-text-fill: white;
+                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 4, 0, 0, 1);
+                        -fx-line-spacing: 2px;
+                    </style>
+                </Label>
+
+                <!-- Torn Will Page -->
+                <ImageView fx:id="pageImage" fitHeight="120.0" fitWidth="120.0"
+                           layoutX="60.0" layoutY="220.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/TornWill.png" />
+                    </image>
+                </ImageView>
+
+                <!-- Magnifying Glass -->
+                <ImageView fx:id="magnifyingImage" fitHeight="120.0" fitWidth="120.0"
+                           layoutX="260.0" layoutY="220.0" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/MagnifyingGlass.png" />
+                    </image>
+                </ImageView>
+
+                <!-- Items Acquired -->
+                <Label fx:id="itemsLabel" layoutX="36.0" layoutY="360.0" prefWidth="520.0"
+                       text="ITEMS ACQUIRED: TORN WILL PAGE and MAGNIFYING GLASS">
+                    <font><Font name="Book Antiqua" size="16.0" /></font>
+                    <style>
+                        -fx-text-fill: derive(#ffffff, -30%);
+                        -fx-opacity: 0.85;
+                    </style>
+                </Label>
+
+                <!-- Score -->
+                <Label fx:id="scoreLabel" layoutX="760.0" layoutY="381.0" text="+100">
+                    <font><Font name="Book Antiqua" size="36.0" /></font>
+                    <style>
+                        -fx-text-fill:white;
+                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 4, 0, 0, 1);
+                    </style>
+                </Label>
+
+            </children>
+        </Pane>
+
+        <!-- Back Button -->
+        <Button fx:id="backButton" layoutX="67.0" layoutY="556.0"
+                prefWidth="110" prefHeight="36" text="&lt; BACK" onAction="#onBackButton">
+            <style>
+                -fx-background-radius:8;
+                -fx-padding:6 12 6 12;
+                -fx-background-color: linear-gradient(#ffffff, #dddddd);
+                -fx-text-fill:#222222;
+            </style>
+        </Button>
+
+        <!-- Next Button -->
+        <Button fx:id="nextButton" layoutX="775.0" layoutY="559.0"
+                prefWidth="110" prefHeight="36" text="NEXT &gt;" onAction="#onNextButton">
+            <style>
+                -fx-background-radius:8;
+                -fx-padding:6 12 6 12;
+                -fx-background-color: linear-gradient(#c99e2b, #8f6608);
+                -fx-text-fill:white;
+                -fx-font-weight:bold;
+            </style>
+        </Button>
+
+    </children>
+
+    <stylesheets>
+        <URL value="@styles.css"/>
+    </stylesheets>
+
+</AnchorPane>
