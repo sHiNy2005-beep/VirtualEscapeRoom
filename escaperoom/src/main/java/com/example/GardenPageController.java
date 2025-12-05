@@ -50,7 +50,7 @@ public class GardenPageController {
     }
 
     @FXML
-    void onNext(ActionEvent event) {
+    public void onNext(ActionEvent event) {
         try 
         {
             App.setRoot("gardenroom1");
