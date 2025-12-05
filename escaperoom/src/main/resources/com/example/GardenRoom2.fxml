@@ -45,6 +45,12 @@
                     </image>
                 </ImageView>
 
+                <ImageView fx:id="StatuePreview" fitHeight="105.0" fitWidth="110.0" layoutX="700.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../images/statue.png" />
+                    </image>
+                </ImageView>
+
                             
                 <Button fx:id="backButton" layoutX="33.0" layoutY="319.0" mnemonicParsing="false" onAction="#onBack" prefHeight="30.0" prefWidth="88.0" text="&lt; BACK">
                     <style>
