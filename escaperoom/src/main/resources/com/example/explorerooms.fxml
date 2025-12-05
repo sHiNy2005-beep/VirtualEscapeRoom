@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -7,62 +7,68 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="rootPane" prefHeight="600.0" prefWidth="900.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ExploreRoomsController">
-
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="900.0" styleClass="house-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ExploreRoomsController">
     <children>
-        <Label fx:id="titleLabel" layoutX="18.0" layoutY="8.0" text="EXPLORE HAMTON MANSION" />
+        <!-- Overlay for better text visibility -->
+        <Rectangle fx:id="overlay" fill="#000000" opacity="0.18" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
 
+        <!-- Title -->
+        <Label fx:id="titleLabel" layoutX="18.0" layoutY="8.0" text="EXPLORE HAMTON MANSION">
+            <font>
+                <Font name="Book Antiqua" size="48.0" />
+            </font>
+            <style>
+                -fx-text-fill: white;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
+            </style>
+        </Label>
+
+        <!-- Menu Bar -->
         <MenuBar layoutX="16.0" layoutY="56.0" prefWidth="220.0">
             <menus>
                 <Menu text="Home">
                     <items>
-                        <MenuItem fx:id="menuClose" text="Close" />
-                    </items>
-                </Menu>
-                <Menu text="Rooms">
-                    <items>
-                        <MenuItem fx:id="menuDelete" text="Delete" />
-                    </items>
-                </Menu>
-                <Menu text="Items">
-                    <items>
-                        <MenuItem fx:id="menuAbout" text="About" />
+                        <MenuItem fx:id="menuHome" onAction="#onMenuHome" text="Home" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
 
-        <ImageView fx:id="imgLibrary" fitHeight="180.0" fitWidth="180.0" layoutX="80.0" layoutY="100.0" pickOnBounds="true" preserveRatio="false">
+        <!-- Room Cards -->
+        <ImageView fx:id="imgLibrary" fitHeight="180.0" fitWidth="180.0" layoutX="80.0" layoutY="100.0" pickOnBounds="true" preserveRatio="false" onMouseClicked="#onLibraryClicked">
             <image>
                 <Image url="@../../images/LibraryRoom.jpg" />
             </image>
         </ImageView>
         <Label layoutX="90.0" layoutY="100.0" prefHeight="43.0" prefWidth="170.0" styleClass="card-title" text="LIBRARY" />
 
-        <ImageView fx:id="imgGarden" fitHeight="180.0" fitWidth="180.0" layoutX="344.0" layoutY="100.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fx:id="imgGarden" fitHeight="180.0" fitWidth="180.0" layoutX="344.0" layoutY="100.0" pickOnBounds="true" preserveRatio="false" onMouseClicked="#onGardenClicked">
             <image>
                 <Image url="@../../images/GardenRoom.png" />
             </image>
         </ImageView>
         <Label layoutX="354.0" layoutY="100.0" prefHeight="43.0" prefWidth="170.0" styleClass="card-title" text="GARDEN" />
 
-        <ImageView fx:id="imgBedroom" fitHeight="180.0" fitWidth="180.0" layoutX="620.0" layoutY="100.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fx:id="imgBedroom" fitHeight="180.0" fitWidth="180.0" layoutX="620.0" layoutY="100.0" pickOnBounds="true" preserveRatio="false" onMouseClicked="#onBedroomClicked">
             <image>
-                <Image url="@../../images/bedroom.png" />
+                <Image url="@../../images/bedroom1.png" />
             </image>
         </ImageView>
         <Label layoutX="630.0" layoutY="100.0" prefHeight="43.0" prefWidth="160.0" styleClass="card-title" text="BEDROOM" />
 
-        <ImageView fx:id="imgStudy" fitHeight="180.0" fitWidth="180.0" layoutX="222.0" layoutY="310.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fx:id="imgStudy" fitHeight="180.0" fitWidth="180.0" layoutX="222.0" layoutY="310.0" pickOnBounds="true" preserveRatio="false" onMouseClicked="#onStudyClicked">
             <image>
                 <Image url="@../../images/StudyRoom.png" />
             </image>
         </ImageView>
         <Label layoutX="232.0" layoutY="310.0" prefHeight="33.0" prefWidth="160.0" styleClass="card-title" text="STUDY" />
 
-        <ImageView fx:id="imgDining" fitHeight="180.0" fitWidth="180.0" layoutX="498.0" layoutY="310.0" pickOnBounds="true" preserveRatio="false">
+        <ImageView fx:id="imgDining" fitHeight="180.0" fitWidth="180.0" layoutX="498.0" layoutY="310.0" pickOnBounds="true" preserveRatio="false" onMouseClicked="#onDiningClicked">
             <image>
                 <Image url="@../../images/DiningRoom.png" />
             </image>
@@ -70,8 +76,11 @@
         <Label fx:id="diningLock" layoutX="566.0" layoutY="359.0" opacity="0.76" prefHeight="97.0" prefWidth="58.0" styleClass="lock-badge" text="🔒" />
         <Label layoutX="505.0" layoutY="310.0" prefHeight="33.0" prefWidth="180.0" styleClass="card-title" text="DINING ROOM" />
 
-        <Button fx:id="backButton" layoutX="16.0" layoutY="540.0" mnemonicParsing="false" text="&lt; BACK" />
-
-        <Label layoutX="820.0" layoutY="25.0" styleClass="clock" text="⏱ 08:45" />
+        <!-- Back Button -->
+        <Button fx:id="backButton" layoutX="16.0" layoutY="540.0" mnemonicParsing="false" text="&lt; BACK" onAction="#onBackButton" styleClass="button" />
     </children>
-</Pane>
+
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+</AnchorPane>

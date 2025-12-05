@@ -349,7 +349,7 @@
 
 /* Library room background */
 .library-room-background {
-    -fx-background-image: url("/../../images/LibraryRoom.jpg");
+    -fx-background-image: url("../../images/LibraryRoom.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: cover;
     -fx-background-position: center;

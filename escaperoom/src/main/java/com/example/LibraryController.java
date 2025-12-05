@@ -1,138 +1,152 @@
 package com.example;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class LibraryController {
-    
+public class LibraryController implements Initializable {
+
     @FXML
     private AnchorPane rootPane;
-    
+
     @FXML
     private Label titleLabel;
-    
+
     @FXML
     private Label descLabel;
-    
+
     @FXML
     private Label hintLabel;
-    
+
     @FXML
     private Button backButton;
-    
+
     @FXML
     private ImageView bookImage;
-    
+
     @FXML
     private MenuItem menuHome;
-    
+
     @FXML
     private MenuItem menuRooms;
-    
+
     @FXML
     private MenuItem menuItems;
-    
-    @FXML
-    public void initialize() {
+
+    private boolean bookClicked = false;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         System.out.println("LibraryController initialize() called");
         
-        // Set the library background programmatically
-        setLibraryBackground();
+        // Set background using resource URL (now using .png)
+        URL imageUrl = getClass().getResource("/images/LibraryRoom.png");
         
-        // Set up click handler for book
+        if (imageUrl != null) {
+            rootPane.setStyle(
+                "-fx-background-image: url('" + imageUrl.toExternalForm() + "'); " +
+                "-fx-background-repeat: no-repeat; " +
+                "-fx-background-size: cover; " +
+                "-fx-background-position: center;"
+            );
+            System.out.println("✓ Background set with URL: " + imageUrl.toExternalForm());
+        } else {
+            System.out.println("✗ Image not found at: /images/LibraryRoom.png");
+            System.out.println("✗ No library background image found");
+        }
+        
         if (bookImage != null) {
             System.out.println("✓ bookImage injected successfully");
-            bookImage.setOnMouseClicked(event -> {
-                System.out.println("Book clicked!");
-                onBookClicked();
-            });
-        } else {
-            System.err.println("✗ bookImage is NULL - check fx:id in FXML");
         }
     }
-    
-    private void setLibraryBackground() {
-        if (rootPane != null) {
-            // Try multiple path formats to find the image
-            String[] paths = {
-                "/images/LibraryRoom.jpg",
-                "images/LibraryRoom.jpg",
-                "file:src/main/resources/images/LibraryRoom.jpg"
-            };
-            
-            for (String path : paths) {
-                try {
-                    String style = "-fx-background-image: url('" + path + "');" +
-                                  "-fx-background-repeat: no-repeat;" +
-                                  "-fx-background-size: cover;" +
-                                  "-fx-background-position: center;";
-                    rootPane.setStyle(style);
-                    System.out.println("✓ Background set with path: " + path);
-                    return;
-                } catch (Exception e) {
-                    System.err.println("Failed with path: " + path);
-                }
-            }
-            System.err.println("✗ Could not set background - check if LibraryRoom.jpg exists");
-        } else {
-            System.err.println("✗ rootPane is NULL");
-        }
-    }
-    
+
     @FXML
-    private void onBookClicked() {
-        System.out.println("=== BOOK CLICKED - Navigating to puzzle ===");
-        navigateTo("LibraryPuzzle.fxml");
+    private void onBookClicked(MouseEvent event) {
+        System.out.println("Book clicked");
+        Node src = (Node) event.getSource();
+        loadSceneOnCurrentStage(src, "LibraryPuzzle.fxml");
     }
-    
+
     @FXML
     private void onBackButton() {
-        System.out.println("Back button clicked");
-        navigateTo("ExploreRooms.fxml");
+        loadSceneOnCurrentStage(backButton, "ExploreRooms.fxml");
     }
-    
+
     @FXML
     private void onMenuHome() {
-        navigateTo("Home.fxml");
+        loadSceneOnCurrentStage(rootPane, "primary.fxml");
     }
-    
+
     @FXML
     private void onMenuRooms() {
-        navigateTo("ExploreRooms.fxml");
+        loadSceneOnCurrentStage(rootPane, "ExploreRooms.fxml");
     }
-    
+
     @FXML
     private void onMenuItems() {
-        navigateTo("Items.fxml");
+        loadSceneOnCurrentStage(rootPane, "items.fxml");
     }
-    
-    private void navigateTo(String fxmlFile) {
-        try {
-            System.out.println("Navigating to: " + fxmlFile);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
-            Parent root = loader.load();
-            
-            Stage stage = (Stage) titleLabel.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
-            System.out.println("✓ Navigation successful");
-        } catch (IOException e) {
-            System.err.println("✗ Error loading " + fxmlFile + ": " + e.getMessage());
-            e.printStackTrace();
-        } catch (Exception e) {
-            System.err.println("✗ Unexpected error: " + e.getMessage());
-            e.printStackTrace();
+
+    /**
+     * Load the provided FXML and set it as the active scene root on the same Stage.
+     * If the fxmlResource cannot be found, shows an alert with the error.
+     *
+     * @param anyNode any Node that is part of the current scene (used to obtain Stage)
+     * @param fxmlResource the FXML resource path to load
+     */
+    private void loadSceneOnCurrentStage(Node anyNode, String fxmlResource) {
+        Stage stage = (Stage) anyNode.getScene().getWindow();
+        if (stage == null) {
+            showAlert("Error", "Unable to find the window to change scenes.");
+            return;
         }
+
+        URL fxmlUrl = getClass().getResource(fxmlResource);
+        if (fxmlUrl == null) {
+            fxmlUrl = getClass().getResource("/" + fxmlResource);
+        }
+        if (fxmlUrl == null) {
+            showAlert("Missing FXML", "Can't find FXML: " + fxmlResource + "\nMake sure the path is correct.");
+            return;
+        }
+
+        try {
+            Parent root = FXMLLoader.load(fxmlUrl);
+            Scene currentScene = stage.getScene();
+            if (currentScene == null) {
+                stage.setScene(new Scene(root));
+            } else {
+                currentScene.setRoot(root);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            showAlert("Load Error", "Failed to load: " + fxmlResource + "\n" + ex.getMessage());
+        }
+    }
+
+    /**
+     * Show an alert dialog with the given title and content
+     */
+    private void showAlert(String title, String content) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(content);
+        a.showAndWait();
     }
 }

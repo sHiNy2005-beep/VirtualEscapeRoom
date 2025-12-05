@@ -163,6 +163,8 @@ public class DiningRoom2Controller {
 
             PauseTransition pt = new PauseTransition(Duration.seconds(0.6));
             pt.setOnFinished(e -> loadScene((Node) event.getSource(), "DiningRoom3.fxml"));
+            int score = facade.getCurrentRoomScore();
+            App.addScore(score);
             pt.play();
         } else {
             hintMessage.setText("Incorrect — try again.");

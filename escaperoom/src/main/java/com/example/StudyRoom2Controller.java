@@ -76,6 +76,8 @@ public class StudyRoom2Controller {
             messageLabel.setText("");
             try {
                 App.setRoot("Studyroom3");
+                int score = facade.getCurrentRoomScore();
+                App.addScore(score);
             } catch (IOException e) {
                 e.printStackTrace();
                 messageLabel.setText("Can't open next screen.");
