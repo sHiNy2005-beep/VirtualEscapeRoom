@@ -119,6 +119,16 @@ public class StudyRoom2Controller {
         }
     }
 
+    @FXML
+    private void onNext() {
+        try {
+            
+            App.setRoot("Studyroom3");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private void hideHintOverlay() {
         if (hintOverlay == null) return;

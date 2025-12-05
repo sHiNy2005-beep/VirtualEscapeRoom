@@ -81,6 +81,17 @@
                     </style>
                       </Button>
 
+                        <Button fx:id="nextButton" layoutX="775.0" layoutY="559.0" mnemonicParsing="false" onAction="#onNext" prefHeight="36.0" prefWidth="110.0" text="NEXT &gt;">
+              <style>
+                        -fx-background-radius:8;
+                        -fx-padding:6 12 6 12;
+                        -fx-background-color: linear-gradient(#c99e2b, #8f6608);
+                        -fx-text-fill:white;
+                        -fx-font-weight:bold;
+                    </style>
+          </Button>
+
+
                     </children>
                 </VBox>
 

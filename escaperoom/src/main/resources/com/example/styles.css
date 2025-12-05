@@ -210,13 +210,13 @@
     -fx-text-fill: white;
     -fx-font-size: 18px;
 }
-
+/**
 .room-root {
     -fx-background-image: url("file:/mnt/data/36190bae-8639-459c-a1b7-ff78adf4439b.png");
     -fx-background-size: cover;
     -fx-background-position: center;
 }
-
+*/
 .description {
     -fx-font-size: 20px;
     -fx-text-fill: white;
@@ -370,12 +370,12 @@
     -fx-scale-y: 1.03;
 }
 
-/* Root styling */
+/* /
 .root {
     -fx-background-color: #1a1a2e;
     -fx-font-family: "Segoe UI", Arial, sans-serif;
 }
-
+*/
 /* Title */
 .title {
     -fx-font-size: 36px;
