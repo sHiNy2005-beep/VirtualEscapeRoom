@@ -11,11 +11,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650" prefWidth="900" styleClass="house-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.GardenPageController">
+<AnchorPane prefHeight="650" prefWidth="900" styleClass="garden-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.GardenPageController">
 
     <children>
 
-        <ImageView fx:id="safeImage" fitHeight="677.0" fitWidth="1074.0" layoutX="-127.0" onMouseClicked="#onSafeClicked" pickOnBounds="true" preserveRatio="true" styleClass="safe">
+        <ImageView fx:id="safeImage" fitHeight="677.0" fitWidth="1074.0" layoutX="-127.0" pickOnBounds="true" preserveRatio="true" styleClass="safe">
             <image>
                 <Image url="@../../images/GardenRoom.png" />
             </image>
@@ -54,7 +54,7 @@
             </menus>
         </MenuBar>
 
-        <Label fx:id="descLabel" layoutX="24.0" layoutY="110.0" prefWidth="360.0" text="You step into a beautiful garden filled with vibrant flowers and lush greenery. Amidst the beauty, you notice a locked gate that seems to be your only way out." wrapText="true">
+        <Label fx:id="descLabel" layoutX="24.0" layoutY="110.0" prefWidth="360.0" text="As you enter the garden... the ground wet... mushy. You can't help but smell the roses, you see a fresh mound of dirt as if... someone attempted to bury something... you get closer" wrapText="true">
             <font>
                 <Font name="Book Antiqua" size="20.0" />
             </font>
@@ -64,32 +64,24 @@
             </style>
         </Label>
 
-        <Button fx:id="backButton" layoutX="18.0" layoutY="578.0" mnemonicParsing="false" text="&lt; BACK">
+        <Button fx:id="backButton" layoutX="18.0" layoutY="578.0" mnemonicParsing="false" onAction="#onBack" prefHeight="36.0" prefWidth="110.0" text="&lt; BACK">
             <style>
-                -fx-background-radius:6;
-                -fx-padding:6 12 6 12;
-                -fx-background-color: linear-gradient(#ffffff, #dddddd);
-                -fx-text-fill: #222222;
+               -fx-background-radius:6;
+                -fx-padding:10 18 10 18;
+                -fx-background-color: linear-gradient(#c99e2b, #8f6608);
+                -fx-text-fill:white;
+                -fx-font-weight:bold;
             </style>
         </Button>
 
-        <Button fx:id="nextButton" layoutX="193.0" layoutY="570.0" mnemonicParsing="false" text="&lt; NEXT">
+        <Button fx:id="nextButton" layoutX="784.0" layoutY="578.0" mnemonicParsing="false" onAction="#onNext" prefHeight="36.0" prefWidth="110.0" text="NEXT &gt;">
             <style>
                 -fx-background-radius:6;
-                -fx-padding:6 12 6 12;
-                -fx-background-color: linear-gradient(#ffffff, #dddddd);
-                -fx-text-fill: #222222;
+                -fx-padding:10 18 10 18;
+                -fx-background-color: linear-gradient(#c99e2b, #8f6608);
+                -fx-text-fill:white;
+                -fx-font-weight:bold;
             </style>
         </Button>
-
-        <Label fx:id="hintLabel" layoutX="540.0" layoutY="180.0" text="">
-            <font>
-                <Font size="12.0" />
-            </font>
-            <style>
-                -fx-text-fill: #f7d884;
-                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 3, 0, 0, 1);
-            </style>
-        </Label>
     </children>
 </AnchorPane>
