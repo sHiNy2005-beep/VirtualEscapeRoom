@@ -144,11 +144,20 @@ public class LibraryPuzzleController {
     @FXML
     private void onBack() {
         try {
-            App.setRoot("Library");
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("LibraryRoom.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            if (messageLabel != null) {
+                messageLabel.setText("Can't navigate back.");
+            }
         }
     }
+
 
     private void hideHintOverlay() {
         if (hintOverlay == null) return;
