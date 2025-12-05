@@ -87,25 +87,25 @@
                 </ImageView>
 
                             
-                <Button fx:id="backButton" layoutX="33.0" layoutY="319.0" mnemonicParsing="false" onAction="#onBack" prefHeight="30.0" prefWidth="88.0" text="&lt; BACK">
-                    <style>
-                        -fx-background-radius:6;
-                        -fx-padding:10 18 10 18;
-                        -fx-background-color: linear-gradient(#c99e2b, #8f6608);
-                        -fx-text-fill:white;
-                        -fx-font-weight:bold;
-                    </style>
-                </Button>
+            <Button fx:id="backButton" layoutX="67.0" layoutY="556.0" mnemonicParsing="false" onAction="#onBack" prefHeight="36.0" prefWidth="110.0" text="&lt; BACK">
+                <style>
+                    -fx-background-radius:8;
+                    -fx-padding:6 12 6 12;
+                    -fx-background-color: linear-gradient(#c99e2b, #8f6608);
+                    -fx-text-fill:white;
+                    -fx-font-weight:bold;
+                </style>
+            </Button>
 
-                <Button fx:id="nextButton" layoutX="754.0" layoutY="325.0" mnemonicParsing="false" onAction="#onNext" prefHeight="30.0" prefWidth="88.0" text="&lt; NEXT">
-                    <style>
-                       -fx-background-radius:6;
-                        -fx-padding:10 18 10 18;
-                        -fx-background-color: linear-gradient(#c99e2b, #8f6608);
-                        -fx-text-fill:white;
-                        -fx-font-weight:bold;
-                    </style>
-                </Button>
+            <Button fx:id="nextButton" layoutX="775.0" layoutY="559.0" mnemonicParsing="false" onAction="#onNext" prefHeight="36.0" prefWidth="110.0" text="NEXT &gt;">
+                <style>
+                    -fx-background-radius:8;
+                    -fx-padding:6 12 6 12;
+                    -fx-background-color: linear-gradient(#c99e2b, #8f6608);
+                    -fx-text-fill:white;
+                    -fx-font-weight:bold;
+                </style>
+            </Button>
 
             </children>
         </Pane>

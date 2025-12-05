@@ -53,6 +53,27 @@
                     </image>
                 </ImageView>
 
+                <Label fx:id="itemsLabel" layoutX="36.0" layoutY="360.0" prefWidth="520.0" text="ITEMS ACQUIRED:SHOVEL, ROPE AND BLOODY STATUE">
+                    <font>
+                        <Font name="Book Antiqua" size="16.0" />
+                    </font>
+                    <style>
+                        -fx-text-fill: derive(#ffffff, -30%);
+                        -fx-opacity: 0.85;
+                    </style>
+                </Label>
+
+                
+                <Label fx:id="scoreLabel" layoutX="760.0" layoutY="381.0" text="+100">
+                    <font>
+                        <Font name="Book Antiqua" size="36.0" />
+                    </font>
+                    <style>
+                        -fx-text-fill: white;
+                        -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.6), 4, 0, 0, 1);
+                    </style>
+                </Label>
+
                             
                 <Button fx:id="backButton" layoutX="33.0" layoutY="319.0" mnemonicParsing="false" onAction="#onBack" prefHeight="30.0" prefWidth="88.0" text="&lt; BACK">
                     <style>
