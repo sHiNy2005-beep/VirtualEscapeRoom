@@ -1,11 +1,17 @@
 package com.example;
 
 import java.io.IOException;
+import java.net.URL;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -13,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class GardenPage1Controller {
@@ -62,24 +69,13 @@ public class GardenPage1Controller {
     private static final String CORRECT = "STATUE";
 
     @FXML
-    void onBack(ActionEvent event) 
-    {
-        try {
-            App.setRoot("gardenroom");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void onBackButton() {
+        loadSceneOnCurrentStage(backButton, "GardenRoom.fxml");
     }
 
     @FXML
-    public void onNext(ActionEvent event) {
-        try 
-        {
-            App.setRoot("gardenroom2");
-        } catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
+    private void onNextButton() {
+        loadSceneOnCurrentStage(backButton, "GardenRoom2.fxml");
     }
 
     @FXML
@@ -121,32 +117,35 @@ public class GardenPage1Controller {
     }
 
     @FXML
-    void onEnter(ActionEvent event) 
-    {
+    private void onEnter() {
         messageLabel.setText("");
         String answer = (answerField.getText() == null) ? "" : answerField.getText().trim();
         if (answer.isEmpty()) {
             messageLabel.setText("Please enter an answer.");
             return;
         }
-
-        if (CORRECT.equals(answer)) {
-           
-            javafx.scene.control.Alert ok = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-            ok.setTitle("Unlocked");
-            ok.setHeaderText(null);
-            ok.setContentText("Good job on solving this room! You found: ");
-            ok.showAndWait();
+        boolean correct = CORRECT.equalsIgnoreCase(answer);
+        if (correct) {
+            // Get score from facade and add to App.java variable
+            //int score = facade.getCurrentRoomScore();
+            //App.addScore(score);
+            
+            messageLabel.setText("");
             try {
-                App.setRoot("gardenroom2");
+                Stage stage = (Stage) answerField.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("GardenRoom2.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
+                messageLabel.setText("Can't open next screen.");
             }
         } else {
             messageLabel.setText("Try again.");
         }
     }
-
     @FXML
     void onMenuHome(ActionEvent event) 
     {
@@ -175,6 +174,47 @@ public class GardenPage1Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadSceneOnCurrentStage(Node anyNode, String fxmlResource) {
+        Stage stage = (Stage) anyNode.getScene().getWindow();
+        if (stage == null) {
+            showAlert("Error", "Unable to find the window to change scenes.");
+            return;
+        }
+
+        URL fxmlUrl = getClass().getResource(fxmlResource);
+        if (fxmlUrl == null) {
+            fxmlUrl = getClass().getResource("/" + fxmlResource);
+        }
+        if (fxmlUrl == null) {
+            showAlert("Missing FXML", "Can't find FXML: " + fxmlResource + "\nMake sure the path is correct.");
+            return;
+        }
+
+        try {
+            Parent root = FXMLLoader.load(fxmlUrl);
+            Scene currentScene = stage.getScene();
+            if (currentScene == null) {
+                stage.setScene(new Scene(root));
+            } else {
+                currentScene.setRoot(root);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            showAlert("Load Error", "Failed to load: " + fxmlResource + "\n" + ex.getMessage());
+        }
+    }
+
+    /**
+     * Show an alert dialog with the given title and content
+     */
+    private void showAlert(String title, String content) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(content);
+        a.showAndWait();
     }
 
 }

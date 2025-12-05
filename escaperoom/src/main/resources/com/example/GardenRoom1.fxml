@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="500.0" prefWidth="900.0" styleClass="room-root" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.GardenPage1Controller">
+<AnchorPane prefHeight="749.0" prefWidth="1018.0" styleClass="room-root" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.GardenPage1Controller">
 
     <children>
 
@@ -79,15 +79,15 @@
                         <Image url="@../../images/Shovel.png" />
                     </image>
                 </ImageView>
-
-                <ImageView fx:id="RopePreview" fitHeight="135.0" fitWidth="120.0" layoutX="700.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+      
+                      <ImageView fx:id="RopePreview" fitHeight="135.0" fitWidth="120.0" layoutX="685.0" layoutY="116.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../images/Rope.png" />
                     </image>
                 </ImageView>
 
-                            
-            <Button fx:id="backButton" layoutX="67.0" layoutY="556.0" mnemonicParsing="false" onAction="#onBack" prefHeight="36.0" prefWidth="110.0" text="&lt; BACK">
+                                        
+                        <Button fx:id="backButton" layoutX="1.0" layoutY="296.0" mnemonicParsing="false" onAction="#onBackButton" prefHeight="36.0" prefWidth="110.0" text="&lt; BACK">
                 <style>
                     -fx-background-radius:8;
                     -fx-padding:6 12 6 12;
@@ -96,8 +96,8 @@
                     -fx-font-weight:bold;
                 </style>
             </Button>
-
-            <Button fx:id="nextButton" layoutX="775.0" layoutY="559.0" mnemonicParsing="false" onAction="#onNext" prefHeight="36.0" prefWidth="110.0" text="NEXT &gt;">
+      
+                  <Button fx:id="nextButton" layoutX="690.0" layoutY="290.0" mnemonicParsing="false" onAction="#onNextButton" prefHeight="36.0" prefWidth="110.0" text="NEXT &gt;">
                 <style>
                     -fx-background-radius:8;
                     -fx-padding:6 12 6 12;
@@ -149,7 +149,7 @@
 
             </children>
         </Pane>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#161718" height="109.0" layoutX="-2.0" layoutY="-3.0" opacity="0.23" stroke="BLACK" strokeType="INSIDE" width="900.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#161718" height="269.0" layoutX="-24.0" layoutY="-163.0" opacity="0.23" stroke="BLACK" strokeType="INSIDE" width="922.0" />
 
         <Label fx:id="titleLabel" layoutX="24.0" layoutY="12.0" text="GARDEN">
             <font>

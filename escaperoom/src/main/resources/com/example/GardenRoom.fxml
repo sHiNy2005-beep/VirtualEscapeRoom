@@ -11,11 +11,11 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="650" prefWidth="900" styleClass="garden-background" xmlns="http://javafx.com/javafx/13" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.GardenPageController">
+<AnchorPane prefHeight="767.0" prefWidth="1181.0" styleClass="garden-background" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.GardenPageController">
 
     <children>
 
-        <ImageView fx:id="safeImage" fitHeight="677.0" fitWidth="1074.0" layoutX="-127.0" pickOnBounds="true" preserveRatio="true" styleClass="safe">
+        <ImageView fx:id="safeImage" fitHeight="770.0" fitWidth="1294.0" layoutX="-126.0" layoutY="-24.0" pickOnBounds="true" preserveRatio="true" styleClass="safe">
             <image>
                 <Image url="@../../images/GardenRoom.png" />
             </image>
@@ -64,7 +64,7 @@
             </style>
         </Label>
 
-        <Button fx:id="backButton" layoutX="18.0" layoutY="578.0" mnemonicParsing="false" onAction="#onBack" prefHeight="36.0" prefWidth="110.0" text="&lt; BACK">
+        <Button fx:id="backButton" layoutX="18.0" layoutY="578.0" mnemonicParsing="false" onAction="#onBackButton" prefHeight="36.0" prefWidth="110.0" text="&lt; BACK">
             <style>
                -fx-background-radius:6;
                 -fx-padding:10 18 10 18;
@@ -74,7 +74,7 @@
             </style>
         </Button>
 
-        <Button fx:id="nextButton" layoutX="784.0" layoutY="578.0" mnemonicParsing="false" onAction="#onNext" prefHeight="36.0" prefWidth="110.0" text="NEXT &gt;">
+        <Button fx:id="nextButton" layoutX="784.0" layoutY="578.0" mnemonicParsing="false" onAction="#onNextButton" prefHeight="36.0" prefWidth="110.0" text="NEXT &gt;">
             <style>
                 -fx-background-radius:6;
                 -fx-padding:10 18 10 18;
