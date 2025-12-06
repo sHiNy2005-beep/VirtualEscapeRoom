@@ -1,77 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
-
-<BorderPane xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.example.BedroomPage1Controller"
-            prefWidth="900" prefHeight="600"
-            stylesheets="@styles.css">
-
- 
-    <center>
-        <StackPane>
-
-            <ImageView fx:id="bgImage" fitHeight="585" fitWidth="974" mouseTransparent="true" preserveRatio="false">
-                <image>
-                    <Image url="@../../images/bedroom1.png" />
-                </image>
-            </ImageView>
-
-             <VBox alignment="CENTER">
-               <BorderPane prefHeight="674.0" prefWidth="1019.0" style="-fx-padding: 18;">
-                   <top>
-                       <VBox spacing="8">
-                           <Label styleClass="title" text="BEDROOM" textFill="WHITE">
-                        <font>
-                           <Font size="48.0" />
-                        </font>
-                     </Label>
-                           <HBox alignment="CENTER_LEFT" prefHeight="11.0" prefWidth="702.0" spacing="16" styleClass="nav-links">
-                               <Label styleClass="nav-item" text="Home" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                               <Label styleClass="nav-item active" text="Rooms" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                           </HBox>
-                       </VBox>
-                   </top>
-   
-                   <bottom>
-                       <BorderPane style="-fx-padding: 8;">
-                           <left>
-                               <Button fx:id="backBtn" onAction="#onBack" styleClass="nav-btn" text="&lt; BACK" />
-                           </left>
-                           <right>
-                               <Button fx:id="nextBtn" onAction="#onNext" styleClass="nav-btn" text="NEXT &gt;" />
-                           </right>
-                       </BorderPane>
-                   </bottom>
-               <left>
-                      <Label contentDisplay="BOTTOM" maxWidth="600" opacity="0.66" style="-fx-font-size: 22px;                             -fx-font-weight: bold;                             -fx-text-fill: white;                             -fx-effect: dropshadow(gaussian, black, 8, 0, 0, 2);                             -fx-padding: 20;                             -fx-background-color: rgba(0,0,0,0.45);                             -fx-background-radius: 12;" text="As soon as you enter.. the sheets catch your attention then you look at the wall..." textFill="#00000067" textOverrun="CLIP" wrapText="true" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font size="10.0" />
-                     </font>
-                  </Label>
-               </left>
-               </BorderPane>
-            </VBox>
-            
-
-        </StackPane>
-    </center>
-
-</BorderPane>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.BedroomPage1Controller">
+    <children>
+        <Rectangle fx:id="overlay" fill="#000000" opacity="0.18" mouseTransparent="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        </Rectangle>
+        
+        <Label fx:id="titleLabel" layoutX="24.0" layoutY="12.0" text="BEDROOM">
+            <font>
+                <Font name="Book Antiqua" size="48.0" />
+            </font>
+            <style>
+                -fx-text-fill: white;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 6, 0, 0, 2);
+            </style>
+        </Label>
+        
+        <MenuBar layoutX="16.0" layoutY="64.0" prefWidth="300.0">
+            <menus>
+                <Menu text="Home">
+                    <items>
+                        <MenuItem fx:id="menuHome" onAction="#onMenuHome" text="Home" />
+                    </items>
+                </Menu>
+                <Menu text="Rooms">
+                    <items>
+                        <MenuItem fx:id="menuRooms" onAction="#onMenuRooms" text="Rooms" />
+                    </items>
+                </Menu>
+                <Menu text="Items">
+                    <items>
+                        <MenuItem fx:id="menuItems" onAction="#onMenuItems" text="Items" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        
+        <Label fx:id="descriptionLabel" layoutX="50.0" layoutY="110.0" prefWidth="540.0" text="" wrapText="true">
+            <font>
+                <Font name="Book Antiqua" size="20.0" />
+            </font>
+            <style>
+                -fx-text-fill: white;
+                -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0, 0, 2);
+            </style>
+        </Label>
+        
+        <Button fx:id="backBtn" layoutX="20.0" layoutY="520.0" text="&lt; BACK" onAction="#onBack">
+            <style>
+                -fx-background-radius:6;
+                -fx-padding:6 12 6 12;
+                -fx-background-color: linear-gradient(#ffffff, #dddddd);
+                -fx-text-fill: #222222;
+            </style>
+        </Button>
+        
+        <Button fx:id="nextBtn" layoutX="760.0" layoutY="520.0" text="NEXT &gt;" onAction="#onNext">
+            <style>
+                -fx-background-radius:6;
+                -fx-padding:6 12 6 12;
+                -fx-background-color: linear-gradient(#ffffff, #dddddd);
+                -fx-text-fill: #222222;
+            </style>
+        </Button>
+    </children>
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+</AnchorPane>

@@ -48,7 +48,6 @@ public class LibraryController implements Initializable {
     @FXML
     private MenuItem menuItems;
 
-    private boolean bookClicked = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
