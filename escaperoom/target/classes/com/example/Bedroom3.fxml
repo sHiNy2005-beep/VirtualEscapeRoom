@@ -55,13 +55,13 @@
                                 <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="889.0" spacing="24">
                                     <ImageView fx:id="img1" fitHeight="84.0" fitWidth="129.0" preserveRatio="true" styleClass="item-image">
                                         <image>
-                                            <Image url="@../../images/love-letter.png" />
+                                            <Image url="@/images/love-letter.png" />
                                         </image>
                                     </ImageView>
 
                                     <ImageView fx:id="img2" fitHeight="100" fitWidth="100" preserveRatio="true" styleClass="item-image">
                                         <image>
-                                            <Image url="@../../images/necklace.png" />
+                                            <Image url="@/images/necklace.png" />
                                         </image>
                                     </ImageView>
                                 </HBox>

@@ -22,7 +22,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
      
-        scene = new Scene(loadFXML("Bedroom3"), 980, 640);
+        scene = new Scene(loadFXML("ExploreRooms"), 980, 640);
         stage.setScene(scene);
         stage.setTitle("Hamton Mansion Virtual Escape Room");
         stage.setResizable(true);

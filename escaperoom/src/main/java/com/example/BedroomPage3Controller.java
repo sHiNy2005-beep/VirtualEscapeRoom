@@ -1,17 +1,22 @@
 package com.example;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +37,15 @@ public class BedroomPage3Controller implements Initializable {
     @FXML private Button nextButton;
 
     private ToggleGroup pageGroup;
+
+    private static final String ROOMS_ROUTE = "explorerooms";
+
+    private static final String[] PREV_CANDIDATES = {
+            "/com/example/ExploreRooms.fxml",
+            "/com/example/explorerooms.fxml",
+            "/com/example/ExploreRoomsPage.fxml",
+            "/com/example/exploreRooms.fxml"
+    };
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -54,7 +68,7 @@ public class BedroomPage3Controller implements Initializable {
         loadImagesForPage(1);
 
         if (backButton != null) backButton.setOnAction(e -> onBack());
-        if (nextButton != null) nextButton.setOnAction(e -> onNext());
+        if (nextButton != null) nextButton.setOnAction(this::onNext);
     }
 
     private void loadImagesForPage(int page) {
@@ -64,6 +78,16 @@ public class BedroomPage3Controller implements Initializable {
                 setImageSafe(img2, "/images/loveletter.jpg");
                 setLabelSafe(itemsText, "Locket & Love Letter");
                 setLabelSafe(scoreLabel, "+100");
+            } else if (page == 2) {
+                setImageSafe(img1, "/images/itemA.png");
+                setImageSafe(img2, "/images/itemB.png");
+                setLabelSafe(itemsText, "Item A & Item B");
+                setLabelSafe(scoreLabel, "+50");
+            } else {
+                setImageSafe(img1, "/images/itemC.png");
+                setImageSafe(img2, "/images/itemD.png");
+                setLabelSafe(itemsText, "Item C & Item D");
+                setLabelSafe(scoreLabel, "+25");
             }
         } catch (Exception ex) {
             if (img1 != null) img1.setImage(null);
@@ -77,12 +101,19 @@ public class BedroomPage3Controller implements Initializable {
     private void setImageSafe(ImageView iv, String resourcePath) {
         if (iv == null) return;
         try {
-            var stream = getClass().getResourceAsStream(resourcePath);
-            if (stream != null) {
-                iv.setImage(new Image(stream));
+            URL url = getClass().getResource(resourcePath);
+            if (url != null) {
+                iv.setImage(new Image(url.toExternalForm()));
             } else {
-                iv.setImage(null);
-                System.err.println("Resource not found: " + resourcePath);
+                // try classloader with trimmed path
+                String trimmed = resourcePath.startsWith("/") ? resourcePath.substring(1) : resourcePath;
+                URL url2 = Thread.currentThread().getContextClassLoader().getResource(trimmed);
+                if (url2 != null) {
+                    iv.setImage(new Image(url2.toExternalForm()));
+                } else {
+                    iv.setImage(null);
+                    System.err.println("Resource not found: " + resourcePath);
+                }
             }
         } catch (Exception e) {
             iv.setImage(null);
@@ -96,51 +127,55 @@ public class BedroomPage3Controller implements Initializable {
 
     @FXML
     private void onBack() {
-        if (pageGroup == null) return;
-        var selected = (ToggleButton) pageGroup.getSelectedToggle();
-        if (selected == page1) {
-            page3.fire();
-        } else if (selected == page2) {
-            page1.fire();
-        } else {
-            page2.fire();
-        }
-        System.out.println("Back pressed");
+       navigateTo("Bedroom2.fxml");
     }
 
     @FXML
-    private void onNext() {
-        if (pageGroup == null) return;
-        var selected = (ToggleButton) pageGroup.getSelectedToggle();
-        if (selected == page1) {
-            page2.fire();
-        } else if (selected == page2) {
-            page3.fire();
-        } else {
-            goToExploreRooms();
-        }
-        System.out.println("Next pressed");
+    private void onNext(ActionEvent event) {
+        // navigate to Explore Rooms
+        //if (tryAppSetRoot(ROOMS_ROUTE)) return;
+       // navigateToFirstAvailable(PREV_CANDIDATES, "Explore Rooms");
+        navigateTo("ExploreRooms.fxml");
+
     }
 
-    private void goToExploreRooms() {
+    private boolean tryAppSetRoot(String routeName) {
         try {
-            Class<?> appClass = Class.forName("com.example.App");
-            var method = appClass.getMethod("setRoot", String.class);
-            method.invoke(null, "explorerooms");
-            return;
-        } catch (Exception ignored) {}
-
-        Scene scene = (nextButton != null) ? nextButton.getScene() : null;
-        if (scene == null && backButton != null) scene = backButton.getScene();
-        if (scene == null) {
-            System.err.println("No scene available for fallback navigation to Explore Rooms.");
-            return;
+            // try direct call first
+            com.example.App.setRoot(routeName);
+            return true;
+        } catch (Exception directEx) {
+            // try declared method (handles package-private)
+            try {
+                Class<?> appClass = Class.forName("com.example.App");
+                Method m = appClass.getDeclaredMethod("setRoot", String.class);
+                m.setAccessible(true);
+                m.invoke(null, routeName);
+                return true;
+            } catch (Exception e) {
+                System.err.println("tryAppSetRoot failed: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+                return false;
+            }
         }
+    }
 
-        String[] candidates = {
-                "/com/example/ExploreRooms.fxml",
-                "/com/example/explorerooms.fxml"
-        };
+     private void navigateTo(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error loading " + fxmlFile + ": " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void navigateToFirstAvailable(String[] candidates, String name) {
+        Scene scene = (nextButton != null) ? nextButton.getScene() : (backButton != null ? backButton.getScene() : null);
+        if (scene == null) return;
 
         for (String candidate : candidates) {
             URL url = getClass().getResource(candidate);
@@ -150,11 +185,13 @@ public class BedroomPage3Controller implements Initializable {
                 Parent root = loader.load();
                 scene.setRoot(root);
                 return;
-            } catch (Exception ex) {
-                // try next candidate
-            }
+            } catch (IOException ignored) {}
         }
 
-        System.err.println("Fallback navigation failed: could not load Explore Rooms FXML.");
+        Alert a = new Alert(Alert.AlertType.WARNING);
+        a.setTitle("Navigation Error");
+        a.setHeaderText(null);
+        a.setContentText("Could not load: " + name);
+        a.showAndWait();
     }
 }
