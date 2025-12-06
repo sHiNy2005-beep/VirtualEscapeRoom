@@ -1,7 +1,10 @@
 package com.example;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -32,63 +35,69 @@ public class BedroomPage3Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // set clock time (static for demo; could be animated)
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
-        timeLabel.setText(LocalTime.now().format(fmt));
+        if (timeLabel != null) {
+            timeLabel.setText(LocalTime.now().format(fmt));
+        }
 
-        // Toggle group for pages (so only one is selected)
         pageGroup = new ToggleGroup();
-        page1.setToggleGroup(pageGroup);
-        page2.setToggleGroup(pageGroup);
-        page3.setToggleGroup(pageGroup);
-        page1.setSelected(true);
+        if (page1 != null && page2 != null && page3 != null) {
+            page1.setToggleGroup(pageGroup);
+            page2.setToggleGroup(pageGroup);
+            page3.setToggleGroup(pageGroup);
+            page1.setSelected(true);
+            page1.setOnAction(e -> loadImagesForPage(1));
+            page2.setOnAction(e -> loadImagesForPage(2));
+            page3.setOnAction(e -> loadImagesForPage(3));
+        }
 
-        // load default images (replace with your resource paths)
         loadImagesForPage(1);
 
-        // handlers for page change
-        page1.setOnAction(e -> loadImagesForPage(1));
-        page2.setOnAction(e -> loadImagesForPage(2));
-        page3.setOnAction(e -> loadImagesForPage(3));
-
-        // navigation handlers
-        backButton.setOnAction(e -> onBack());
-        nextButton.setOnAction(e -> onNext());
+        if (backButton != null) backButton.setOnAction(e -> onBack());
+        if (nextButton != null) nextButton.setOnAction(e -> onNext());
     }
 
     private void loadImagesForPage(int page) {
-        // Example: load images from resources folder /images/
-        // Replace with your actual image paths or URLs
         try {
             if (page == 1) {
-                img1.setImage(new Image(getClass().getResourceAsStream("/images/locket.jpg")));
-                img2.setImage(new Image(getClass().getResourceAsStream("/images/loveletter.jpg")));
-                itemsText.setText("Locket & Love Letter");
-                scoreLabel.setText("+100");
-            } else if (page == 2) {
-                img1.setImage(new Image(getClass().getResourceAsStream("/images/room2a.jpg")));
-                img2.setImage(new Image(getClass().getResourceAsStream("/images/room2b.jpg")));
-                itemsText.setText("Found: Candle & Note");
-                scoreLabel.setText("+20");
-            } else {
-                img1.setImage(new Image(getClass().getResourceAsStream("/images/room3a.jpg")));
-                img2.setImage(new Image(getClass().getResourceAsStream("/images/room3b.jpg")));
-                itemsText.setText("Empty");
-                scoreLabel.setText("+0");
+                setImageSafe(img1, "/images/locket.jpg");
+                setImageSafe(img2, "/images/loveletter.jpg");
+                setLabelSafe(itemsText, "Locket & Love Letter");
+                setLabelSafe(scoreLabel, "+100");
             }
         } catch (Exception ex) {
-            // fallback: clear or use placeholders
-            img1.setImage(null);
-            img2.setImage(null);
-            itemsText.setText("No images available (check resource paths)");
-            scoreLabel.setText("+0");
+            if (img1 != null) img1.setImage(null);
+            if (img2 != null) img2.setImage(null);
+            setLabelSafe(itemsText, "No images available (check resource paths)");
+            setLabelSafe(scoreLabel, "+0");
             System.err.println("Failed to load images: " + ex.getMessage());
         }
     }
 
+    private void setImageSafe(ImageView iv, String resourcePath) {
+        if (iv == null) return;
+        try {
+            var stream = getClass().getResourceAsStream(resourcePath);
+            if (stream != null) {
+                iv.setImage(new Image(stream));
+            } else {
+                iv.setImage(null);
+                System.err.println("Resource not found: " + resourcePath);
+            }
+        } catch (Exception e) {
+            iv.setImage(null);
+            System.err.println("Error loading image " + resourcePath + ": " + e.getMessage());
+        }
+    }
+
+    private void setLabelSafe(Label lbl, String text) {
+        if (lbl != null) lbl.setText(text);
+    }
+
+    @FXML
     private void onBack() {
-        // implement navigation logic; here we just print and toggle pages cyclically
-        ToggleButton selected = (ToggleButton) pageGroup.getSelectedToggle();
+        if (pageGroup == null) return;
+        var selected = (ToggleButton) pageGroup.getSelectedToggle();
         if (selected == page1) {
             page3.fire();
         } else if (selected == page2) {
@@ -99,15 +108,53 @@ public class BedroomPage3Controller implements Initializable {
         System.out.println("Back pressed");
     }
 
+    @FXML
     private void onNext() {
-        ToggleButton selected = (ToggleButton) pageGroup.getSelectedToggle();
+        if (pageGroup == null) return;
+        var selected = (ToggleButton) pageGroup.getSelectedToggle();
         if (selected == page1) {
             page2.fire();
         } else if (selected == page2) {
             page3.fire();
         } else {
-            page1.fire();
+            goToExploreRooms();
         }
         System.out.println("Next pressed");
+    }
+
+    private void goToExploreRooms() {
+        try {
+            Class<?> appClass = Class.forName("com.example.App");
+            var method = appClass.getMethod("setRoot", String.class);
+            method.invoke(null, "explorerooms");
+            return;
+        } catch (Exception ignored) {}
+
+        Scene scene = (nextButton != null) ? nextButton.getScene() : null;
+        if (scene == null && backButton != null) scene = backButton.getScene();
+        if (scene == null) {
+            System.err.println("No scene available for fallback navigation to Explore Rooms.");
+            return;
+        }
+
+        String[] candidates = {
+                "/com/example/ExploreRooms.fxml",
+                "/com/example/explorerooms.fxml"
+        };
+
+        for (String candidate : candidates) {
+            URL url = getClass().getResource(candidate);
+            if (url == null) continue;
+            try {
+                FXMLLoader loader = new FXMLLoader(url);
+                Parent root = loader.load();
+                scene.setRoot(root);
+                return;
+            } catch (Exception ex) {
+                // try next candidate
+            }
+        }
+
+        System.err.println("Fallback navigation failed: could not load Explore Rooms FXML.");
     }
 }

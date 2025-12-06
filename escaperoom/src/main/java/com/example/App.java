@@ -17,14 +17,12 @@ public class App extends Application {
     private static Scene scene;
     private static final EscapeRoomFacade FACADE = new EscapeRoomFacade();
     
-    // Score tracking variable
     private static int score = 0;
 
     @Override
     public void start(Stage stage) throws IOException {
      
-        scene = new Scene(loadFXML("DiningRoom3"), 980, 640);
-       // scene=new Scene(loadFXML("landing"), 980, 640);
+        scene = new Scene(loadFXML("Bedroom3"), 980, 640);
         stage.setScene(scene);
         stage.setTitle("Hamton Mansion Virtual Escape Room");
         stage.setResizable(true);
