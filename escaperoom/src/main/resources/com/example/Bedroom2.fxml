@@ -43,11 +43,6 @@
                               <Font size="15.0" />
                            </font>
                         </Label>
-                               <Label styleClass="nav-item" text="Items" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
                            </HBox>
                        </VBox>
                    </top>

@@ -35,11 +35,6 @@
                         <MenuItem fx:id="menuRooms" onAction="#onMenuRooms" text=" Rooms" />
                     </items>
                 </Menu>
-                <Menu text="Items">
-                    <items>
-                        <MenuItem fx:id="menuItems" onAction="#onMenuItems" text="Items" />
-                    </items>
-                </Menu>
             </menus>
         </MenuBar>
         <Label fx:id="descLabel" layoutX="32.0" layoutY="112.0" prefWidth="360.0" text="You have entered Hamton's study and find yourself locked inside. Find the code. Unlock the safe. Escape before it's too late." wrapText="true">

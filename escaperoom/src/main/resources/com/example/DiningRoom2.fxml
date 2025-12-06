@@ -41,9 +41,6 @@
                 <Menu text="Rooms">
                     <items><MenuItem fx:id="menuRooms" onAction="#onMenuRooms" text="Rooms" /></items>
                 </Menu>
-                <Menu text="Items">
-                    <items><MenuItem fx:id="menuItems" onAction="#onMenuItems" text="Items" /></items>
-                </Menu>
             </menus>
         </MenuBar>
 

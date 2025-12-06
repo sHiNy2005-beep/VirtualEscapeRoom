@@ -36,7 +36,6 @@
                             <HBox alignment="CENTER_LEFT" spacing="18" styleClass="nav-links">
                                 <Label styleClass="nav-item" text="Home" textFill="white"><font><Font size="15" /></font></Label>
                                 <Label styleClass="nav-item active" text="Rooms" textFill="WHITE"><font><Font size="15" /></font></Label>
-                                <Label styleClass="nav-item" text="Items" textFill="white"><font><Font size="15" /></font></Label>
                             </HBox>
                         </VBox>
                     </left>
