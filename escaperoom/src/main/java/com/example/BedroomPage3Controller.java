@@ -132,10 +132,10 @@ public class BedroomPage3Controller implements Initializable {
 
     @FXML
     private void onNext(ActionEvent event) {
-        // navigate to Explore Rooms
-        //if (tryAppSetRoot(ROOMS_ROUTE)) return;
-       // navigateToFirstAvailable(PREV_CANDIDATES, "Explore Rooms");
-        navigateTo("ExploreRooms.fxml");
+       // navigate to Explore Rooms
+        if (tryAppSetRoot(ROOMS_ROUTE)) return;
+        navigateToFirstAvailable(PREV_CANDIDATES, "Explore Rooms");
+       // navigateTo("ExploreRooms.fxml");
 
     }
 
