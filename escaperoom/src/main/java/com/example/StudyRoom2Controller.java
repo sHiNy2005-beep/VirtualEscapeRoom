@@ -7,13 +7,17 @@ import javafx.animation.Interpolator;
 import javafx.animation.SequentialTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.io.IOException;
 
@@ -50,7 +54,7 @@ public class StudyRoom2Controller {
         }
     }
 
-    @FXML
+   @FXML
     private void onEnter() {
         messageLabel.setText("");
         String answer = (answerField.getText() == null) ? "" : answerField.getText().trim();
@@ -59,25 +63,20 @@ public class StudyRoom2Controller {
             shake(answerField);
             return;
         }
-
-       boolean correct = false;
-        try {
-            correct = facade.submitAnswer(PUZZLE_TITLE, answer);
-        } catch (Exception ignored) { 
-
-        }
-
-        if (!correct) {
-          
-            correct = CORRECT.equals(answer);
-        }
-
+        boolean correct = CORRECT.equalsIgnoreCase(answer);
         if (correct) {
+            // Get score from facade and add to App.java variable
+            int score = facade.getCurrentRoomScore();
+            App.addScore(score);
+            
             messageLabel.setText("");
             try {
-                App.setRoot("Studyroom3");
-                int score = facade.getCurrentRoomScore();
-                App.addScore(score);
+                Stage stage = (Stage) answerField.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Studyroom3.fxml"));
+                Parent root = loader.load();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             } catch (IOException e) {
                 e.printStackTrace();
                 messageLabel.setText("Can't open next screen.");
@@ -118,6 +117,8 @@ public class StudyRoom2Controller {
             e.printStackTrace();
         }
     }
+
+   
 
 
     private void hideHintOverlay() {

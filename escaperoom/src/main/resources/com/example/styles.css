@@ -246,28 +246,16 @@
     -fx-font-size: 18px;
     -fx-text-fill: #ffffff;
 }
-
-.time-text {
-    -fx-text-fill: #ffffff;
-    -fx-font-size: 14px;
+/**
+.room-root {
+    -fx-background-image: url("file:/mnt/data/36190bae-8639-459c-a1b7-ff78adf4439b.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
 }
-
-.page-bg {
-    -fx-background-color: #5f391f; 
-    -fx-padding: 20;
-}
-
-.card {
-    -fx-background-color: #2d2118; 
-    -fx-border-color: #4e3724;
-    -fx-border-width: 10;
-    -fx-padding: 24;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 8, 0.0, 0, 4);
-}
-
-.card-title {
-    -fx-text-fill: #f2e9dc;
-    -fx-font-size: 28px;
+*/
+.description {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
 }
 
@@ -340,12 +328,12 @@
     -fx-scale-y: 1.03;
 }
 
-/* Root styling */
+/* /
 .root {
     -fx-background-color: #1a1a2e;
     -fx-font-family: "Segoe UI", Arial, sans-serif;
 }
-
+*/
 /* Title */
 .title {
     -fx-font-size: 36px;

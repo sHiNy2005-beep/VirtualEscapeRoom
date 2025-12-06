@@ -3,9 +3,14 @@ package com.example;
 import com.model.EscapeRoomFacade;
 import com.model.Room;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 
 public class DiningRoom3Controller {
@@ -44,11 +49,7 @@ public class DiningRoom3Controller {
 
     @FXML
     private void onNext() {
-         try {      
-        App.setRoot("Leaderboard");          
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+        navigateTo("Leaderboard.fxml");
     }
 
     @FXML
@@ -76,5 +77,19 @@ public class DiningRoom3Controller {
         a.setHeaderText(null);
         a.setContentText("Items list not implemented yet.");
         a.showAndWait();
+    }
+
+     private void navigateTo(String fxmlFile) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error loading " + fxmlFile + ": " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }
