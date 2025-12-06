@@ -52,7 +52,7 @@ public class GardenPage2Controller {
 
     @FXML
     private void onNextButton() {
-        loadSceneOnCurrentStage(backButton, "ExploreRooms.fxml");
+        loadSceneOnCurrentStage(nextButton, "ExploreRooms.fxml");
     }
 
     @FXML

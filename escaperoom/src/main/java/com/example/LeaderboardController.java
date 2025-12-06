@@ -4,14 +4,23 @@ import com.model.EscapeRoomFacade;
 import com.model.Room;
 import com.model.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -22,6 +31,7 @@ public class LeaderboardController implements Initializable {
     @FXML private VBox userScoreSection;
     @FXML private Label titleLabel;
     @FXML private ScrollPane scrollPane;
+    @FXML private Button CertificateButton;
 
     private EscapeRoomFacade facade;
 
@@ -180,11 +190,48 @@ public class LeaderboardController implements Initializable {
      * Handle back button action
      */
     @FXML
-    private void handleBackButton() {
-        try {
-            App.setRoot("ExploreRooms");
-        } catch (Exception e) {
-            e.printStackTrace();
+    private void ViewCertificateButton() {
+        loadSceneOnCurrentStage(CertificateButton, " Certificate.fxml");
+    }
+
+    private void loadSceneOnCurrentStage(Node anyNode, String fxmlResource) {
+        Stage stage = (Stage) anyNode.getScene().getWindow();
+        if (stage == null) {
+            showAlert("Error", "Unable to find the window to change scenes.");
+            return;
         }
+
+        URL fxmlUrl = getClass().getResource(fxmlResource);
+        if (fxmlUrl == null) {
+            fxmlUrl = getClass().getResource("/" + fxmlResource);
+        }
+        if (fxmlUrl == null) {
+            showAlert("Missing FXML", "Can't find FXML: " + fxmlResource + "\nMake sure the path is correct.");
+            return;
+        }
+
+        try {
+            Parent root = FXMLLoader.load(fxmlUrl);
+            Scene currentScene = stage.getScene();
+            if (currentScene == null) {
+                stage.setScene(new Scene(root));
+            } else {
+                currentScene.setRoot(root);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            showAlert("Load Error", "Failed to load: " + fxmlResource + "\n" + ex.getMessage());
+        }
+    }
+
+    /**
+     * Show an alert dialog with the given title and content
+     */
+    private void showAlert(String title, String content) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
+        a.setHeaderText(null);
+        a.setContentText(content);
+        a.showAndWait();
     }
 }
