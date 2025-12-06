@@ -1,189 +1,167 @@
 package com.example;
 
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
+import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ResourceBundle;
 
-public class BedroomPage1Controller {
-
-    private static final String HOME_ROUTE = "landing";
-    private static final String ROOMS_ROUTE = "explorerooms";
-    private static final String ITEMS_ROUTE = "items";
-    private static final String BEDROOM2_ROUTE = "Bedroom2";
-
-    private static final String[] PREV_CANDIDATES = {
-            "/com/example/ExploreRooms.fxml",
-            "/com/example/explorerooms.fxml",
-            "/com/example/ExploreRoomsPage.fxml",
-            "/com/example/exploreRooms.fxml"
-    };
-
-    private static final String[] NEXT_CANDIDATES = {
-            "/com/example/Bedroom2.fxml",
-    };
-
-    @FXML private ImageView bgImage;
-    @FXML private Button backBtn;
-    @FXML private Button nextBtn;
-
-    private final LinkedHashSet<Label> navItems = new LinkedHashSet<>();
+public class BedroomPage1Controller implements Initializable {
 
     @FXML
-    private void initialize() {
-        if (bgImage != null) {
-            bgImage.sceneProperty().addListener((obs, o, n) -> {
-                if (n != null) {
-                    Platform.runLater(() -> {
-                        collectNavItems(n);
-                        wireKeyboardHandlers(n);
-                    });
-                }
-            });
-        }
+    private AnchorPane rootPane;
 
-        Platform.runLater(() -> {
-            Scene scene = bgImage != null ? bgImage.getScene() : null;
-            if (scene != null) {
-                collectNavItems(scene);
-                wireKeyboardHandlers(scene);
-            }
-        });
+    @FXML
+    private Label titleLabel;
+
+    @FXML
+    private Label descriptionLabel;
+
+    @FXML
+    private Button backBtn;
+
+    @FXML
+    private Button nextBtn;
+
+    @FXML
+    private MenuItem menuHome;
+
+    @FXML
+    private MenuItem menuRooms;
+
+    @FXML
+    private MenuItem menuItems;
+
+    private static final String PAGE_TEXT =
+            "As soon as you enter... the smell of the sheets catches your attention. "
+            + "The room feels still. A bedside table glints faintly to your right.";
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("BedroomPage1Controller initialize() called");
+        
+        // Set background using resource URL
+        URL imageUrl = getClass().getResource("/images/bedroom1.png");
+        
+        if (imageUrl != null) {
+            rootPane.setStyle(
+                "-fx-background-image: url('" + imageUrl.toExternalForm() + "'); " +
+                "-fx-background-repeat: no-repeat; " +
+                "-fx-background-size: cover; " +
+                "-fx-background-position: center;"
+            );
+            System.out.println("✓ Background set with URL: " + imageUrl.toExternalForm());
+        } else {
+            System.out.println("✗ Image not found at: /images/bedroom1.png");
+            System.out.println("✗ No bedroom background image found");
+        }
+        
+        // Fade in description
+        descriptionLabel.setOpacity(0);
+        descriptionLabel.setText(PAGE_TEXT);
+        FadeTransition ft = new FadeTransition(Duration.millis(300), descriptionLabel);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
+
+        updateNavButtons();
     }
 
-    private void collectNavItems(Scene scene) {
-        Set<Node> nodes = scene.getRoot().lookupAll(".nav-item");
-        for (Node n : nodes) {
-            if (n instanceof Label) {
-                Label lbl = (Label) n;
-                navItems.add(lbl);
-                lbl.setOnMouseClicked(e -> {
-                    String text = lbl.getText().trim();
-                    if ("Rooms".equals(text)) {
-                        boolean ok = tryAppSetRoot(ROOMS_ROUTE);
-                        if (!ok) navigateToFirstAvailable(PREV_CANDIDATES, "Explore Rooms");
-                    } else {
-                        handleNavLabelClick(text);
-                    }
-                });
-                lbl.setOnMouseEntered(e -> lbl.setOpacity(0.85));
-                lbl.setOnMouseExited(e -> lbl.setOpacity(1.0));
-            }
-        }
-
-        boolean anyActive = navItems.stream().anyMatch(l -> l.getStyleClass().contains("active"));
-        if (!anyActive && !navItems.isEmpty()) {
-            setActiveNav(navItems.iterator().next());
-        }
-    }
-
-    private void handleNavLabelClick(String text) {
-        switch (text) {
-            case "Home":
-                if (!tryAppSetRoot(HOME_ROUTE)) {
-                    navigateToFirstAvailable(new String[]{"/com/example/landing.fxml"}, "Home");
-                }
-                break;
-            case "Items":
-                Alert a = new Alert(Alert.AlertType.INFORMATION);
-                a.setTitle("Items");
-                a.setHeaderText(null);
-                a.setContentText("Items list not implemented yet.");
-                a.showAndWait();
-                break;
-        }
-    }
-
-    private void setActiveNav(Label active) {
-        for (Label l : navItems) {
-            if (l == active) {
-                if (!l.getStyleClass().contains("active")) l.getStyleClass().add("active");
-            } else {
-                l.getStyleClass().remove("active");
-            }
-        }
-    }
-
-    private void wireKeyboardHandlers(Scene scene) {
-        scene.addEventHandler(KeyEvent.KEY_PRESSED, e -> {
-            if (e.getCode() == KeyCode.LEFT) {
-                onBack(null);
-                e.consume();
-            } else if (e.getCode() == KeyCode.RIGHT) {
-                onNext(null);
-                e.consume();
-            }
-        });
+    private void updateNavButtons() {
+        backBtn.setDisable(false);    
+        nextBtn.setDisable(false);
     }
 
     @FXML
-    private void onBack(ActionEvent event) {
-        boolean ok = tryAppSetRoot(ROOMS_ROUTE);
-        if (!ok) navigateToFirstAvailable(PREV_CANDIDATES, "Explore Rooms");
+    private void onNext() {
+        // Use rootPane which is always in the scene
+        loadSceneOnCurrentStage(rootPane, "Bedroom2.fxml");
     }
 
     @FXML
-    private void onNext(ActionEvent event) {
-        boolean ok = tryAppSetRoot(BEDROOM2_ROUTE);
-        if (!ok) navigateToFirstAvailable(NEXT_CANDIDATES, "Bedroom 2");
+    private void onBack() {
+        // Use rootPane which is always in the scene
+        loadSceneOnCurrentStage(rootPane, "ExploreRooms.fxml");
     }
 
-    private boolean tryAppSetRoot(String routeName) {
+    @FXML
+    private void onMenuHome() {
+        loadSceneOnCurrentStage(rootPane, "primary.fxml");
+    }
+
+    @FXML
+    private void onMenuRooms() {
+        loadSceneOnCurrentStage(rootPane, "ExploreRooms.fxml");
+    }
+
+    @FXML
+    private void onMenuItems() {
+        loadSceneOnCurrentStage(rootPane, "items.fxml");
+    }
+
+    /**
+     * Load the provided FXML and set it as the active scene root on the same Stage.
+     * If the fxmlResource cannot be found, shows an alert with the error.
+     *
+     * @param anyNode any Node that is part of the current scene (used to obtain Stage)
+     * @param fxmlResource the FXML resource path to load
+     */
+    private void loadSceneOnCurrentStage(Node anyNode, String fxmlResource) {
+        if (anyNode == null || anyNode.getScene() == null) {
+            showAlert("Error", "Node is not attached to a scene yet.");
+            return;
+        }
+        
+        Stage stage = (Stage) anyNode.getScene().getWindow();
+        if (stage == null) {
+            showAlert("Error", "Unable to find the window to change scenes.");
+            return;
+        }
+
+        URL fxmlUrl = getClass().getResource(fxmlResource);
+        if (fxmlUrl == null) {
+            fxmlUrl = getClass().getResource("/" + fxmlResource);
+        }
+        if (fxmlUrl == null) {
+            showAlert("Missing FXML", "Can't find FXML: " + fxmlResource + "\nMake sure the path is correct.");
+            return;
+        }
+
         try {
-            Class<?> appClass = Class.forName("com.example.App");
-            java.lang.reflect.Method method = appClass.getMethod("setRoot", String.class);
-            method.invoke(null, routeName);
-            return true;
-        } catch (Exception e) {
-            return false;
+            Parent root = FXMLLoader.load(fxmlUrl);
+            Scene currentScene = stage.getScene();
+            if (currentScene == null) {
+                stage.setScene(new Scene(root));
+            } else {
+                currentScene.setRoot(root);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            showAlert("Load Error", "Failed to load: " + fxmlResource + "\n" + ex.getMessage());
         }
     }
 
-    private void navigateToFirstAvailable(String[] candidates, String name) {
-        Scene scene = bgImage != null ? bgImage.getScene() : null;
-        if (scene == null) return;
-
-        for (String candidate : candidates) {
-            URL url = getClass().getResource(candidate);
-            if (url == null) continue;
-            try {
-                FXMLLoader loader = new FXMLLoader(url);
-                Node root = loader.load();
-                scene.setRoot((javafx.scene.Parent) root);
-                return;
-            } catch (IOException ignored) {}
-        }
-
-        Alert a = new Alert(Alert.AlertType.WARNING);
-        a.setTitle("Navigation Error");
+    /**
+     * Show an alert dialog with the given title and content
+     */
+    private void showAlert(String title, String content) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setTitle(title);
         a.setHeaderText(null);
-        a.setContentText("Could not load: " + name);
+        a.setContentText(content);
         a.showAndWait();
-    }
-
-    public void setBackgroundImage(String path) {
-        Platform.runLater(() -> {
-            try {
-                Image img;
-                URL url = getClass().getResource(path);
-                if (url != null) img = new Image(url.toExternalForm(), true);
-                else img = new Image(path, true);
-                if (bgImage != null) bgImage.setImage(img);
-            } catch (Exception ignored) {}
-        });
     }
 }
