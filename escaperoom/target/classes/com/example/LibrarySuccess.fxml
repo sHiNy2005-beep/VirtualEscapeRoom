@@ -36,11 +36,6 @@
                         <MenuItem fx:id="menuRooms" text="Rooms" onAction="#onMenuRooms"/>
                     </items>
                 </Menu>
-                <Menu text="Items">
-                    <items>
-                        <MenuItem fx:id="menuItems" text="Items" onAction="#onMenuItems"/>
-                    </items>
-                </Menu>
             </menus>
         </MenuBar>
 
