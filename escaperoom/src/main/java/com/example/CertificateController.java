@@ -9,7 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+//import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 public class CertificateController {
@@ -18,48 +18,9 @@ public class CertificateController {
     private Button homeButton;
 
     @FXML
-    private MenuItem menuHome;
-
-    @FXML
-    private MenuItem menuItems;
-
-    @FXML
-    private MenuItem menuRooms;
-
-    @FXML
     private void onCloseButton(ActionEvent event) 
     {
         loadSceneOnCurrentStage(homeButton, "ExploreRooms.fxml");
-    }
-
-    @FXML
-    void onMenuHome(ActionEvent event) 
-    {
-         try {
-            App.setRoot("landing");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void onMenuItems(ActionEvent event) 
-    {
-        javafx.scene.control.Alert a = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        a.setTitle("Items");
-        a.setHeaderText(null);
-        a.setContentText("Items list not implemented yet.");
-        a.showAndWait();
-    }
-
-    @FXML
-    void onMenuRooms(ActionEvent event) 
-    {
-        try {
-            App.setRoot("explorerooms");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void loadSceneOnCurrentStage(Node anyNode, String fxmlResource) {
