@@ -234,4 +234,6 @@ public class LeaderboardController implements Initializable {
         a.setContentText(content);
         a.showAndWait();
     }
+
+    
 }
