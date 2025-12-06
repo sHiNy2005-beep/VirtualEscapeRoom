@@ -2,6 +2,11 @@ package com.example;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+
+import com.model.EscapeRoomFacade;
+import com.model.Puzzle;
+import com.model.Room;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
@@ -24,49 +29,56 @@ import javafx.util.Duration;
 
 public class GardenPage1Controller {
 
-    @FXML
-    private ImageView RopePreview;
+    private final EscapeRoomFacade facade = App.getFacade();
+    private Room GardenRoom;
+    private Puzzle currentPuzzle;
+    private String puzzleTitle;
+    private String CORRECT;
+    
+    @FXML private Label puzzleDescLabel;
+    @FXML private ImageView RopePreview;
+    @FXML private TextField answerField;
+    @FXML private Button backButton;
+    @FXML private Button closeHintBtn;
+    @FXML private Button enterBtn;
+    @FXML private Button hintBtn;
+    @FXML private Pane hintOverlay;
+    @FXML private MenuItem menuHome;
+    @FXML private MenuItem menuItems;
+    @FXML private MenuItem menuRooms;
+    @FXML private Label messageLabel;
+    @FXML private Rectangle overlay;
+    @FXML private ImageView shovelPreview;
+    @FXML private Label titleLabel;
 
     @FXML
-    private TextField answerField;
-
-    @FXML
-    private Button backButton;
-
-    @FXML
-    private Button closeHintBtn;
-
-    @FXML
-    private Button enterBtn;
-
-    @FXML
-    private Button hintBtn;
-
-    @FXML
-    private Pane hintOverlay;
-
-    @FXML
-    private MenuItem menuHome;
-
-    @FXML
-    private MenuItem menuItems;
-
-    @FXML
-    private MenuItem menuRooms;
-
-    @FXML
-    private Label messageLabel;
-
-    @FXML
-    private Rectangle overlay;
-
-    @FXML
-    private ImageView shovelPreview;
-
-    @FXML
-    private Label titleLabel;
-
-    private static final String CORRECT = "STATUE";
+    private void initialize() {
+        GardenRoom = App.getRoom("Garden");
+        App.ensureSession(GardenRoom);
+        
+        // Load puzzle data from backend
+        ArrayList<Puzzle> puzzles = GardenRoom.getPuzzles();
+        if (!puzzles.isEmpty()) {
+            currentPuzzle = puzzles.get(0);
+            puzzleTitle = currentPuzzle.getTitle();
+            CORRECT = currentPuzzle.getSolution();
+            
+            if (puzzleDescLabel != null) {
+                puzzleDescLabel.setText(currentPuzzle.getDescription());
+            }
+            
+            System.out.println("Loaded puzzle: " + puzzleTitle);
+        } else {
+            System.err.println("No puzzles found in Library room!");
+        }
+        
+        if (messageLabel != null) messageLabel.setText("");
+        
+        if (hintOverlay != null) {
+            hintOverlay.setVisible(false);
+            hintOverlay.setManaged(false);
+        }
+    }
 
     @FXML
     private void onBackButton() {
@@ -127,8 +139,8 @@ public class GardenPage1Controller {
         boolean correct = CORRECT.equalsIgnoreCase(answer);
         if (correct) {
             // Get score from facade and add to App.java variable
-            //int score = facade.getCurrentRoomScore();
-            //App.addScore(score);
+            int score = facade.getCurrentRoomScore();
+            App.addScore(score);
             
             messageLabel.setText("");
             try {
