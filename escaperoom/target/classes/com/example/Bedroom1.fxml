@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -11,45 +16,66 @@
             prefWidth="900" prefHeight="600"
             stylesheets="@styles.css">
 
-  <!--  <top>
-        <HBox alignment="CENTER_LEFT" spacing="20" styleClass="top-bar" padding="12,24,12,24">
-            <Label text="Bedroom" styleClass="title"/>
-            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="nav-links">
-                <Label text="Home" styleClass="nav-item"/>
-                <Label text="Rooms" styleClass="nav-item active"/>
-                <Label text="Items" styleClass="nav-item"/>
-            </HBox>
-            <Pane HBox.hgrow="ALWAYS"/>
-            <Label fx:id="clockLabel" text="08:45" styleClass="clock"/>
-        </HBox>
-    </top>
--->
+ 
     <center>
-        <StackPane fx:id="rootStack" styleClass="room-root">
-            <ImageView fx:id="bgImage" fitWidth="900" fitHeight="600" preserveRatio="false" pickOnBounds="true" mouseTransparent="true">
+        <StackPane>
+
+            <ImageView fx:id="bgImage" fitHeight="585" fitWidth="974" mouseTransparent="true" preserveRatio="false">
                 <image>
-                    <Image url="@../images/bedroom1.png"/>
+                    <Image url="@../../images/bedroom1.png" />
                 </image>
             </ImageView>
 
-            <AnchorPane prefWidth="900" prefHeight="600">
+             <VBox alignment="CENTER">
+               <BorderPane prefHeight="674.0" prefWidth="1019.0" style="-fx-padding: 18;">
+                   <top>
+                       <VBox spacing="8">
+                           <Label styleClass="title" text="BEDROOM" textFill="WHITE">
+                        <font>
+                           <Font size="48.0" />
+                        </font>
+                     </Label>
+                           <HBox alignment="CENTER_LEFT" prefHeight="11.0" prefWidth="702.0" spacing="16" styleClass="nav-links">
+                               <Label styleClass="nav-item" text="Home" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                               <Label styleClass="nav-item active" text="Rooms" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                               <Label styleClass="nav-item" text="Items" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                           </HBox>
+                       </VBox>
+                   </top>
+   
+                   <bottom>
+                       <BorderPane style="-fx-padding: 8;">
+                           <left>
+                               <Button fx:id="backBtn" onAction="#onBack" styleClass="nav-btn" text="&lt; BACK" />
+                           </left>
+                           <right>
+                               <Button fx:id="nextBtn" onAction="#onNext" styleClass="nav-btn" text="NEXT &gt;" />
+                           </right>
+                       </BorderPane>
+                   </bottom>
+               <left>
+                      <Label contentDisplay="BOTTOM" maxWidth="600" opacity="0.66" style="-fx-font-size: 22px;                             -fx-font-weight: bold;                             -fx-text-fill: white;                             -fx-effect: dropshadow(gaussian, black, 8, 0, 0, 2);                             -fx-padding: 20;                             -fx-background-color: rgba(0,0,0,0.45);                             -fx-background-radius: 12;" text="As soon as you enter.. the sheets catch your attention then you look at the wall..." textFill="#00000067" textOverrun="CLIP" wrapText="true" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+               </left>
+               </BorderPane>
+            </VBox>
+            
 
-                <Label fx:id="descriptionLabel"
-                       layoutX="50" layoutY="110"
-                       prefWidth="540"
-                       wrapText="true"
-                       styleClass="description"/>
-
-                <HBox layoutX="230" layoutY="315" spacing="0" styleClass="page-toggle">
-                    <Button fx:id="pageBtn1" text="1" onAction="#onPage1" styleClass="page-btn page-active"/>
-                    <Button fx:id="pageBtn2" text="2" onAction="#onPage2" styleClass="page-btn"/>
-                    <Button fx:id="pageBtn3" text="3" onAction="#onPage3" styleClass="page-btn"/>
-                </HBox>
-
-                <Button fx:id="backBtn" layoutX="20" layoutY="520" text="&lt; BACK" onAction="#onBack" styleClass="nav-btn"/>
-                <Button fx:id="nextBtn" layoutX="760" layoutY="520" text="NEXT &gt;" onAction="#onNext" styleClass="nav-btn"/>
-
-            </AnchorPane>
         </StackPane>
     </center>
 
