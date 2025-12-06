@@ -1,6 +1,12 @@
 package com.example;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ResourceBundle;
+
+import com.model.EscapeRoomFacade;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,22 +15,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.Label;
+//import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 
 public class CertificateController {
+
+    private final EscapeRoomFacade facade = App.getFacade();
 
     @FXML
     private Button homeButton;
 
     @FXML
-    private MenuItem menuHome;
+    private Label dateLabel;
 
-    @FXML
-    private MenuItem menuItems;
+    public void initialize(URL location, ResourceBundle resources) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy HH:mm");
+        dateLabel.setText("DATE : " + now.format(formatter));
+    }
 
-    @FXML
-    private MenuItem menuRooms;
 
     @FXML
     private void onCloseButton(ActionEvent event) 
@@ -33,33 +43,9 @@ public class CertificateController {
     }
 
     @FXML
-    void onMenuHome(ActionEvent event) 
+    private void onView(ActionEvent event) 
     {
-         try {
-            App.setRoot("landing");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    void onMenuItems(ActionEvent event) 
-    {
-        javafx.scene.control.Alert a = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.INFORMATION);
-        a.setTitle("Items");
-        a.setHeaderText(null);
-        a.setContentText("Items list not implemented yet.");
-        a.showAndWait();
-    }
-
-    @FXML
-    void onMenuRooms(ActionEvent event) 
-    {
-        try {
-            App.setRoot("explorerooms");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println(facade.getCurrentUser());
     }
 
     private void loadSceneOnCurrentStage(Node anyNode, String fxmlResource) {
