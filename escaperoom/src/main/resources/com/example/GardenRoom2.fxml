@@ -72,7 +72,7 @@
                     </image>
                 </ImageView>
 
-                                                    <ImageView fx:id="shovelPreview" fitHeight="196.0" fitWidth="140.0" layoutX="457.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fx:id="shovelPreview" fitHeight="196.0" fitWidth="140.0" layoutX="457.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../../images/Shovel.png" />
                     </image>

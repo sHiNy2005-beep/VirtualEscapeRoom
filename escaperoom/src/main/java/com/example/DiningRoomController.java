@@ -5,10 +5,14 @@ import java.io.IOException;
 import com.model.EscapeRoomFacade;
 import com.model.Room;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class DiningRoomController {
@@ -50,6 +54,7 @@ public class DiningRoomController {
         a.showAndWait();
     }
 
+
      @FXML
     private void onMenuHome() {
         try {
@@ -79,14 +84,22 @@ public class DiningRoomController {
 
     @FXML
     private void onNext() {
+        navigateTo("DiningRoom2.fxml");
+    }
+    
+    private void navigateTo(String fxmlFile) {
         try {
-            
-            App.setRoot("DiningRoom2");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+            Parent root = loader.load();
+            Stage stage = (Stage) backButton.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
+            System.err.println("Error loading " + fxmlFile + ": " + e.getMessage());
             e.printStackTrace();
         }
     }
-
 
 
 
